@@ -177,16 +177,13 @@
     <Image Include="res\bitmap3.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="C:\Users\banan\Desktop\小雞圖\向右看.bmp">
+    <Image Include="C:\Users\banan\Desktop\小雞圖\right.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="C:\Users\banan\Desktop\小雞圖\向左看.bmp">
+    <Image Include="C:\Users\banan\Desktop\小雞圖\up.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="C:\Users\banan\Desktop\小雞圖\向上看.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="C:\Users\banan\Desktop\小雞圖\向左站.bmp">
+    <Image Include="C:\Users\banan\Desktop\小雞圖\left.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

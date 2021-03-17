@@ -104,13 +104,11 @@ IDB_HELP                BITMAP                  "..\\res\\help.bmp"
 
 IDB_LOADING             BITMAP                  "..\\res\\loading.bmp"
 
-IDB_CHICKEN1            BITMAP                  "C:\\Users\\banan\\Desktop\\小雞圖\\向右看.bmp"
+IDB_CHICKEN1            BITMAP                  "C:\\Users\\banan\\Desktop\\小雞圖\\right.bmp"
 
-IDB_CHICKEN2            BITMAP                  "C:\\Users\\banan\\Desktop\\小雞圖\\向左看.bmp"
+IDB_CHICKEN3            BITMAP                  "C:\\Users\\banan\\Desktop\\小雞圖\\up.bmp"
 
-IDB_CHICKEN3            BITMAP                  "C:\\Users\\banan\\Desktop\\小雞圖\\向上看.bmp"
-
-IDB_CHICKEN4            BITMAP                  "C:\\Users\\banan\\Desktop\\小雞圖\\向左站.bmp"
+IDB_CHICKEN4            BITMAP                  "C:\\Users\\banan\\Desktop\\小雞圖\\left.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

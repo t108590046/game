@@ -323,10 +323,9 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\banan\Desktop\小雞圖\向上看.bmp" />
-    <Image Include="C:\Users\banan\Desktop\小雞圖\向右看.bmp" />
-    <Image Include="C:\Users\banan\Desktop\小雞圖\向左看.bmp" />
-    <Image Include="C:\Users\banan\Desktop\小雞圖\向左站.bmp" />
+    <Image Include="C:\Users\banan\Desktop\小雞圖\up.bmp" />
+    <Image Include="C:\Users\banan\Desktop\小雞圖\right.bmp" />
+    <Image Include="C:\Users\banan\Desktop\小雞圖\left.bmp" />
     <Image Include="res\bitmap3.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
