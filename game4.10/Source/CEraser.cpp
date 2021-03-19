@@ -50,8 +50,10 @@ namespace game_framework {
 		//animation.SetDelayCount(50);
 
 		animation.AddBitmap(IDB_CHICKEN1, RGB(34, 177, 76));
-		goToRight.AddBitmap(IDB_CHICKEN1, RGB(34, 177, 76));
-		goToLeft.AddBitmap(IDB_CHICKEN4, RGB(34, 177, 76));
+		goToRight.AddBitmap(IDB_CHICKENRIGHT2, RGB(34, 177, 76));
+		goToRight.AddBitmap(IDB_CHICKENRIGHT, RGB(34, 177, 76));
+		goToLeft.AddBitmap(IDB_CHICKEN2, RGB(34, 177, 76));
+		goToLeft.AddBitmap(IDB_CHICKENLEFT, RGB(34, 177, 76));
 
 	}
 

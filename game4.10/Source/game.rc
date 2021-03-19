@@ -110,6 +110,14 @@ IDB_CHICKEN3            BITMAP                  "..\\res\\up.bmp"
 
 IDB_CHICKEN4            BITMAP                  "..\\res\\left.bmp"
 
+IDB_CHICKENRIGHT        BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\rightrun4.bmp"
+
+IDB_CHICKENLEFT         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\rightrun5.bmp"
+
+IDB_CHICKEN2            BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\leftrun2.bmp"
+
+IDB_CHICKENRIGHT2       BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\rightrun6.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

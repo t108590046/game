@@ -177,13 +177,43 @@
     <Image Include="res\bitmap3.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="C:\Users\banan\Desktop\小雞圖\right.bmp">
+    <Image Include="RES\right.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="C:\Users\banan\Desktop\小雞圖\up.bmp">
+    <Image Include="RES\up.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="C:\Users\banan\Desktop\小雞圖\left.bmp">
+    <Image Include="RES\left.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bitmap4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\rightrun1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bitmap6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bitmap7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\rightrun4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\rightrun3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\rightrun5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\leftrun2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bitmap5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\rightrun6.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
