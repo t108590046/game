@@ -15,7 +15,7 @@ namespace game_framework {
 
 	protected:
 		CMovingBitmap blue, green,yellow;
-		int map[10][6];
+		int map[15][25];
 		const int MW, MH;
 		int	 sx, sy;
 		bool isMovingDown;			// 是否正在往下移動

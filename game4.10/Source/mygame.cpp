@@ -241,16 +241,18 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// 移動球
 	//
-	int i;
-	for (i=0; i < NUMBALLS; i++)
-		ball[i].OnMove();
+	//int i;
+	//for (i=0; i < NUMBALLS; i++)
+		//ball[i].OnMove();
 	//
 	// 移動擦子
 	//
-	eraser.OnMove();
+	eraser.OnMove(&gamemap);
+	gamemap.OnMove();
 	//
 	// 判斷擦子是否碰到球
 	//
+	/*
 	for (i=0; i < NUMBALLS; i++)
 		if (ball[i].IsAlive() && ball[i].HitEraser(&eraser)) {
 			ball[i].SetIsAlive(false);
@@ -265,6 +267,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
+	*/
 	//
 	// 移動彈跳的球
 	//
@@ -382,7 +385,7 @@ void CGameStateRun::OnShow()
 		//ball[i].OnShow();				// 貼上第i號球
 	//bball.OnShow();						// 貼上彈跳的球
 	gamemap.OnShow();
-	eraser.OnShow();					// 貼上擦子
+	eraser.OnShow(&gamemap);					// 貼上擦子
 	//
 	//  貼上左上及右下角落的圖
 	//

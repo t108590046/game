@@ -5,6 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "CEraser.h"
+#include "gameMap.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -38,8 +39,8 @@ namespace game_framework {
 
 	void CEraser::Initialize()
 	{
-		const int X_POS = 280;
-		const int Y_POS = 400;
+		const int X_POS = 250;
+		const int Y_POS = 250;
 		x = X_POS;
 		y = Y_POS;
 		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
@@ -57,21 +58,46 @@ namespace game_framework {
 
 	}
 
-	void CEraser::OnMove()
+	void CEraser::OnMove(CGameMap *m)
 	{
-		const int STEP_SIZE = 9;
+		const int STEP_SIZE = 8;
+		const int LANDING_SIZE = 8;
+		const int PUT_BOMB_SIZE = 35;
 		animation.OnMove();
 		goToRight.OnMove();
 		goToLeft.OnMove();
-		if (isMovingLeft)
-			x -= STEP_SIZE;
-		if (isMovingRight)
-			x += STEP_SIZE;
-		if (isMovingUp)
-			y -= STEP_SIZE;
-		if (isMovingDown)
-			y += STEP_SIZE;
-
+		if (isMovingLeft) {
+			if (m->IsEmpty(x -STEP_SIZE, y )) {    
+				x -= STEP_SIZE;
+			}
+		}
+		if (isMovingRight) {
+			if (m->IsEmpty(x  + goToRight.Width()+ STEP_SIZE, y )) {
+				x += STEP_SIZE;
+			}
+		}
+		if (isMovingDown) {
+			if (m->IsEmpty(x, y - PUT_BOMB_SIZE - animation.Height())) {
+				y -= PUT_BOMB_SIZE;
+			}
+		}
+		////µø¨¤²¾°Ê
+		if (m->ScreenX(x) > 400 && isMovingRight) {
+			m->SetMovingRight(true);
+		}
+		else {
+			m->SetMovingRight(false);
+		}
+		if (m->ScreenX(x) < 100 && isMovingLeft) {
+			m->SetMovingLeft(true);
+		}
+		else {
+			m->SetMovingLeft(false);
+		}
+		////¤U­°
+		if (m->IsEmpty(x, y + LANDING_SIZE+ animation.Height())) {
+			y += LANDING_SIZE;
+		}
 	}
 
 	void CEraser::SetMovingDown(bool flag)
@@ -99,24 +125,24 @@ namespace game_framework {
 		x = nx; y = ny;
 	}
 
-	void CEraser::OnShow()
+	void CEraser::OnShow(CGameMap *m)
 	{
 		if (isMovingRight) {
 			
-			goToRight.SetTopLeft(x, y);
+			goToRight.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
 			goToRight.OnShow();
 			animation.deleteBmp();
 			animation.AddBitmap(IDB_CHICKEN1, RGB(34, 177, 76));
 		}
 		else if(isMovingLeft){
 
-			goToLeft.SetTopLeft(x, y);
+			goToLeft.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
 			goToLeft.OnShow();
 			animation.deleteBmp();
 			animation.AddBitmap(IDB_CHICKEN4, RGB(34, 177, 76));
 		}
 		else {
-			animation.SetTopLeft(x, y);
+			animation.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
 			animation.OnShow();
 		}
 
