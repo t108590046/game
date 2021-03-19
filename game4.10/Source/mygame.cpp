@@ -273,6 +273,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
+	gamemap.LoadBitmap();
 	//
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
@@ -380,6 +381,7 @@ void CGameStateRun::OnShow()
 	//for (int i=0; i < NUMBALLS; i++)
 		//ball[i].OnShow();				// 貼上第i號球
 	//bball.OnShow();						// 貼上彈跳的球
+	gamemap.OnShow();
 	eraser.OnShow();					// 貼上擦子
 	//
 	//  貼上左上及右下角落的圖
