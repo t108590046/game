@@ -16,7 +16,7 @@ namespace game_framework {
 		void LoadBitmap();				// 載入圖形
 		void OnMove(CGameMap *m);					// 移動擦子
 		void OnShow(CGameMap *m);					// 將擦子圖形貼到畫面
-		void SetMovingDown(bool flag);	// 設定是否正在往下移動
+		void SetBombing(bool flag);	// 設定是否正在下炸彈
 		void SetMovingLeft(bool flag);	// 設定是否正在往左移動
 		void SetMovingRight(bool flag); // 設定是否正在往右移動
 		void SetMovingUp(bool flag);	// 設定是否正在往上移動
@@ -25,8 +25,9 @@ namespace game_framework {
 		CAnimation animation;		// 擦子的動畫
 		CAnimation goToLeft;		//雞向左
 		CAnimation goToRight;		//雞向右
+		CAnimation putBomb;			//雞放炸彈
 		int x, y;					// 擦子左上角座標
-		bool isMovingDown;			// 是否正在往下移動
+		bool isBombing;			// 是否正在下炸彈
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動
 		bool isMovingUp;			// 是否正在往上移動

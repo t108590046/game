@@ -43,7 +43,7 @@ namespace game_framework {
 		const int Y_POS = 250;
 		x = X_POS;
 		y = Y_POS;
-		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
+		isMovingLeft = isMovingRight = isMovingUp = isBombing = false;
 	}
 
 	void CEraser::LoadBitmap()
@@ -62,25 +62,27 @@ namespace game_framework {
 	{
 		const int STEP_SIZE = 8;
 		const int LANDING_SIZE = 8;
-		const int PUT_BOMB_SIZE = 35;
+		const int PUT_BOMB_SIZE = 25;
 		animation.OnMove();
-		goToRight.OnMove();
-		goToLeft.OnMove();
 		if (isMovingLeft) {
+			goToLeft.OnMove();
 			if (m->IsEmpty(x -STEP_SIZE, y )) {    
 				x -= STEP_SIZE;
 			}
 		}
 		if (isMovingRight) {
+			goToRight.OnMove();
 			if (m->IsEmpty(x  + goToRight.Width()+ STEP_SIZE, y )) {
 				x += STEP_SIZE;
 			}
 		}
-		if (isMovingDown) {
-			if (m->IsEmpty(x, y - PUT_BOMB_SIZE - animation.Height())) {
+		if (isBombing) {
+			if (m->IsEmpty(x, y - PUT_BOMB_SIZE)) {
 				y -= PUT_BOMB_SIZE;
 			}
 		}
+
+
 		////µø¨¤²¾°Ê
 		if (m->ScreenX(x) > 400 && isMovingRight) {
 			m->SetMovingRight(true);
@@ -100,9 +102,9 @@ namespace game_framework {
 		}
 	}
 
-	void CEraser::SetMovingDown(bool flag)
+	void CEraser::SetBombing(bool flag)
 	{
-		isMovingDown = flag;
+		isBombing = flag;
 	}
 
 	void CEraser::SetMovingLeft(bool flag)

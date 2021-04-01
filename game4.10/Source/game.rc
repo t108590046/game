@@ -124,6 +124,8 @@ IDB_BLUE                BITMAP                  "..\\res\\bmp00001.bmp"
 
 IDB_YELLOW              BITMAP                  "..\\res\\bmp00002.bmp"
 
+IDB_Bomb1               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\bomb1.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
