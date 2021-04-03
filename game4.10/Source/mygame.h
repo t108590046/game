@@ -40,6 +40,7 @@
 
 #include "CEraser.h"
 #include "CBall.h"
+#include "Bomb.h"
 #include "CBouncingBall.h"
 #include "gameMap.h"
 namespace game_framework {
@@ -102,6 +103,7 @@ namespace game_framework {
 		CInteger		hits_left;	// 剩下的撞擊數
 		//CBouncingBall   bball;		// 反覆彈跳的球
 		CGameMap		gamemap;
+		Bomb			bomb;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

@@ -248,6 +248,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	// 移動擦子
 	//
 	eraser.OnMove(&gamemap);
+	bomb.OnMove(&eraser);
 	gamemap.OnMove();
 	//
 	// 判斷擦子是否碰到球
@@ -277,6 +278,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
 	gamemap.LoadBitmap();
+	bomb.LoadBitmapA();
 	//
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
@@ -325,8 +327,13 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_UP)
 		eraser.SetMovingUp(true);
 	if(nChar == KEY_SPACE)
+	{
+		CSpecialEffect::SetCurrentTime();
+		bomb.SetXY(eraser.GetX1(), eraser.GetY1());
+		bomb.SetIsAlive(true);
 		eraser.SetBombing(true);
-
+		bomb.SetBomb(true);
+	}
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -344,7 +351,12 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_UP)
 		eraser.SetMovingUp(false);
 	if (nChar == KEY_SPACE)
+	{	
+		
 		eraser.SetBombing(false);
+		bomb.SetBomb(false);
+
+	}
 
 }
 
@@ -391,6 +403,7 @@ void CGameStateRun::OnShow()
 	//bball.OnShow();						// 貼上彈跳的球
 	gamemap.OnShow();
 	eraser.OnShow(&gamemap);					// 貼上擦子
+	bomb.OnShow(&gamemap);
 	//
 	//  貼上左上及右下角落的圖
 	//

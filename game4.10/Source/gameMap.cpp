@@ -102,5 +102,4 @@ namespace game_framework {
 	{
 		isMovingUp = flag;
 	}
-
 }

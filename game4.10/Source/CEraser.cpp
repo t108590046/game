@@ -6,7 +6,7 @@
 #include "gamelib.h"
 #include "CEraser.h"
 #include "gameMap.h"
-
+#include "Bomb.h"
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// CEraser: Eraser class
