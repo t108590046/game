@@ -5,6 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "gameMap.h"
+#include "Bomb.h"
 
 namespace game_framework {
 	CGameMap::CGameMap() :sx(0), sy(0), MW(32), MH(32)

@@ -18,10 +18,16 @@ namespace game_framework {
 	{
 		is_alive = is_putBomb= false;
 		x = y = 0;
-			//dx = dy = index = delay_counter = 0;
 	}
-	/*
-	bool Bomb::HitEraser(CEraser *eraser)
+	Bomb::Bomb(int ix,int iy)
+	{
+		is_alive = is_putBomb = false;
+		x = ix;
+		y = iy;
+	}
+
+	
+	bool Bomb::HitBomb(CEraser *eraser)
 	{
 		// 檢測擦子所構成的矩形是否碰到球
 		return HitRectangle(eraser->GetX1(), eraser->GetY1(),
@@ -30,8 +36,8 @@ namespace game_framework {
 
 	bool Bomb::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = x + dx;				// 球的左上角x座標
-		int y1 = y + dy;				// 球的左上角y座標
+		int x1 = x ;				// 球的左上角x座標
+		int y1 = y ;				// 球的左上角y座標
 		int x2 = x1 + bmp.Width();	// 球的右下角x座標
 		int y2 = y1 + bmp.Height();	// 球的右下角y座標
 									//
@@ -39,12 +45,12 @@ namespace game_framework {
 									//
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
-
+	
 	bool Bomb::IsAlive()
 	{
 		return is_alive;
 	}
-	*/
+	
 	void Bomb::LoadBitmap()
 	{
 		bmp.LoadBitmap(IDB_Bomb1, RGB(34, 177, 76));			// 載入球的圖形
@@ -78,6 +84,7 @@ namespace game_framework {
 		delay = d;
 	}
 */
+	
 	void Bomb::SetIsAlive(bool alive)
 	{
 		is_alive = alive;
@@ -120,5 +127,5 @@ namespace game_framework {
 	{
 		is_putBomb = flag;
 	}
-
+	
 }

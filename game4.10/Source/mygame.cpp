@@ -189,14 +189,17 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
-: CGameState(g), NUMBALLS(1)
+: CGameState(g), NUMBALLS(10)
 {
+	numberBomb = 0;
 	ball = new CBall [NUMBALLS];
+	bomb = new Bomb[NUMBALLS];
 }
 
 CGameStateRun::~CGameStateRun()
 {
 	delete [] ball;
+	delete [] bomb;
 }
 
 void CGameStateRun::OnBeginState()
@@ -247,28 +250,37 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// 移動擦子
 	//
-	eraser.OnMove(&gamemap);
-	bomb.OnMove(&eraser);
+	
+	for (int i = 0; i < NUMBALLS; i++)
+	{
+		bomb[i].OnMove(&eraser);
+		
+	}
 	gamemap.OnMove();
 	//
-	// 判斷擦子是否碰到球
+	// 判斷炸彈是否碰到雞
 	//
-	/*
-	for (i=0; i < NUMBALLS; i++)
-		if (ball[i].IsAlive() && ball[i].HitEraser(&eraser)) {
-			ball[i].SetIsAlive(false);
-			CAudio::Instance()->Play(AUDIO_DING);
-			hits_left.Add(-1);
+	
+	for (int i=0; i < NUMBALLS; i++)
+	{
+		if (bomb[i].IsAlive() && bomb[i].HitBomb(&eraser))
+		{
+			eraser.SetStepOnBomb(true);
+			//CAudio::Instance()->Play(AUDIO_DING);
+			//hits_left.Add(-1);
 			//
 			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
-			if (hits_left.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
-				GotoGameState(GAME_STATE_OVER);
-			}
+			//if (hits_left.GetInteger() <= 0) {
+			//	CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+			//	CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
+			//	GotoGameState(GAME_STATE_OVER);
 		}
-	*/
+		
+	}
+	eraser.OnMove(&gamemap);
+	eraser.SetStepOnBomb(false);
+
 	//
 	// 移動彈跳的球
 	//
@@ -278,7 +290,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
 	gamemap.LoadBitmap();
-	bomb.LoadBitmapA();
+	for (int i = 0; i < NUMBALLS; i++)
+		bomb[i].LoadBitmapA();
 	//
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
@@ -327,12 +340,16 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_UP)
 		eraser.SetMovingUp(true);
 	if(nChar == KEY_SPACE)
-	{
-		CSpecialEffect::SetCurrentTime();
-		bomb.SetXY(eraser.GetX1(), eraser.GetY1());
-		bomb.SetIsAlive(true);
+	{	
 		eraser.SetBombing(true);
-		bomb.SetBomb(true);
+		CSpecialEffect::SetCurrentTime();
+		bomb[numberBomb].SetXY(eraser.GetX1(), eraser.GetY1());
+		bomb[numberBomb].SetIsAlive(true);
+		bomb[numberBomb].SetBomb(true);
+		numberBomb++;
+		if (numberBomb == NUMBALLS) {
+			numberBomb = 0;
+		}
 	}
 }
 
@@ -352,10 +369,8 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingUp(false);
 	if (nChar == KEY_SPACE)
 	{	
-		
 		eraser.SetBombing(false);
-		bomb.SetBomb(false);
-
+		bomb[numberBomb].SetBomb(false);
 	}
 
 }
@@ -403,7 +418,11 @@ void CGameStateRun::OnShow()
 	//bball.OnShow();						// 貼上彈跳的球
 	gamemap.OnShow();
 	eraser.OnShow(&gamemap);					// 貼上擦子
-	bomb.OnShow(&gamemap);
+	for (int i = 0; i < NUMBALLS; i++)
+	{
+		bomb[i].OnShow(&gamemap);
+	}
+
 	//
 	//  貼上左上及右下角落的圖
 	//

@@ -43,7 +43,8 @@ namespace game_framework {
 		const int Y_POS = 250;
 		x = X_POS;
 		y = Y_POS;
-		isMovingLeft = isMovingRight = isMovingUp = isBombing = false;
+		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = false;
+		is_landing = true;
 	}
 
 	void CEraser::LoadBitmap()
@@ -72,7 +73,7 @@ namespace game_framework {
 		}
 		if (isMovingRight) {
 			goToRight.OnMove();
-			if (m->IsEmpty(x  + goToRight.Width()+ STEP_SIZE, y )) {
+			if (m->IsEmpty(x  + animation.Width()+ STEP_SIZE, y )) {
 				x += STEP_SIZE;
 			}
 		}
@@ -97,11 +98,23 @@ namespace game_framework {
 			m->SetMovingLeft(false);
 		}
 		////¤U­°
-		if (m->IsEmpty(x, y + LANDING_SIZE+ animation.Height())) {
-			y += LANDING_SIZE;
+		if (is_landing)
+		{
+			
+			if (m->IsEmpty(x, y + LANDING_SIZE + animation.Height()) && !isStepOnBomb) {
+				y += LANDING_SIZE;
+			}
+
 		}
 	}
-
+	void CEraser::SetStepOnBomb(bool flag)
+	{
+		isStepOnBomb = flag;
+	}
+	void CEraser::SetLanding(bool flag)
+	{
+		is_landing = flag;
+	}
 	void CEraser::SetBombing(bool flag)
 	{
 		isBombing = flag;

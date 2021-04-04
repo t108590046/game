@@ -4,6 +4,7 @@ namespace game_framework {
 	// 看懂就可以改寫成自己的程式了
 	/////////////////////////////////////////////////////////////////////////////
 	class CGameMap;
+	class Bomb;
 	class CEraser
 	{
 	public:
@@ -21,6 +22,8 @@ namespace game_framework {
 		void SetMovingRight(bool flag); // 設定是否正在往右移動
 		void SetMovingUp(bool flag);	// 設定是否正在往上移動
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
+		void SetLanding(bool flag);
+		void SetStepOnBomb(bool flag);
 	protected:
 		CAnimation animation;		// 擦子的動畫
 		CAnimation goToLeft;		//雞向左
@@ -31,5 +34,8 @@ namespace game_framework {
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動
 		bool isMovingUp;			// 是否正在往上移動
+		bool is_landing;			//正在下降
+		bool isStepOnBomb;
+
 	};
 }
