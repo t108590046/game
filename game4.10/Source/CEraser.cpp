@@ -62,12 +62,12 @@ namespace game_framework {
 	void CEraser::OnMove(CGameMap *m)
 	{
 		const int STEP_SIZE = 8;
-		const int LANDING_SIZE = 8;
-		const int PUT_BOMB_SIZE = 25;
+		const int LANDING_SIZE = 15;
+		const int PUT_BOMB_SIZE = 30;
 		animation.OnMove();
 		if (isMovingLeft) {
 			goToLeft.OnMove();
-			if (m->IsEmpty(x -STEP_SIZE, y )) {    
+			if (m->IsEmpty(x -STEP_SIZE, y )) { 
 				x -= STEP_SIZE;
 			}
 		}
@@ -82,30 +82,43 @@ namespace game_framework {
 				y -= PUT_BOMB_SIZE;
 			}
 		}
-
-
-		////視角移動
-		if (m->ScreenX(x) > 400 && isMovingRight) {
+		////視角移動分為小移動以及場景轉換
+		//場景轉換
+		if (m->ScreenX(x) > 1139 && isMovingRight) {
 			m->SetMovingRight(true);
 		}
 		else {
 			m->SetMovingRight(false);
 		}
-		if (m->ScreenX(x) < 100 && isMovingLeft) {
+		if (m->ScreenX(x) < 0 && isMovingLeft) {
 			m->SetMovingLeft(true);
 		}
 		else {
 			m->SetMovingLeft(false);
 		}
+		///小移動
+		if (m->IsLittleMove(x,y) && isMovingRight) {
+			m->SetMovingRightL(true);
+		}
+		else {
+			m->SetMovingRightL(false);
+		}
+		if (m->IsLittleMove(x, y) && isMovingLeft) {
+			m->SetMovingLeftL(true);
+		}
+		else {
+			m->SetMovingLeftL(false);
+		}
 		////下降
+		
 		if (is_landing)
 		{
-			
-			if (m->IsEmpty(x, y + LANDING_SIZE + animation.Height()) && !isStepOnBomb) {
+			if (m->IsEmpty(x, y + LANDING_SIZE + (animation.Height()-20)) && !isStepOnBomb) {
 				y += LANDING_SIZE;
 			}
 
 		}
+		
 	}
 	void CEraser::SetStepOnBomb(bool flag)
 	{
@@ -138,6 +151,14 @@ namespace game_framework {
 	void CEraser::SetXY(int nx, int ny)
 	{
 		x = nx; y = ny;
+	}
+	bool CEraser::check_MovingLeft()
+	{
+		return isMovingLeft;
+	}
+	bool CEraser::check_MovingRight()
+	{
+		return isMovingRight;
 	}
 
 	void CEraser::OnShow(CGameMap *m)

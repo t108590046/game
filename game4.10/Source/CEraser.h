@@ -24,6 +24,8 @@ namespace game_framework {
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
 		void SetLanding(bool flag);
 		void SetStepOnBomb(bool flag);
+		bool check_MovingLeft();
+		bool check_MovingRight();
 	protected:
 		CAnimation animation;		// 擦子的動畫
 		CAnimation goToLeft;		//雞向左

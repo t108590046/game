@@ -250,12 +250,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// 移動擦子
 	//
-	
-	for (int i = 0; i < NUMBALLS; i++)
-	{
-		bomb[i].OnMove(&eraser);
-		
-	}
 	gamemap.OnMove();
 	//
 	// 判斷炸彈是否碰到雞
@@ -266,6 +260,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		if (bomb[i].IsAlive() && bomb[i].HitBomb(&eraser))
 		{
 			eraser.SetStepOnBomb(true);
+			//bomb[i].OnMove(&eraser, &gamemap);
 			//CAudio::Instance()->Play(AUDIO_DING);
 			//hits_left.Add(-1);
 			//
@@ -276,10 +271,17 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			//	CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
 			//	GotoGameState(GAME_STATE_OVER);
 		}
-		
 	}
 	eraser.OnMove(&gamemap);
 	eraser.SetStepOnBomb(false);
+	for (int i = 0; i < NUMBALLS; i++)
+	{
+		if (bomb[i].IsAlive() && bomb[i].PushBomb(&eraser))
+		{
+			bomb[i].OnMove(&eraser, &gamemap);
+		}
+	}
+
 
 	//
 	// 移動彈跳的球
@@ -345,7 +347,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		CSpecialEffect::SetCurrentTime();
 		bomb[numberBomb].SetXY(eraser.GetX1(), eraser.GetY1());
 		bomb[numberBomb].SetIsAlive(true);
-		bomb[numberBomb].SetBomb(true);
+		//bomb[numberBomb].SetBomb(true);
 		numberBomb++;
 		if (numberBomb == NUMBALLS) {
 			numberBomb = 0;
@@ -370,7 +372,7 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_SPACE)
 	{	
 		eraser.SetBombing(false);
-		bomb[numberBomb].SetBomb(false);
+		//bomb[numberBomb].SetBomb(false);
 	}
 
 }

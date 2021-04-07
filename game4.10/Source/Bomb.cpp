@@ -8,7 +8,7 @@
 #include "Bomb.h"
 #include "gameMap.h"
 #include <ctime>
-
+#include <cmath>
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Bomb: Ball class
@@ -16,7 +16,7 @@ namespace game_framework {
 	
 	Bomb::Bomb()
 	{
-		is_alive = is_putBomb= false;
+		is_alive = is_putBomb = is_bePushLeft = is_bePushRight = false;
 		x = y = 0;
 	}
 	Bomb::Bomb(int ix,int iy)
@@ -25,11 +25,23 @@ namespace game_framework {
 		x = ix;
 		y = iy;
 	}
+	bool Bomb::PushBomb(CEraser *eraser)
+	{
+		return chickenPushBomb(eraser->GetX1(), eraser->GetY1(),
+			eraser->GetX2(), eraser->GetY2());
+	}
 
+	bool Bomb::chickenPushBomb(int tx1, int ty1, int tx2, int ty2)
+	{
+		int x1 = x;				
+		int y1 = y;				
+		int x2 = x1 + bmp.Width();	
+		int y2 = y1 + bmp.Height();	
+		return(tx2 >= x1 && tx1 <= x2 && ty2 >= y2);
+	}
 	
 	bool Bomb::HitBomb(CEraser *eraser)
-	{
-		// 檢測擦子所構成的矩形是否碰到球
+	{ 
 		return HitRectangle(eraser->GetX1(), eraser->GetY1(),
 			eraser->GetX2(), eraser->GetY2());
 	}
@@ -43,7 +55,7 @@ namespace game_framework {
 									//
 									// 檢測球的矩形與參數矩形是否有交集
 									//
-		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
+		return (tx2 >= x1 && tx1 <= x2 &&  ty1 <= y1);
 	}
 	
 	bool Bomb::IsAlive()
@@ -53,15 +65,33 @@ namespace game_framework {
 	
 	void Bomb::LoadBitmap()
 	{
-		bmp.LoadBitmap(IDB_Bomb1, RGB(34, 177, 76));			// 載入球的圖形
+		bmp.AddBitmap(IDB_Bomb1, RGB(34, 177, 76));			// 載入球的圖形
 		//bmp_center.LoadBitmap(IDB_CENTER, RGB(0, 0, 0));	// 載入球圓心的圖形
 	}
 
-	void Bomb::OnMove(CEraser *eraser)
+	void Bomb::OnMove(CEraser *eraser, CGameMap *m)
 	{
-		/*
+		const int STEP_SIZE = 300;
 		if (!is_alive)
 			return;
+		bmp.OnMove();
+		if(eraser->check_MovingLeft())
+		{
+			if (m->IsEmpty(x - STEP_SIZE, y)) 
+			{
+				x -= STEP_SIZE;
+			}
+
+		}
+		else if (eraser->check_MovingRight())
+		{
+			if (m->IsEmpty(x + bmp.Width() + STEP_SIZE, y))
+			{
+				x += STEP_SIZE;
+			}
+		}
+
+		/*
 		delay_counter--;
 		if (delay_counter < 0) {
 			delay_counter = delay;
@@ -111,7 +141,7 @@ namespace game_framework {
 			else 
 			{
 				bmp.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
-				bmp.ShowBitmap();
+				bmp.OnShow();
 			}
 		}
 
