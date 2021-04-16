@@ -8,10 +8,10 @@
 #include "Bomb.h"
 
 namespace game_framework {
-	CGameMap::CGameMap() :sx(0), sy(0), MW(114), MH(32)
+	CGameMap::CGameMap() :sx(0), sy(0), MW(76), MH(21)
 	{
 		NowShowStage = 0;
-		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
+		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = isMovingLeftL = isMovingRightL = isMovingUpL = isMovingDownL = false;
 		int map_init[20][30] = {
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -22,14 +22,14 @@ namespace game_framework {
 			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,1,1,1,1,0,1,1,1,1,1,1},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,1,1,1,1,1,1,0,1,1,1,1,1,1},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,1,1,1,1,1,1,0,1,1,1,1,1,1},
+			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,1,1,1,1,3,1,1,1,1,1,1},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,1,1,1,1,1,1,3,1,1,1,1,1,1},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,1,1,1,1,1,3,1,1,1,1,1,1},
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -49,7 +49,7 @@ namespace game_framework {
 	}
 	void CGameMap::OnShow() {
 		int x =  0 - sx;
-		int y = -300 - sy;
+		int y = -200- sy;
 		stage1.SetTopLeft(x, y);
 		stage1.ShowBitmap();
 
@@ -99,7 +99,7 @@ namespace game_framework {
 	bool CGameMap::IsEmpty(int x, int y) {
 		int gx = x / MW;		//地圖格座標
 		int gy = y / MH;
-		return (map[gy][gx] == 1 || map[gy][gx] == 2);  // 設定1為空  
+		return (map[gy][gx] == 1 || map[gy][gx] == 2 || map[gy][gx] == 3);  // 設定1為空  
 	}
 	bool CGameMap::IsLittleMove(int x, int y) {
 		int gx = x / MW;		//地圖格座標
@@ -108,8 +108,8 @@ namespace game_framework {
 	}
 
 	void CGameMap::OnMove() {
-		const int STEP_SIZE = 5;
-		const int CHANGVIEW_xSIZE = 1139;
+		const int STEP_SIZE = 10;
+		const int CHANGVIEW_xSIZE = 760;
 		const int CHANGVIEW_ySIZE = 100;
 		if (isMovingLeft)
 			sx -= CHANGVIEW_xSIZE;
@@ -123,11 +123,6 @@ namespace game_framework {
 			sx -= STEP_SIZE;
 		if (isMovingRightL)
 			sx += STEP_SIZE;
-			//if (isMovingUpL && stage1[NowShowStage].Height() > 642) //高度超過畫面才需要小移動
-				//sy -= STEP_SIZE;
-		//if (isMovingDownL && stage1[NowShowStage].Height() > 642)
-			//sy += STEP_SIZE;
-
 	}
 	void CGameMap::SetMovingDown(bool flag)
 	{

@@ -66,76 +66,63 @@ namespace game_framework {
 		const int LANDING_SIZE = 15;
 		const int PUT_BOMB_SIZE = 30;
 		animation.OnMove();
-		if (isMovingLeft) {
+		if (isMovingLeft) { //往左
 			goToLeft.OnMove();
-			if (m->IsEmpty(x -STEP_SIZE, y )) { 
+			if (m->IsEmpty(x -STEP_SIZE, y )) { //人物移動
 				x -= STEP_SIZE;
 			}
-		}
-		if (isMovingRight) {
-			goToRight.OnMove();
-			if (m->IsEmpty(x  + animation.Width()+ STEP_SIZE, y )) {
-				x += STEP_SIZE;
+			if(m->ScreenX(x) < 0)//視角移動
+			{
+				m->SetMovingLeft(true);
+			}
+			else
+			{
+				m->SetMovingLeft(false);
 			}
 		}
-		if (isBombing) {
+		if (isMovingRight) { //往右
+			goToRight.OnMove();
+			if (m->IsEmpty(x  + animation.Width()+ STEP_SIZE, y )) { 
+				x += STEP_SIZE;
+			}
+			if (m->ScreenX(x) > 759)					
+			{
+				m->SetMovingRight(true);
+			}
+			else
+			{
+				m->SetMovingRight(false);
+			}
+		}
+		if (isBombing) { //放炸彈
 			if (m->IsEmpty(x, y - PUT_BOMB_SIZE)) {
 				y -= PUT_BOMB_SIZE;
 			}
 		}
-		////視角移動分為小移動以及場景轉換
-		//場景轉換
-		if (m->ScreenX(x) > 1142 && isMovingRight) {
-			m->SetMovingRight(true);
-		}
-		else {
-			m->SetMovingRight(false);
-		}
-		if (m->ScreenX(x) < 0 && isMovingLeft) {
-			m->SetMovingLeft(true);
-		}
-		else {
-			m->SetMovingLeft(false);
-		}
-
-
-		///小移動
-		if (m->IsLittleMove(x,y) && isMovingRight) {
-			m->SetMovingRightL(true);
-		}
-		else {
-			m->SetMovingRightL(false);
-		}
-		if (m->IsLittleMove(x, y) && isMovingLeft) {
-			m->SetMovingLeftL(true);
-		}
-		else {
-			m->SetMovingLeftL(false);
-		}
-		
-		if (m->IsLittleMove(x, y) && isMovingUp) {
-			m->SetMovingUpL(true);
-		}
-		else {
-			m->SetMovingUpL(false);
-		}
-		if (m->ScreenY(y)>400 && is_landing) {
-			m->SetMovingDownL(true);
-		}
-		else {
-			m->SetMovingDownL(false);
-		}
-		
 		////下降
-		
 		if (is_landing)
 		{
 			if (m->IsEmpty(x, y + LANDING_SIZE + (animation.Height()-20)) && !isStepOnBomb) {
 				y += LANDING_SIZE;
 			}
-
 		}
-		
+		if (m->IsLittleMove(x, y) && isMovingLeft)
+		{
+			m->SetMovingLeftL(true);
+		}
+		else
+		{
+			m->SetMovingLeftL(false);
+		}
+		if (m->IsLittleMove(x, y) && isMovingRight)
+		{
+			m->SetMovingRightL(true);
+		}
+		else
+		{
+			m->SetMovingRightL(false);
+		}
+
 	}
 	void CEraser::SetStepOnBomb(bool flag)
 	{
