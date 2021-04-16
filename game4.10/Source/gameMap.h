@@ -19,11 +19,11 @@ namespace game_framework {
 		void SetMovingUpL(bool flag);	// 設定是否正在往上小移動
 
 	protected:
-		CMovingBitmap blue, green,yellow,stage1[2];
-		int map[20][80];
+		CMovingBitmap blue, green,yellow,stage1;
+		int map[20][30];
 		const int MW, MH;
 		int	 sx, sy;
-		int	 NowShowStage;			//紀錄現在show的畫面
+		int NowShowStage;
 		bool isMovingDown;			// 是否正在往下移動
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動

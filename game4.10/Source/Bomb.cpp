@@ -16,7 +16,7 @@ namespace game_framework {
 	
 	Bomb::Bomb()
 	{
-		is_alive = is_putBomb = is_bePushLeft = is_bePushRight = false;
+		is_alive = is_putBomb = is_bePushed = false;
 		x = y = 0;
 	}
 	Bomb::Bomb(int ix,int iy)
@@ -25,19 +25,25 @@ namespace game_framework {
 		x = ix;
 		y = iy;
 	}
-	bool Bomb::PushBomb(CEraser *eraser)
-	{
-		return chickenPushBomb(eraser->GetX1(), eraser->GetY1(),
-			eraser->GetX2(), eraser->GetY2());
-	}
 
-	bool Bomb::chickenPushBomb(int tx1, int ty1, int tx2, int ty2)
+	void Bomb::chickenPushBomb(CEraser *eraser)
 	{
+		int tx1 = eraser->GetX1();
+		int tx2 = eraser->GetX2();
+		int ty1 = eraser->GetY1();
+		int ty2 = eraser->GetY2();
 		int x1 = x;				
 		int y1 = y;				
 		int x2 = x1 + bmp.Width();	
 		int y2 = y1 + bmp.Height();	
-		return(tx2 >= x1 && tx1 <= x2 && ty2 >= y2);
+		if(tx2 >= x1 && tx1 <= x2 && ty2 >= y2)
+		{
+			is_bePushed = true;
+		}
+		else
+		{
+			is_bePushed = false;
+		}
 	}
 	
 	bool Bomb::HitBomb(CEraser *eraser)
@@ -52,12 +58,10 @@ namespace game_framework {
 		int y1 = y ;				// 球的左上角y座標
 		int x2 = x1 + bmp.Width();	// 球的右下角x座標
 		int y2 = y1 + bmp.Height();	// 球的右下角y座標
-									//
 									// 檢測球的矩形與參數矩形是否有交集
-									//
 		return (tx2 >= x1 && tx1 <= x2 &&  ty1 <= y1);
 	}
-	
+
 	bool Bomb::IsAlive()
 	{
 		return is_alive;
@@ -66,16 +70,19 @@ namespace game_framework {
 	void Bomb::LoadBitmap()
 	{
 		bmp.AddBitmap(IDB_Bomb1, RGB(34, 177, 76));			// 載入球的圖形
-		//bmp_center.LoadBitmap(IDB_CENTER, RGB(0, 0, 0));	// 載入球圓心的圖形
+		bmp.AddBitmap(IDB_Bomb2, RGB(34, 177, 76));				
+		bmp.AddBitmap(IDB_Bomb3, RGB(34, 177, 76));		
+		bmp.AddBitmap(IDB_Bombfire, RGB(34, 177, 76));
+		bmp.SetDelayCount(25);
 	}
 
 	void Bomb::OnMove(CEraser *eraser, CGameMap *m)
 	{
+		bmp.OnMove();
 		const int STEP_SIZE = 300;
 		if (!is_alive)
 			return;
-		bmp.OnMove();
-		if(eraser->check_MovingLeft())
+		if(eraser->check_MovingLeft() && is_bePushed)
 		{
 			if (m->IsEmpty(x - STEP_SIZE, y)) 
 			{
@@ -83,7 +90,7 @@ namespace game_framework {
 			}
 
 		}
-		else if (eraser->check_MovingRight())
+		else if (eraser->check_MovingRight() && is_bePushed)
 		{
 			if (m->IsEmpty(x + bmp.Width() + STEP_SIZE, y))
 			{
@@ -140,8 +147,8 @@ namespace game_framework {
 			}
 			else 
 			{
-				bmp.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
-				bmp.OnShow();
+					bmp.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
+					bmp.OnShow();
 			}
 		}
 
@@ -151,11 +158,15 @@ namespace game_framework {
 			bmp.ShowBitmap();
 			bmp_center.SetTopLeft(x, y);
 			bmp_center.ShowBitmap();
-		}*/
+		}
+		*/
 	}
 	void Bomb::SetBomb(bool flag)
 	{
 		is_putBomb = flag;
 	}
-	
+	void Bomb::setBombAnimation()
+	{
+		bmp.Reset();
+	}
 }

@@ -243,5 +243,20 @@
     <Image Include="RES\stage1_2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\stage1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\stage1_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bomb2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bomb3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bombfire.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

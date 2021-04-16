@@ -94,7 +94,7 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	const char KEY_ESC = 27;
 	const char KEY_SPACE = ' ';
-	if (nChar == KEY_SPACE)
+	if (nChar >= 0)
 		GotoGameState(GAME_STATE_RUN);						// 切換至GAME_STATE_RUN
 	else if (nChar == KEY_ESC)								// Demo 關閉遊戲的方法
 		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE,0,0);	// 關閉遊戲
@@ -276,10 +276,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	eraser.SetStepOnBomb(false);
 	for (int i = 0; i < NUMBALLS; i++)
 	{
-		if (bomb[i].IsAlive() && bomb[i].PushBomb(&eraser))
-		{
-			bomb[i].OnMove(&eraser, &gamemap);
-		}
+		bomb[i].chickenPushBomb(&eraser);
+		bomb[i].OnMove(&eraser, &gamemap);
 	}
 
 
@@ -347,6 +345,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		CSpecialEffect::SetCurrentTime();
 		bomb[numberBomb].SetXY(eraser.GetX1(), eraser.GetY1());
 		bomb[numberBomb].SetIsAlive(true);
+		bomb[numberBomb].setBombAnimation();
 		//bomb[numberBomb].SetBomb(true);
 		numberBomb++;
 		if (numberBomb == NUMBALLS) {

@@ -39,8 +39,8 @@ namespace game_framework {
 
 	void CEraser::Initialize()
 	{
-		const int X_POS = 250;
-		const int Y_POS = 250;
+		const int X_POS = 200;
+		const int Y_POS =300;
 		x = X_POS;
 		y = Y_POS;
 		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = false;
@@ -56,6 +56,7 @@ namespace game_framework {
 		goToRight.AddBitmap(IDB_CHICKENRIGHT, RGB(34, 177, 76));
 		goToLeft.AddBitmap(IDB_CHICKEN2, RGB(34, 177, 76));
 		goToLeft.AddBitmap(IDB_CHICKENLEFT, RGB(34, 177, 76));
+
 
 	}
 
@@ -84,7 +85,7 @@ namespace game_framework {
 		}
 		////視角移動分為小移動以及場景轉換
 		//場景轉換
-		if (m->ScreenX(x) > 1139 && isMovingRight) {
+		if (m->ScreenX(x) > 1142 && isMovingRight) {
 			m->SetMovingRight(true);
 		}
 		else {
@@ -96,6 +97,8 @@ namespace game_framework {
 		else {
 			m->SetMovingLeft(false);
 		}
+
+
 		///小移動
 		if (m->IsLittleMove(x,y) && isMovingRight) {
 			m->SetMovingRightL(true);
@@ -109,6 +112,20 @@ namespace game_framework {
 		else {
 			m->SetMovingLeftL(false);
 		}
+		
+		if (m->IsLittleMove(x, y) && isMovingUp) {
+			m->SetMovingUpL(true);
+		}
+		else {
+			m->SetMovingUpL(false);
+		}
+		if (m->ScreenY(y)>400 && is_landing) {
+			m->SetMovingDownL(true);
+		}
+		else {
+			m->SetMovingDownL(false);
+		}
+		
 		////下降
 		
 		if (is_landing)
@@ -162,7 +179,7 @@ namespace game_framework {
 	}
 
 	void CEraser::OnShow(CGameMap *m)
-	{
+	{	
 		if (isMovingRight) {
 			
 			goToRight.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
