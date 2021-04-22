@@ -40,11 +40,11 @@ namespace game_framework {
 	void CEraser::Initialize()
 	{
 		const int X_POS = 200;
-		const int Y_POS =300;
+		const int Y_POS =200;
 		x = X_POS;
 		y = Y_POS;
 		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = false;
-		is_landing = true;
+		is_landing = false;
 	}
 
 	void CEraser::LoadBitmap()
@@ -62,37 +62,21 @@ namespace game_framework {
 
 	void CEraser::OnMove(CGameMap *m)
 	{
-		const int STEP_SIZE = 8;
+		const int STEP_SIZE = 5;
 		const int LANDING_SIZE = 15;
-		const int PUT_BOMB_SIZE = 30;
+		const int PUT_BOMB_SIZE = 20;
 		animation.OnMove();
 		if (isMovingLeft) { //往左
 			goToLeft.OnMove();
 			if (m->IsEmpty(x -STEP_SIZE, y )) { //人物移動
 				x -= STEP_SIZE;
 			}
-			if(m->ScreenX(x) < 0)//視角移動
-			{
-				m->SetMovingLeft(true);
-			}
-			else
-			{
-				m->SetMovingLeft(false);
-			}
 		}
 		if (isMovingRight) { //往右
 			goToRight.OnMove();
 			if (m->IsEmpty(x  + animation.Width()+ STEP_SIZE, y )) { 
 				x += STEP_SIZE;
-			}
-			if (m->ScreenX(x) > 759)					
-			{
-				m->SetMovingRight(true);
-			}
-			else
-			{
-				m->SetMovingRight(false);
-			}
+			}			
 		}
 		if (isBombing) { //放炸彈
 			if (m->IsEmpty(x, y - PUT_BOMB_SIZE)) {
@@ -100,13 +84,35 @@ namespace game_framework {
 			}
 		}
 		////下降
-		if (is_landing)
+		if (m->IsEmpty(x, y + LANDING_SIZE + (animation.Height() - 20)) && !isStepOnBomb) {
+			y += LANDING_SIZE;
+			is_landing = true;
+		}
+		else {
+			is_landing = false;
+		}
+
+		if (m->IsChangeScreen_horizontal(x, y))
 		{
-			if (m->IsEmpty(x, y + LANDING_SIZE + (animation.Height()-20)) && !isStepOnBomb) {
-				y += LANDING_SIZE;
+			if (isMovingRight) {
+				m->SetMovingRight(true);
+			}
+			if (isMovingLeft) {
+				m->SetMovingLeft(true);
 			}
 		}
-		if (m->IsLittleMove(x, y) && isMovingLeft)
+		if (m->IsChangeScreen_Diagonal(x, y))
+		{
+			if (isMovingRight) {
+				m->SetMovingRight(true);
+				m->SetMovingDown(true);
+			}
+			if (isMovingLeft) {
+				m->SetMovingLeft(true);
+				m->SetMovingUp(true);
+			}
+		}
+		if (m->IsLittleMove_horizontal(x,y) && isMovingLeft)
 		{
 			m->SetMovingLeftL(true);
 		}
@@ -114,7 +120,8 @@ namespace game_framework {
 		{
 			m->SetMovingLeftL(false);
 		}
-		if (m->IsLittleMove(x, y) && isMovingRight)
+
+		if (m->IsLittleMove_horizontal(x, y) && isMovingRight)
 		{
 			m->SetMovingRightL(true);
 		}
@@ -122,7 +129,34 @@ namespace game_framework {
 		{
 			m->SetMovingRightL(false);
 		}
+		
+		if (m->IsLittleMove_updown(x, y) && isBombing)
+		{
+			m->SetMovingUpL(true);
+		}
+		else
+		{
+			m->SetMovingUpL(false);
+		}
 
+		if (m->IsLittleMove_updown(x, y) && is_landing)
+		{
+			m->SetMovingDownL(true);
+		}
+		else
+		{
+			m->SetMovingDownL(false);
+		}
+		if (m->ScreenX(x) < 100) {
+			m->SetMovingRight(false);
+			m->SetMovingDown(false);
+		}
+		if (m->ScreenX(x) > 700) {
+			m->SetMovingLeft(false);
+			m->SetMovingUp(false);
+		}
+
+		
 	}
 	void CEraser::SetStepOnBomb(bool flag)
 	{

@@ -6,10 +6,11 @@
 #include "gamelib.h"
 #include "gameMap.h"
 #include "Bomb.h"
-
+#include "CEraser.h"
 namespace game_framework {
 	CGameMap::CGameMap() :sx(0), sy(0), MW(76), MH(21)
 	{
+		//0障礙物 1空氣 2視角水平小移動 3 視角水平移動 4視角斜移動 5視角上下小移動
 		NowShowStage = 0;
 		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = isMovingLeftL = isMovingRightL = isMovingUpL = isMovingDownL = false;
 		int map_init[20][30] = {
@@ -19,17 +20,17 @@ namespace game_framework {
 			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,1,1,1,1,1,3,1,1,1,1,1,1},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,1,1,1,1,1,1,3,1,1,1,1,1,1},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,1,1,1,1,1,3,1,1,1,1,1,1},
+			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1},
+			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1},
+			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,5,1,1,1,1,1},
+			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1},
+			{0,1,1,1,1,1,1,1,1,3,1,1,1,1,1,2,1,1,1,1,1,1,1,1,5,1,1,1,1,1},
+			{0,1,1,1,1,1,1,1,1,3,1,1,1,1,1,2,1,1,1,1,1,1,1,1,5,1,1,1,1,1},
+			{0,1,1,1,1,1,1,1,1,3,1,1,1,1,1,2,1,1,1,1,1,1,1,1,5,1,1,1,1,1},
+			{0,1,1,1,1,1,1,1,1,3,1,1,1,1,1,2,1,1,1,1,1,1,1,1,5,1,1,1,1,1},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,1,1,1,4,1,1,5,1,1,1,1,1},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,1,1,1,4,1,1,5,1,1,1,1,1},
+			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,1,1,4,1,1,5,1,1,1,1,1},
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -99,30 +100,54 @@ namespace game_framework {
 	bool CGameMap::IsEmpty(int x, int y) {
 		int gx = x / MW;		//地圖格座標
 		int gy = y / MH;
-		return (map[gy][gx] == 1 || map[gy][gx] == 2 || map[gy][gx] == 3);  // 設定1為空  
+		return (map[gy][gx] == 1 || map[gy][gx] == 2 || map[gy][gx] == 3 || map[gy][gx] == 4 || map[gy][gx] == 5);  // 設定1為空  
 	}
-	bool CGameMap::IsLittleMove(int x, int y) {
-		int gx = x / MW;		//地圖格座標
+	bool CGameMap::IsLittleMove_horizontal(int x, int y) {
+		int gx = x / MW;		
 		int gy = y / MH;
-		return (map[gy][gx] == 2);  // 設定1為視角要小移動  
+		return (map[gy][gx] == 2);  
+	}
+	bool CGameMap::IsLittleMove_updown(int x, int y) {
+		int gx = x / MW;
+		int gy = y / MH;
+		return (map[gy][gx] == 5);
 	}
 
+	bool CGameMap::IsChangeScreen_horizontal(int x, int y) { //轉換場景
+		int gx = x / MW;		
+		int gy = y / MH;
+		return (map[gy][gx] == 3); 
+	}
+	bool CGameMap::IsChangeScreen_Diagonal(int x, int y) { //轉換場景
+		int gx = x / MW;
+		int gy = y / MH;
+		return (map[gy][gx] == 4);
+	}
+
+
 	void CGameMap::OnMove() {
-		const int STEP_SIZE = 10;
-		const int CHANGVIEW_xSIZE = 760;
-		const int CHANGVIEW_ySIZE = 100;
+		const int STEP_SIZE = 7;
+		const int STEP_upanddown_SIZE = 2;
+		const int STEP_upanddownL_SIZE = 7;
+		const int CHANGVIEW_xSIZE = 10;
+		const int CHANGVIEW_ySIZE = 10;
 		if (isMovingLeft)
 			sx -= CHANGVIEW_xSIZE;
 		if (isMovingRight)
 			sx += CHANGVIEW_xSIZE;
 		if (isMovingUp)
-			sy -= STEP_SIZE;
+			sy -= STEP_upanddown_SIZE;
 		if (isMovingDown)
-			sy += STEP_SIZE;
+			sy += STEP_upanddown_SIZE;
 		if (isMovingLeftL) 
 			sx -= STEP_SIZE;
 		if (isMovingRightL)
 			sx += STEP_SIZE;
+		if (isMovingUpL)
+			sy -= STEP_upanddownL_SIZE;
+		if (isMovingDownL)
+			sy += STEP_upanddownL_SIZE;
+
 	}
 	void CGameMap::SetMovingDown(bool flag)
 	{
