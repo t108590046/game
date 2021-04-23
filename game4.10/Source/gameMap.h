@@ -23,7 +23,7 @@ namespace game_framework {
 		bool IsChangeScreen_Diagonal(int x, int y);
 	protected:
 		CMovingBitmap blue, green,yellow,stage1;
-		int map[20][30];
+		int map[21][30];
 		const int MW, MH;
 		int	 sx, sy;
 		int NowShowStage;

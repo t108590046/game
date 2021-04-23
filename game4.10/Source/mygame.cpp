@@ -84,6 +84,11 @@ void CGameStateInit::OnInit()
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
+	current = 0;
+	start[0].LoadBitmap(IDB_start0, RGB(0, 0, 0));
+	start[1].LoadBitmap(IDB_start1, RGB(0, 0, 0));
+	start[2].LoadBitmap(IDB_start2, RGB(0, 0, 0));
+	start[3].LoadBitmap(IDB_start3, RGB(0, 0, 0));
 }
 
 void CGameStateInit::OnBeginState()
@@ -91,13 +96,47 @@ void CGameStateInit::OnBeginState()
 }
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
-{
-	const char KEY_ESC = 27;
-	const char KEY_SPACE = ' ';
-	if (nChar >= 0)
-		GotoGameState(GAME_STATE_RUN);						// 切換至GAME_STATE_RUN
-	else if (nChar == KEY_ESC)								// Demo 關閉遊戲的方法
-		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE,0,0);	// 關閉遊戲
+{	
+	const char KEY_ESC = 27; 
+	const char KEY_ENTER = 13;
+	const char KEY_UpArrow = 38;
+	const char KEY_DownArrow = 40;
+	if (nChar >= 0 && current == 0) {
+		current = 1;
+	}
+	else if(current == 1 && nChar == KEY_ENTER)
+	{
+		GotoGameState(GAME_STATE_RUN);
+	}
+	else if (current == 3 && nChar == KEY_ENTER)
+	{
+		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);
+	}
+	if(nChar == KEY_UpArrow)
+	{
+		if (current == 1) {
+			current = 3;
+		}
+		else if (current == 2) {
+			current = 1;
+		}
+		else if (current == 3) {
+			current = 2;
+		}
+	}
+	if (nChar == KEY_DownArrow)
+	{
+		if (current == 1) {
+			current = 2;
+		}
+		else if (current == 2) {
+			current = 3;
+		}
+		else if (current == 3) {
+			current = 1;
+		}
+	}
+
 }
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
@@ -115,6 +154,7 @@ void CGameStateInit::OnShow()
 	//
 	// Demo螢幕字型的使用，不過開發時請盡量避免直接使用字型，改用CMovingBitmap比較好
 	//
+	/*
 	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
 	CFont f,*fp;
 	f.CreatePointFont(160,"Times New Roman");	// 產生 font f; 160表示16 point的字
@@ -128,6 +168,9 @@ void CGameStateInit::OnShow()
 	pDC->TextOut(5,455,"Press Alt-F4 or ESC to Quit.");
 	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+	*/
+	start[current].SetTopLeft(0, 0);
+	start[current].ShowBitmap();
 }								
 
 /////////////////////////////////////////////////////////////////////////////

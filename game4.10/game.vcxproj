@@ -339,6 +339,7 @@
     <Image Include="RES\bomb3.bmp" />
     <Image Include="RES\bombfire.bmp" />
     <Image Include="RES\leftrun2.bmp" />
+    <Image Include="RES\loading1.bmp" />
     <Image Include="RES\rightrun1.bmp" />
     <Image Include="RES\rightrun3.bmp" />
     <Image Include="RES\rightrun4.bmp" />
@@ -348,6 +349,10 @@
     <Image Include="RES\stage1_1.bmp" />
     <Image Include="RES\stage1_2.bmp" />
     <Image Include="RES\stage1_3.bmp" />
+    <Image Include="RES\Start_0.bmp" />
+    <Image Include="RES\Start_1.bmp" />
+    <Image Include="RES\Start_2.bmp" />
+    <Image Include="RES\Start_3.bmp" />
     <Image Include="RES\up.bmp" />
     <Image Include="RES\right.bmp" />
     <Image Include="RES\left.bmp" />

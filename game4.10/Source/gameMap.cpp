@@ -65,8 +65,8 @@ namespace game_framework {
 		//stage1_2.SetTopLeft(0, 0);
 		//stage1_2.ShowBitmap();
 		/*
-		for (int i = 0; i <10; i++) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = 0; i <30; i++) {
+			for (int j = 0; j < 20; j++) {
 				int x = i * MW - sx;
 				int y = j * MH - sy;
 				switch (map[j][i]) {
@@ -79,6 +79,19 @@ namespace game_framework {
 					yellow.ShowBitmap();
 					break;
 				case 2:
+					green.SetTopLeft(x, y);
+					green.ShowBitmap();
+					break;
+				case 3:
+					green.SetTopLeft(x, y);
+					green.ShowBitmap();
+					break;
+
+				case 4:
+					green.SetTopLeft(x, y);
+					green.ShowBitmap();
+					break;
+				case 5:
 					green.SetTopLeft(x, y);
 					green.ShowBitmap();
 					break;

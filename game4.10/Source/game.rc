@@ -140,6 +140,16 @@ IDB_Bomb3               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\
 
 IDB_Bombfire            BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\bombfire.bmp"
 
+IDB_start0              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\Start_0.bmp"
+
+IDB_start1              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\Start_1.bmp"
+
+IDB_start2              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\Start_2.bmp"
+
+IDB_start3              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\Start_3.bmp"
+
+IDB_loading1            BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\loading1.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
