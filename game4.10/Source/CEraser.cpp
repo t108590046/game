@@ -101,7 +101,7 @@ namespace game_framework {
 				m->SetMovingLeft(true);
 			}
 		}
-		if (m->IsChangeScreen_Diagonal(x, y))
+		if (m->IsChangeScreen_Diagonal_RDandLU(x, y))
 		{
 			if (isMovingRight) {
 				m->SetMovingRight(true);
@@ -112,6 +112,18 @@ namespace game_framework {
 				m->SetMovingUp(true);
 			}
 		}
+		if (m->IsChangeScreen_Diagonal_RUandLD(x, y))
+		{
+			if (isMovingRight) {
+				m->SetMovingRight(true);
+				m->SetMovingUp(true);
+			}
+			if (isMovingLeft) {
+				m->SetMovingLeft(true);
+				m->SetMovingDown(true);
+			}
+		}
+
 		if (m->IsLittleMove_horizontal(x,y) && isMovingLeft)
 		{
 			m->SetMovingLeftL(true);
@@ -155,7 +167,13 @@ namespace game_framework {
 			m->SetMovingLeft(false);
 			m->SetMovingUp(false);
 		}
-
+		if(m->ShowMovingDown() || m->ShowMovingLeft() || m->ShowMovingUp() || m->ShowMovingRight()) //視角移動時腳色不能移動
+		{
+			isMovingLeft = false;
+			isMovingRight = false;
+			isBombing = false;
+			is_landing = false;
+		}
 		
 	}
 	void CEraser::SetStepOnBomb(bool flag)

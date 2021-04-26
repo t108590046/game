@@ -10,7 +10,10 @@ namespace game_framework {
 		bool IsEmpty(int x, int y);
 		bool IsLittleMove_horizontal(int x, int y);
 		bool IsLittleMove_updown(int x, int y);
-
+		bool ShowMovingDown();
+		bool ShowMovingUp();
+		bool ShowMovingLeft();
+		bool ShowMovingRight();
 		void SetMovingDown(bool flag);	// 設定是否正在往下移動
 		void SetMovingLeft(bool flag);	// 設定是否正在往左移動
 		void SetMovingRight(bool flag); // 設定是否正在往右移動
@@ -20,10 +23,11 @@ namespace game_framework {
 		void SetMovingRightL(bool flag); // 設定是否正在往右小移動
 		void SetMovingUpL(bool flag);	// 設定是否正在往上小移動
 		bool IsChangeScreen_horizontal(int x, int y);
-		bool IsChangeScreen_Diagonal(int x, int y);
+		bool IsChangeScreen_Diagonal_RDandLU(int x, int y);
+		bool IsChangeScreen_Diagonal_RUandLD(int x, int y);
 	protected:
 		CMovingBitmap blue, green,yellow,stage1;
-		int map[21][30];
+		int map[20][80];
 		const int MW, MH;
 		int	 sx, sy;
 		int NowShowStage;
@@ -35,7 +39,7 @@ namespace game_framework {
 		bool isMovingLeftL;			// 是否正在往左小移動
 		bool isMovingRightL;		// 是否正在往右小移動
 		bool isMovingUpL;			// 是否正在往上小移動
-
+		bool upMoreThanRight;
 	};
 
 
