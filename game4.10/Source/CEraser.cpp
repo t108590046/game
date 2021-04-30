@@ -70,12 +70,29 @@ namespace game_framework {
 			goToLeft.OnMove();
 			if (m->IsEmpty(x -STEP_SIZE, y )) { //人物移動
 				x -= STEP_SIZE;
+				if (m->IsLittleMove_horizontal(x, y))
+				{
+					m->SetMovingLeftL(true);
+				}
+				else
+				{
+					m->SetMovingLeftL(false);
+				}
 			}
 		}
 		if (isMovingRight) { //往右
 			goToRight.OnMove();
 			if (m->IsEmpty(x  + animation.Width()+ STEP_SIZE, y )) { 
 				x += STEP_SIZE;
+				if (m->IsLittleMove_horizontal(x, y) )
+				{
+					m->SetMovingRightL(true);
+				}
+				else
+				{
+					m->SetMovingRightL(false);
+				}
+
 			}			
 		}
 		if (isBombing) { //放炸彈
@@ -83,6 +100,15 @@ namespace game_framework {
 				y -= PUT_BOMB_SIZE;
 			}
 		}
+		if (m->IsLittleMove_updown(x, y) && isBombing)
+		{
+			m->SetMovingUpL(true);
+		}
+		else
+		{
+			m->SetMovingUpL(false);
+		}
+
 		////下降
 		if (m->IsEmpty(x, y + LANDING_SIZE + (animation.Height() - 20)) && !isStepOnBomb) {
 			y += LANDING_SIZE;
@@ -90,6 +116,15 @@ namespace game_framework {
 		}
 		else {
 			is_landing = false;
+		}
+
+		if (m->IsLittleMove_updown(x, y) && is_landing)
+		{
+			m->SetMovingDownL(true);
+		}
+		else
+		{
+			m->SetMovingDownL(false);
 		}
 
 		if (m->IsChangeScreen_horizontal(x, y))
@@ -124,49 +159,17 @@ namespace game_framework {
 			}
 		}
 
-		if (m->IsLittleMove_horizontal(x,y) && isMovingLeft)
-		{
-			m->SetMovingLeftL(true);
-		}
-		else
-		{
-			m->SetMovingLeftL(false);
-		}
-
-		if (m->IsLittleMove_horizontal(x, y) && isMovingRight)
-		{
-			m->SetMovingRightL(true);
-		}
-		else
-		{
-			m->SetMovingRightL(false);
-		}
 		
-		if (m->IsLittleMove_updown(x, y) && isBombing)
-		{
-			m->SetMovingUpL(true);
+		if (m->ScreenX(x) <= 50) {
+			m->ScreenStopMoving();
 		}
-		else
-		{
-			m->SetMovingUpL(false);
-		}
-
-		if (m->IsLittleMove_updown(x, y) && is_landing)
-		{
-			m->SetMovingDownL(true);
-		}
-		else
-		{
-			m->SetMovingDownL(false);
-		}
-		if (m->ScreenX(x) < 100) {
-			m->SetMovingRight(false);
-			m->SetMovingDown(false);
-		}
+		/*
 		if (m->ScreenX(x) > 700) {
 			m->SetMovingLeft(false);
 			m->SetMovingUp(false);
 		}
+		*/
+		/*
 		if(m->ShowMovingDown() || m->ShowMovingLeft() || m->ShowMovingUp() || m->ShowMovingRight()) //視角移動時腳色不能移動
 		{
 			isMovingLeft = false;
@@ -174,7 +177,7 @@ namespace game_framework {
 			isBombing = false;
 			is_landing = false;
 		}
-		
+		*/
 	}
 	void CEraser::SetStepOnBomb(bool flag)
 	{

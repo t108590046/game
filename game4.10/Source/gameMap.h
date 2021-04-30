@@ -25,9 +25,10 @@ namespace game_framework {
 		bool IsChangeScreen_horizontal(int x, int y);
 		bool IsChangeScreen_Diagonal_RDandLU(int x, int y);
 		bool IsChangeScreen_Diagonal_RUandLD(int x, int y);
+		void ScreenStopMoving();
 	protected:
 		CMovingBitmap blue, green,yellow,stage1;
-		int map[20][80];
+		int map[30][80];
 		const int MW, MH;
 		int	 sx, sy;
 		int NowShowStage;
