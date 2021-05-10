@@ -64,8 +64,18 @@
 #define IDB_loading1                    202
 #define IDB_GEM                         204
 #define IDB_HEART                       205
-#define IDB_BITMAP7                     207
 #define IDB_GEMLEFT                     207
+#define IDB_ZERO                        208
+#define IDB_ONE                         209
+#define IDB_TWO                         210
+#define IDB_THREE                       211
+#define IDB_FOUR                        212
+#define IDB_FIVE                        213
+#define IDB_SIX                         214
+#define IDB_SEVEN                       215
+#define IDB_EIGHT                       216
+#define IDB_BITMAP8                     217
+#define IDB_NINE                        217
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -78,7 +88,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        208
+#define _APS_NEXT_RESOURCE_VALUE        218
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

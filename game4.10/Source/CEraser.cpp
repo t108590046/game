@@ -67,6 +67,8 @@ namespace game_framework {
 
 	void CEraser::OnMove(CGameMap *m)
 	{
+		TRACE("x:%d\n", x);
+		TRACE("y:%d\n", y);
 		const int STEP_SIZE = 5;
 		const int PIPE_SIZE = 15;
 		const int LANDING_SIZE = 10;

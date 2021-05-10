@@ -50,6 +50,16 @@ namespace game_framework {
 	{
 		gem_bitmap.LoadBitmap(IDB_GEM, RGB(34, 177, 76));			// 載入球的圖形
 		gemLeft.LoadBitmap(IDB_GEMLEFT, RGB(34, 177, 76));
+		gemNumber_digits[0].LoadBitmapA(IDB_ZERO, RGB(34, 177, 76));
+		gemNumber_digits[1].LoadBitmapA(IDB_ONE, RGB(34, 177, 76));
+		gemNumber_digits[2].LoadBitmapA(IDB_TWO, RGB(34, 177, 76));
+		gemNumber_digits[3].LoadBitmapA(IDB_THREE, RGB(34, 177, 76));
+		gemNumber_digits[4].LoadBitmapA(IDB_FOUR, RGB(34, 177, 76));
+		gemNumber_digits[5].LoadBitmapA(IDB_FIVE, RGB(34, 177, 76));
+		gemNumber_digits[6].LoadBitmapA(IDB_SIX, RGB(34, 177, 76));
+		gemNumber_digits[7].LoadBitmapA(IDB_SEVEN, RGB(34, 177, 76));
+		gemNumber_digits[8].LoadBitmapA(IDB_EIGHT, RGB(34, 177, 76));
+		gemNumber_digits[9].LoadBitmapA(IDB_NINE, RGB(34, 177, 76));
 	}
 	void Gem::SetIsAlive(bool alive)
 	{
@@ -63,9 +73,14 @@ namespace game_framework {
 	void Gem::setShowNumGem(bool flag)
 	{
 		isShowNumGem = flag;
+		if (flag) {
+			numberOfGem++;
+		}
 	}
 	void Gem::OnShow(CGameMap *m)
 	{
+		int tens = numberOfGem / 10;
+		int digits = numberOfGem % 10;
 		if (is_alive) {
 			gem_bitmap.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
 			gem_bitmap.ShowBitmap();
@@ -74,6 +89,96 @@ namespace game_framework {
 		{
 			gemLeft.SetTopLeft(650, 20);
 			gemLeft.ShowBitmap();
+			switch (tens) {
+			case 0:
+				gemNumber_digits[0].SetTopLeft(650 + gemLeft.Width(), 20);
+				gemNumber_digits[0].ShowBitmap();
+				break;
+			case 1:
+				gemNumber_digits[1].SetTopLeft(650 + gemLeft.Width(), 20);
+				gemNumber_digits[1].ShowBitmap();
+				break;
+			case 2:
+				gemNumber_digits[2].SetTopLeft(650 + gemLeft.Width(), 20);
+				gemNumber_digits[2].ShowBitmap();
+				break;
+			case 3:
+				gemNumber_digits[3].SetTopLeft(650 + gemLeft.Width(), 20);
+				gemNumber_digits[3].ShowBitmap();
+				break;
+
+			case 4:
+				gemNumber_digits[4].SetTopLeft(650 + gemLeft.Width(), 20);
+				gemNumber_digits[4].ShowBitmap();
+				break;
+			case 5:
+				gemNumber_digits[5].SetTopLeft(650 + gemLeft.Width(), 20);
+				gemNumber_digits[5].ShowBitmap();
+				break;
+			case 6:
+				gemNumber_digits[6].SetTopLeft(650 + gemLeft.Width(), 20);
+				gemNumber_digits[6].ShowBitmap();
+				break;
+			case 7:
+				gemNumber_digits[7].SetTopLeft(650 + gemLeft.Width(), 20);
+				gemNumber_digits[7].ShowBitmap();
+				break;
+			case 8:
+				gemNumber_digits[8].SetTopLeft(650 + gemLeft.Width(), 20);
+				gemNumber_digits[8].ShowBitmap();
+				break;
+			case 9:
+				gemNumber_digits[9].SetTopLeft(650 + gemLeft.Width(), 20);
+				gemNumber_digits[9].ShowBitmap();
+				break;
+			default:
+				ASSERT(0);
+			}
+			switch (digits) {
+			case 0:
+				gemNumber_digits[0].SetTopLeft(650 + gemLeft.Width()+gemNumber_digits[0].Width(), 20);
+				gemNumber_digits[0].ShowBitmap();
+				break;
+			case 1:
+				gemNumber_digits[1].SetTopLeft(650 + gemLeft.Width() + gemNumber_digits[0].Width(), 20);
+				gemNumber_digits[1].ShowBitmap();
+				break;
+			case 2:
+				gemNumber_digits[2].SetTopLeft(650 + gemLeft.Width() + gemNumber_digits[0].Width(), 20);
+				gemNumber_digits[2].ShowBitmap();
+				break;
+			case 3:
+				gemNumber_digits[3].SetTopLeft(650 + gemLeft.Width() + gemNumber_digits[0].Width(), 20);
+				gemNumber_digits[3].ShowBitmap();
+				break;
+
+			case 4:
+				gemNumber_digits[4].SetTopLeft(650 + gemLeft.Width() + gemNumber_digits[0].Width(), 20);
+				gemNumber_digits[4].ShowBitmap();
+				break;
+			case 5:
+				gemNumber_digits[5].SetTopLeft(650 + gemLeft.Width() + gemNumber_digits[0].Width(), 20);
+				gemNumber_digits[5].ShowBitmap();
+				break;
+			case 6:
+				gemNumber_digits[6].SetTopLeft(650 + gemLeft.Width() + gemNumber_digits[0].Width(), 20);
+				gemNumber_digits[6].ShowBitmap();
+				break;
+			case 7:
+				gemNumber_digits[7].SetTopLeft(650 + gemLeft.Width() + gemNumber_digits[0].Width(), 20);
+				gemNumber_digits[7].ShowBitmap();
+				break;
+			case 8:
+				gemNumber_digits[8].SetTopLeft(650 + gemLeft.Width() + gemNumber_digits[0].Width(), 20);
+				gemNumber_digits[8].ShowBitmap();
+				break;
+			case 9:
+				gemNumber_digits[9].SetTopLeft(650 + gemLeft.Width() + gemNumber_digits[0].Width(), 20);
+				gemNumber_digits[9].ShowBitmap();
+				break;
+			default:
+				ASSERT(0);
+			}
 			showNumGemCounter--;
 			if(showNumGemCounter < 0)
 			{

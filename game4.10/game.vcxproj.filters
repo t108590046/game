@@ -288,5 +288,35 @@
     <Image Include="RES\gem_left.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\gem_0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\gem_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\gem_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\gem_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\gem_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\gem_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\gem_6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\gem_7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\gem_8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\gem_9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

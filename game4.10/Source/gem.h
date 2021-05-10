@@ -21,7 +21,7 @@ namespace game_framework {
 	protected:
 		CMovingBitmap gem_bitmap;			// 球的圖	
 		CMovingBitmap gemLeft;
-		CMovingBitmap gemNumber;
+		CMovingBitmap gemNumber_digits[10];
 		int x, y;					// 寶石的座標
 		bool is_alive;				// 是否活著
 		int numberOfGem;
