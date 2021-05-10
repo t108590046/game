@@ -1,10 +1,11 @@
 namespace game_framework {
+	class CEraser;
 	class CGameMap {
 	public:
 		CGameMap();
 		void LoadBitmap();
 		void OnShow();
-		void OnMove();
+		void OnMove(CEraser *c);
 		int	 ScreenX(int x);
 		int  ScreenY(int y);
 		bool IsEmpty(int x, int y);
@@ -25,13 +26,16 @@ namespace game_framework {
 		bool IsChangeScreen_horizontal(int x, int y);
 		bool IsChangeScreen_Diagonal_RDandLU(int x, int y);
 		bool IsChangeScreen_Diagonal_RUandLD(int x, int y);
+		bool IsChangeScreen_UpOrDown(int x, int y);
+		bool IsStandingWood(int x, int y);
+		bool IsPipe(int x, int y);
+		bool IsScreenStopMoving(int x, int y);
 		void ScreenStopMoving();
 	protected:
 		CMovingBitmap blue, green,yellow,stage1;
-		int map[30][80];
+		int map[250][220];
 		const int MW, MH;
 		int	 sx, sy;
-		int NowShowStage;
 		bool isMovingDown;			// 是否正在往下移動
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動
@@ -40,7 +44,8 @@ namespace game_framework {
 		bool isMovingLeftL;			// 是否正在往左小移動
 		bool isMovingRightL;		// 是否正在往右小移動
 		bool isMovingUpL;			// 是否正在往上小移動
-		bool upMoreThanRight;
+		int Stop_x, Stop_y;
+		int Screen_Height, Screen_Width;
 	};
 
 

@@ -278,6 +278,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="Source\gem.cpp" />
     <ClCompile Include="Source\MainFrm.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -314,6 +315,7 @@
     <ClInclude Include="Source\gameDoc.h" />
     <ClInclude Include="Source\gameMap.h" />
     <ClInclude Include="Source\gameView.h" />
+    <ClInclude Include="Source\gem.h" />
     <ClInclude Include="Source\MainFrm.h" />
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\StdAfx.h" />
@@ -338,6 +340,9 @@
     <Image Include="RES\bomb2.bmp" />
     <Image Include="RES\bomb3.bmp" />
     <Image Include="RES\bombfire.bmp" />
+    <Image Include="RES\gem.bmp" />
+    <Image Include="RES\gem_left.bmp" />
+    <Image Include="RES\heart.bmp" />
     <Image Include="RES\leftrun2.bmp" />
     <Image Include="RES\loading1.bmp" />
     <Image Include="RES\rightrun1.bmp" />

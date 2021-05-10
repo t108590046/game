@@ -21,23 +21,32 @@ namespace game_framework {
 		void SetMovingLeft(bool flag);	// 設定是否正在往左移動
 		void SetMovingRight(bool flag); // 設定是否正在往右移動
 		void SetMovingUp(bool flag);	// 設定是否正在往上移動
+		void SetPressDown(bool flag);
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
 		void SetLanding(bool flag);
 		void SetStepOnBomb(bool flag);
 		bool check_MovingLeft();
 		bool check_MovingRight();
+		void setShowHeart(bool flag);
 	protected:
 		CAnimation animation;		// 擦子的動畫
 		CAnimation goToLeft;		//雞向左
 		CAnimation goToRight;		//雞向右
 		CAnimation putBomb;			//雞放炸彈
+		CMovingBitmap heart[20];
 		int x, y;					// 擦子左上角座標
 		bool isBombing;			// 是否正在下炸彈
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動
 		bool isMovingUp;			// 是否正在往上移動
+		bool isPressDown;			
 		bool is_landing;			//正在下降
 		bool isStepOnBomb;
-
+		bool isInPipeGoToUp;
+		bool isInPipeGoToDown;
+		bool isShowHeart; 
+		int life_Max; //生命上限
+		int nowLife; // 目前生命
+		int showHeartCounter;
 	};
 }

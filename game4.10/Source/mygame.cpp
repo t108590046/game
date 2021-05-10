@@ -232,17 +232,20 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
-: CGameState(g), NUMBALLS(10)
+	: CGameState(g), NUMBOMBS(10), NUMGEM(1)
 {
 	numberBomb = 0;
-	ball = new CBall [NUMBALLS];
-	bomb = new Bomb[NUMBALLS];
+	ball = new CBall [NUMBOMBS];
+	bomb = new Bomb[NUMBOMBS];
+	gem = new Gem[NUMGEM];
 }
 
 CGameStateRun::~CGameStateRun()
 {
 	delete [] ball;
 	delete [] bomb;
+	delete[] gem;
+
 }
 
 void CGameStateRun::OnBeginState()
@@ -255,12 +258,16 @@ void CGameStateRun::OnBeginState()
 	const int HITS_LEFT_Y = 0;
 	const int BACKGROUND_X = 60;
 	const int ANIMATION_SPEED = 15;
-	for (int i = 0; i < NUMBALLS; i++) {				// 設定球的起始座標
+	for (int i = 0; i < NUMBOMBS; i++) {				// 設定球的起始座標
 		int x_pos = i % BALL_PER_ROW;
 		int y_pos = i / BALL_PER_ROW;
 		ball[i].SetXY(x_pos * BALL_GAP + BALL_XY_OFFSET, y_pos * BALL_GAP + BALL_XY_OFFSET);
 		ball[i].SetDelay(x_pos);
 		ball[i].SetIsAlive(true);
+	}
+	for (int i = 0; i < NUMGEM; i++) {				// 設定球的起始座標
+		gem[i].SetXY(100, 210);
+		gem[i].SetIsAlive(true);
 	}
 	eraser.Initialize();
 	background.SetTopLeft(BACKGROUND_X,0);				// 設定背景的起始座標
@@ -281,6 +288,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// 移動背景圖的座標
 	//
+
 	if (background.Top() > SIZE_Y)
 		background.SetTopLeft(60 ,-background.Height());
 	background.SetTopLeft(background.Left(),background.Top()+1);
@@ -293,12 +301,25 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// 移動擦子
 	//
-	gamemap.OnMove();
-	//
+	gamemap.OnMove(&eraser);
+	//判斷雞是否碰到寶石
+	
+	for (int i = 0; i < NUMGEM; i++) 
+	{
+		if (gem[i].IsAlive() && gem[i].HitChicken(&eraser))
+		{
+			gem[i].SetIsAlive(false);
+			gem[i].setShowNumGem(true);
+			eraser.setShowHeart(true);
+		}
+	}
+	
+
+
 	// 判斷炸彈是否碰到雞
 	//
 	
-	for (int i=0; i < NUMBALLS; i++)
+	for (int i=0; i < NUMBOMBS; i++)
 	{
 		if (bomb[i].IsAlive() && bomb[i].HitBomb(&eraser))
 		{
@@ -317,7 +338,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 	eraser.OnMove(&gamemap);
 	eraser.SetStepOnBomb(false);
-	for (int i = 0; i < NUMBALLS; i++)
+	for (int i = 0; i < NUMBOMBS; i++)
 	{
 		bomb[i].chickenPushBomb(&eraser);
 		bomb[i].OnMove(&eraser, &gamemap);
@@ -333,8 +354,11 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
 	gamemap.LoadBitmap();
-	for (int i = 0; i < NUMBALLS; i++)
-		bomb[i].LoadBitmapA();
+	for (int i = 0; i < NUMBOMBS; i++)
+		bomb[i].LoadBitmap();
+	
+	for (int i = 0; i < NUMGEM; i++)
+		gem[i].LoadBitmap();
 	//
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
@@ -344,7 +368,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// 開始載入資料
 	//
 	int i;
-	for (i = 0; i < NUMBALLS; i++)	
+	for (i = 0; i < NUMBOMBS; i++)
 		ball[i].LoadBitmap();								// 載入第i個球的圖形
 	eraser.LoadBitmap();
 	background.LoadBitmap(IDB_BACKGROUND);					// 載入背景的圖形
@@ -382,6 +406,9 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingRight(true);
 	if (nChar == KEY_UP)
 		eraser.SetMovingUp(true);
+	if (nChar == KEY_DOWN)
+		eraser.SetPressDown(true);
+
 	if(nChar == KEY_SPACE)
 	{	
 		eraser.SetBombing(true);
@@ -391,7 +418,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		bomb[numberBomb].setBombAnimation();
 		//bomb[numberBomb].SetBomb(true);
 		numberBomb++;
-		if (numberBomb == NUMBALLS) {
+		if (numberBomb == NUMBOMBS) {
 			numberBomb = 0;
 		}
 	}
@@ -411,6 +438,8 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingRight(false);
 	if (nChar == KEY_UP)
 		eraser.SetMovingUp(false);
+	if (nChar == KEY_DOWN)
+		eraser.SetPressDown(false);
 	if (nChar == KEY_SPACE)
 	{	
 		eraser.SetBombing(false);
@@ -460,13 +489,15 @@ void CGameStateRun::OnShow()
 	//for (int i=0; i < NUMBALLS; i++)
 		//ball[i].OnShow();				// 貼上第i號球
 	//bball.OnShow();						// 貼上彈跳的球
+	
+	
 	gamemap.OnShow();
-	eraser.OnShow(&gamemap);					// 貼上擦子
-	for (int i = 0; i < NUMBALLS; i++)
+	eraser.OnShow(&gamemap);// 貼上擦子					
+	for (int i = 0; i < NUMBOMBS; i++)
 	{
 		bomb[i].OnShow(&gamemap);
 	}
-
+	gem->OnShow(&gamemap);
 	//
 	//  貼上左上及右下角落的圖
 	//

@@ -40,11 +40,14 @@ namespace game_framework {
 	void CEraser::Initialize()
 	{
 		const int X_POS = 200;
-		const int Y_POS =200;
+		const int Y_POS = 450;
 		x = X_POS;
 		y = Y_POS;
-		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = false;
-		is_landing = false;
+		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = isInPipeGoToDown = isInPipeGoToUp = isPressDown = false;
+		is_landing = isShowHeart =false;
+		nowLife = 1;
+		life_Max = 1;
+		showHeartCounter = 30 * 3;
 	}
 
 	void CEraser::LoadBitmap()
@@ -56,49 +59,89 @@ namespace game_framework {
 		goToRight.AddBitmap(IDB_CHICKENRIGHT, RGB(34, 177, 76));
 		goToLeft.AddBitmap(IDB_CHICKEN2, RGB(34, 177, 76));
 		goToLeft.AddBitmap(IDB_CHICKENLEFT, RGB(34, 177, 76));
-
+		for (int i = 0; i < life_Max; i++) {
+			heart[i].LoadBitmapA(IDB_HEART, RGB(34, 177, 76));
+		}
 
 	}
 
 	void CEraser::OnMove(CGameMap *m)
 	{
 		const int STEP_SIZE = 5;
-		const int LANDING_SIZE = 15;
+		const int PIPE_SIZE = 15;
+		const int LANDING_SIZE = 10;
 		const int PUT_BOMB_SIZE = 20;
 		animation.OnMove();
 		if (isMovingLeft) { //往左
 			goToLeft.OnMove();
-			if (m->IsEmpty(x -STEP_SIZE, y )) { //人物移動
+			if (m->IsEmpty(x - STEP_SIZE, y)) { //人物移動
 				x -= STEP_SIZE;
-				if (m->IsLittleMove_horizontal(x, y))
-				{
-					m->SetMovingLeftL(true);
-				}
-				else
-				{
-					m->SetMovingLeftL(false);
-				}
 			}
 		}
+		if (m->IsLittleMove_horizontal(x, y) && isMovingLeft)
+		{
+			m->SetMovingLeftL(true);
+		}
+		else
+		{
+			m->SetMovingLeftL(false);
+		}
+
 		if (isMovingRight) { //往右
 			goToRight.OnMove();
-			if (m->IsEmpty(x  + animation.Width()+ STEP_SIZE, y )) { 
+			if (m->IsEmpty(x + animation.Width() + STEP_SIZE, y)) {
 				x += STEP_SIZE;
-				if (m->IsLittleMove_horizontal(x, y) )
-				{
-					m->SetMovingRightL(true);
-				}
-				else
-				{
-					m->SetMovingRightL(false);
-				}
-
-			}			
+			}
 		}
+		if (m->IsLittleMove_horizontal(x, y) && isMovingRight)
+		{
+			m->SetMovingRightL(true);
+		}
+		else
+		{
+			m->SetMovingRightL(false);
+		}
+
+		if (m->IsPipe(x, y))//小雞碰到水管
+		{
+			if (isBombing)
+			{
+				isInPipeGoToUp = true;
+			}
+		}
+		else
+		{
+			isInPipeGoToUp = false;
+		}
+		if (m->IsPipe(x, y + animation.Height()))
+		{
+			if (isPressDown)
+			{
+				isInPipeGoToDown = true;
+			}
+		}
+		else
+		{
+			isInPipeGoToDown = false;
+		}
+
+		if (isInPipeGoToDown) {
+			y += PIPE_SIZE;
+			m->SetMovingRight(true);
+			m->SetMovingDown(true);
+		}
+
+		if (isInPipeGoToUp) {
+			y -= PIPE_SIZE;
+			m->SetMovingLeft(true);
+			m->SetMovingUp(true);
+		}
+
 		if (isBombing) { //放炸彈
-			if (m->IsEmpty(x, y - PUT_BOMB_SIZE)) {
+			if (m->IsEmpty(x, y - PUT_BOMB_SIZE) || m->IsPipe(x, y - PUT_BOMB_SIZE)) {
 				y -= PUT_BOMB_SIZE;
 			}
+
 		}
 		if (m->IsLittleMove_updown(x, y) && isBombing)
 		{
@@ -109,8 +152,8 @@ namespace game_framework {
 			m->SetMovingUpL(false);
 		}
 
-		////下降
-		if (m->IsEmpty(x, y + LANDING_SIZE + (animation.Height() - 20)) && !isStepOnBomb) {
+		//下降
+		if (m->IsEmpty(x, y + LANDING_SIZE + animation.Height()) && !isStepOnBomb && !(m->IsStandingWood(x, y + LANDING_SIZE + (animation.Height())))) {
 			y += LANDING_SIZE;
 			is_landing = true;
 		}
@@ -118,6 +161,10 @@ namespace game_framework {
 			is_landing = false;
 		}
 
+		if (m->IsChangeScreen_UpOrDown(x, y) && (is_landing))
+		{
+			m->SetMovingDown(true);
+		}
 		if (m->IsLittleMove_updown(x, y) && is_landing)
 		{
 			m->SetMovingDownL(true);
@@ -127,57 +174,52 @@ namespace game_framework {
 			m->SetMovingDownL(false);
 		}
 
-		if (m->IsChangeScreen_horizontal(x, y))
-		{
-			if (isMovingRight) {
-				m->SetMovingRight(true);
-			}
-			if (isMovingLeft) {
-				m->SetMovingLeft(true);
-			}
+
+
+		if (m->IsChangeScreen_horizontal(x, y) && isMovingRight) {//視角平移
+			m->SetMovingRight(true);
 		}
-		if (m->IsChangeScreen_Diagonal_RDandLU(x, y))
-		{
-			if (isMovingRight) {
-				m->SetMovingRight(true);
-				m->SetMovingDown(true);
-			}
-			if (isMovingLeft) {
-				m->SetMovingLeft(true);
-				m->SetMovingUp(true);
-			}
-		}
-		if (m->IsChangeScreen_Diagonal_RUandLD(x, y))
-		{
-			if (isMovingRight) {
-				m->SetMovingRight(true);
-				m->SetMovingUp(true);
-			}
-			if (isMovingLeft) {
-				m->SetMovingLeft(true);
-				m->SetMovingDown(true);
-			}
+		if (m->IsChangeScreen_horizontal(x, y) && isMovingLeft) {
+			m->SetMovingLeft(true);
 		}
 
-		
-		if (m->ScreenX(x) <= 50) {
+		if (m->IsChangeScreen_Diagonal_RDandLU(x, y))
+		{
+			if (isMovingRight || is_landing)
+			{
+				m->SetMovingDown(true);
+				m->SetMovingRight(true);
+			}
+			if (isMovingLeft)
+			{
+				m->SetMovingUp(true);
+				m->SetMovingLeft(true);
+			}
+		}
+		if (m->IsChangeScreen_Diagonal_RUandLD(x,y))
+		{
+			if (isMovingRight)
+			{
+				m->SetMovingUp(true);
+				m->SetMovingRight(true);
+			}
+			if (isMovingLeft)
+			{
+				m->SetMovingDown(true);
+				m->SetMovingLeft(true);
+			}
+
+		}
+
+		if (m->IsScreenStopMoving(x, y)) { //強制停止視角移動
 			m->ScreenStopMoving();
 		}
-		/*
-		if (m->ScreenX(x) > 700) {
-			m->SetMovingLeft(false);
-			m->SetMovingUp(false);
-		}
-		*/
-		/*
-		if(m->ShowMovingDown() || m->ShowMovingLeft() || m->ShowMovingUp() || m->ShowMovingRight()) //視角移動時腳色不能移動
-		{
-			isMovingLeft = false;
-			isMovingRight = false;
-			isBombing = false;
-			is_landing = false;
-		}
-		*/
+
+
+	}
+	void  CEraser::setShowHeart(bool flag) 
+	{
+		isShowHeart = flag;
 	}
 	void CEraser::SetStepOnBomb(bool flag)
 	{
@@ -205,6 +247,11 @@ namespace game_framework {
 	void CEraser::SetMovingUp(bool flag)
 	{
 		isMovingUp = flag;
+	}
+
+	void CEraser::SetPressDown(bool flag)
+	{
+		isPressDown = flag;
 	}
 
 	void CEraser::SetXY(int nx, int ny)
@@ -240,6 +287,17 @@ namespace game_framework {
 			animation.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
 			animation.OnShow();
 		}
-
+		if (isShowHeart)
+		{
+			for (int i = 0; i < life_Max; i++) {
+				heart[i].SetTopLeft(20 +i* heart[i].Width(), 20);
+				heart[i].ShowBitmap();
+			}
+			showHeartCounter--;
+			if (showHeartCounter < 0) {
+				isShowHeart = false;
+				showHeartCounter = 30 * 3;
+			}
+		}
 	}
 }

@@ -150,6 +150,12 @@ IDB_start3              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\
 
 IDB_loading1            BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\loading1.bmp"
 
+IDB_GEM                 BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem.bmp"
+
+IDB_HEART               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\heart.bmp"
+
+IDB_GEMLEFT             BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_left.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
