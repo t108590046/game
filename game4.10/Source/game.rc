@@ -176,6 +176,16 @@ IDB_EIGHT               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\
 
 IDB_NINE                BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_9.bmp"
 
+IDB_BUTTON              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\BUTTON.bmp"
+
+IDB_BUTTON_LEFT         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\BUTTON_LEFT.bmp"
+
+IDB_BUTTON_RIGHT        BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\BUTTON_RIGHT.bmp"
+
+IDB_BUTTON_DOWN         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\BUTTON_DOWN.bmp"
+
+IDB_DOOR_TYPE_1         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\doorType_1.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

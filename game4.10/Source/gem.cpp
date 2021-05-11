@@ -15,15 +15,11 @@ namespace game_framework {
 		is_alive = true;
 		isShowNumGem = false;
 		x = y =  0;
-		numberOfGem = 0;
 		showNumGemCounter = 30 * 3;
+		totalGem = 0;
 	}
 	Gem::~Gem() {
 
-	}
-	void Gem::numGemAdd()
-	{
-		numberOfGem++;
 	}
 
 	bool Gem::HitChicken(CEraser *eraser)
@@ -65,6 +61,10 @@ namespace game_framework {
 	{
 		is_alive = alive;
 	}
+	void Gem::getGem(int n)
+	{
+		totalGem = n;
+	}
 
 	void Gem::SetXY(int nx, int ny)
 	{
@@ -73,14 +73,11 @@ namespace game_framework {
 	void Gem::setShowNumGem(bool flag)
 	{
 		isShowNumGem = flag;
-		if (flag) {
-			numberOfGem++;
-		}
 	}
 	void Gem::OnShow(CGameMap *m)
 	{
-		int tens = numberOfGem / 10;
-		int digits = numberOfGem % 10;
+		int tens = totalGem / 10;
+		int digits = totalGem % 10;
 		if (is_alive) {
 			gem_bitmap.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
 			gem_bitmap.ShowBitmap();

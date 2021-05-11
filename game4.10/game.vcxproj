@@ -262,6 +262,8 @@
     <ClCompile Include="Source\CBall.cpp" />
     <ClCompile Include="Source\CBouncingBall.cpp" />
     <ClCompile Include="Source\CEraser.cpp" />
+    <ClCompile Include="Source\door.cpp" />
+    <ClCompile Include="Source\doorButton.cpp" />
     <ClCompile Include="Source\game.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -311,6 +313,8 @@
     <ClInclude Include="Source\CBall.h" />
     <ClInclude Include="Source\CBouncingBall.h" />
     <ClInclude Include="Source\CEraser.h" />
+    <ClInclude Include="Source\door.h" />
+    <ClInclude Include="Source\doorButton.h" />
     <ClInclude Include="Source\game.h" />
     <ClInclude Include="Source\gameDoc.h" />
     <ClInclude Include="Source\gameMap.h" />
@@ -340,6 +344,11 @@
     <Image Include="RES\bomb2.bmp" />
     <Image Include="RES\bomb3.bmp" />
     <Image Include="RES\bombfire.bmp" />
+    <Image Include="RES\BUTTON.bmp" />
+    <Image Include="RES\BUTTON_DOWN.bmp" />
+    <Image Include="RES\BUTTON_LEFT.bmp" />
+    <Image Include="RES\BUTTON_RIGHT.bmp" />
+    <Image Include="RES\doorType_1.bmp" />
     <Image Include="RES\gem.bmp" />
     <Image Include="RES\gem_0.bmp" />
     <Image Include="RES\gem_1.bmp" />

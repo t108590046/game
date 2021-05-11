@@ -69,6 +69,7 @@ namespace game_framework {
 	{
 		TRACE("x:%d\n", x);
 		TRACE("y:%d\n", y);
+
 		const int STEP_SIZE = 5;
 		const int PIPE_SIZE = 15;
 		const int LANDING_SIZE = 10;
@@ -268,6 +269,11 @@ namespace game_framework {
 	{
 		return isMovingRight;
 	}
+	void CEraser::stopMoving()
+	{
+		isMovingLeft = isBombing = isMovingRight = is_landing =false;
+	}
+
 
 	void CEraser::OnShow(CGameMap *m)
 	{	

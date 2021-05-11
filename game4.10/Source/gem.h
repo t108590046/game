@@ -18,16 +18,17 @@ namespace game_framework {
 		void SetIsAlive(bool alive);							// 設定是否活著
 		void numGemAdd();
 		void setShowNumGem(bool flag);
+		void getGem(int n);
 	protected:
 		CMovingBitmap gem_bitmap;			// 球的圖	
 		CMovingBitmap gemLeft;
 		CMovingBitmap gemNumber_digits[10];
-		int x, y;					// 寶石的座標
+		int x, y;				// 寶石的座標
 		bool is_alive;				// 是否活著
-		int numberOfGem;
 		bool isShowNumGem;
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	// 是否碰到參數範圍的矩形
 		int showNumGemCounter;
+		int totalGem;
 	};
 }

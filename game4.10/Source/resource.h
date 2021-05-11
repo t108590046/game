@@ -74,8 +74,13 @@
 #define IDB_SIX                         214
 #define IDB_SEVEN                       215
 #define IDB_EIGHT                       216
-#define IDB_BITMAP8                     217
 #define IDB_NINE                        217
+#define IDB_BUTTON                      218
+#define IDB_BUTTON_LEFT                 219
+#define IDB_BUTTON_RIGHT                220
+#define IDB_BUTTON_DOWN                 221
+#define IDB_BITMAP7                     222
+#define IDB_DOOR_TYPE_1                 222
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -88,7 +93,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        218
+#define _APS_NEXT_RESOURCE_VALUE        223
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

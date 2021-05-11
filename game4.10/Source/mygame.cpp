@@ -232,12 +232,14 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
-	: CGameState(g), NUMBOMBS(10), NUMGEM(1)
+	: CGameState(g), NUMBOMBS(10), NUMGEM(12),NUMBTN(3)
 {
 	numberBomb = 0;
 	ball = new CBall [NUMBOMBS];
 	bomb = new Bomb[NUMBOMBS];
 	gem = new Gem[NUMGEM];
+	btn = new Button[NUMBTN];
+	door = new Door[NUMBTN];
 }
 
 CGameStateRun::~CGameStateRun()
@@ -245,7 +247,8 @@ CGameStateRun::~CGameStateRun()
 	delete [] ball;
 	delete [] bomb;
 	delete[] gem;
-
+	delete[] btn;
+	delete[] door;
 }
 
 void CGameStateRun::OnBeginState()
@@ -258,6 +261,7 @@ void CGameStateRun::OnBeginState()
 	const int HITS_LEFT_Y = 0;
 	const int BACKGROUND_X = 60;
 	const int ANIMATION_SPEED = 15;
+	nowTotalGem = 0;
 	for (int i = 0; i < NUMBOMBS; i++) {				// 設定球的起始座標
 		int x_pos = i % BALL_PER_ROW;
 		int y_pos = i / BALL_PER_ROW;
@@ -265,10 +269,37 @@ void CGameStateRun::OnBeginState()
 		ball[i].SetDelay(x_pos);
 		ball[i].SetIsAlive(true);
 	}
-	for (int i = 0; i < NUMGEM; i++) {				// 設定球的起始座標
-		gem[i].SetXY(100, 210);
+	//所有的寶石的座標
+	int allGemXY[12][2] = {{1290,510},
+						 {1870,470},
+						 {2045,430},
+						 {2420,380},
+						 {2735,360},
+						 {2735,250},
+						 {2735,140},
+						 {3480,580},
+						 {3480,520},
+						 {3180,290},
+						 {3210,290},
+						 {3240,290}};
+	for (int i = 0; i < NUMGEM; i++) {				
+		gem[i].SetXY(allGemXY[i][0], allGemXY[i][1]);
 		gem[i].SetIsAlive(true);
 	}
+	//所有的按鈕的座標{方向,x,y}
+	int allBtnXY[3][3] = { {0,60,485},
+						   {1,3095,595},
+	                       {3,3173,78} };
+	for (int i = 0; i < NUMBTN; i++) {
+		btn[i].SetXY(allBtnXY[i][0],allBtnXY[i][1], allBtnXY[i][2]);
+		btn[i].SetIsTouched(false);
+	}
+	int allDoorXY[3][3] = { {0,675,400} };
+	for (int i = 0; i < NUMBTN; i++) {
+		door[i].SetXY(allDoorXY[i][0], allDoorXY[i][1], allDoorXY[i][2]);
+		door[i].setIsOpenDoor(false);
+	}
+
 	eraser.Initialize();
 	background.SetTopLeft(BACKGROUND_X,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
@@ -310,8 +341,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		{
 			gem[i].SetIsAlive(false);
 			gem[i].setShowNumGem(true);
+			nowTotalGem++;
 			eraser.setShowHeart(true);
 		}
+		gem[i].getGem(nowTotalGem);
 	}
 	
 
@@ -336,12 +369,24 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			//	GotoGameState(GAME_STATE_OVER);
 		}
 	}
+
 	eraser.OnMove(&gamemap);
 	eraser.SetStepOnBomb(false);
 	for (int i = 0; i < NUMBOMBS; i++)
 	{
 		bomb[i].chickenPushBomb(&eraser);
 		bomb[i].OnMove(&eraser, &gamemap);
+	}
+	for (int i = 0; i < NUMBTN; i++)
+	{
+		if (!btn[i].IsTouched() && btn[i].touchButton(&eraser)) {
+			btn[i].SetIsTouched(true);
+			door[i].setIsOpenDoor(true); //把門打開
+		}
+		if (!door[i].isOpenDoor() && door[i].touchDoor(&eraser))
+		{
+			eraser.stopMoving();
+		}
 	}
 
 
@@ -353,6 +398,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
+	for (int i = 0; i < NUMBTN; i++) {
+		btn[i].LoadBitmap();
+		door[i].LoadBitmap();
+	}
 	gamemap.LoadBitmap();
 	for (int i = 0; i < NUMBOMBS; i++)
 		bomb[i].LoadBitmap();
@@ -492,12 +541,20 @@ void CGameStateRun::OnShow()
 	
 	
 	gamemap.OnShow();
+	for (int i = 0; i < NUMBTN; i++)
+	{
+		btn[i].OnShow(&gamemap);
+		door[i].OnShow(&gamemap);
+	}
 	eraser.OnShow(&gamemap);// 貼上擦子					
 	for (int i = 0; i < NUMBOMBS; i++)
 	{
 		bomb[i].OnShow(&gamemap);
 	}
-	gem->OnShow(&gamemap);
+	for (int i = 0; i < NUMGEM; i++)
+	{
+		gem[i].OnShow(&gamemap);
+	}
 	//
 	//  貼上左上及右下角落的圖
 	//

@@ -28,6 +28,7 @@ namespace game_framework {
 		bool check_MovingLeft();
 		bool check_MovingRight();
 		void setShowHeart(bool flag);
+		void stopMoving();
 	protected:
 		CAnimation animation;		// 擦子的動畫
 		CAnimation goToLeft;		//雞向左

@@ -44,6 +44,8 @@
 #include "CBouncingBall.h"
 #include "gameMap.h"
 #include "gem.h"
+#include "doorButton.h"
+#include "door.h"
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -99,6 +101,7 @@ namespace game_framework {
 	private:
 		const int		NUMBOMBS;	// 炸彈的總數
 		const int		NUMGEM;		// 寶石的總數
+		const int		NUMBTN;
 		CMovingBitmap	background;	// 背景圖
 		CMovingBitmap	help;		// 說明圖
 		CBall			*ball;		// 球的陣列
@@ -109,7 +112,10 @@ namespace game_framework {
 		//CBouncingBall   bball;		// 反覆彈跳的球
 		CGameMap		gamemap;
 		Bomb			*bomb;
+		Button			*btn;
+		Door			*door;
 		int				numberBomb;	
+		int				nowTotalGem;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

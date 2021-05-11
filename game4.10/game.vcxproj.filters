@@ -138,6 +138,12 @@
     <ClCompile Include="Source\gem.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\doorButton.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\door.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -183,6 +189,12 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\gem.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\doorButton.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\door.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
@@ -316,6 +328,21 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\gem_9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\BUTTON.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\BUTTON_LEFT.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\BUTTON_RIGHT.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\BUTTON_DOWN.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\doorType_1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
