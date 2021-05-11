@@ -12,6 +12,7 @@ namespace game_framework {
 		void OnShow(CGameMap *m);
 		void SetXY(int type, int nx, int ny);
 		void setIsOpenDoor(bool flag);
+		void openDoor(CGameMap *m);
 	protected:
 		CMovingBitmap door[1];
 		int x, y;

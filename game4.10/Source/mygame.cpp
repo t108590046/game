@@ -382,10 +382,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		if (!btn[i].IsTouched() && btn[i].touchButton(&eraser)) {
 			btn[i].SetIsTouched(true);
 			door[i].setIsOpenDoor(true); //把門打開
-		}
-		if (!door[i].isOpenDoor() && door[i].touchDoor(&eraser))
-		{
-			eraser.stopMoving();
+			door[i].openDoor(&gamemap);
 		}
 	}
 

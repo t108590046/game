@@ -31,6 +31,7 @@ namespace game_framework {
 		bool IsPipe(int x, int y);
 		bool IsScreenStopMoving(int x, int y);
 		void ScreenStopMoving();
+		void beAir(int x, int y, int x2, int y2);
 	protected:
 		CMovingBitmap blue, green,yellow,stage1;
 		int map[250][220];

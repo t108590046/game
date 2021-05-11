@@ -16,7 +16,13 @@ namespace game_framework {
 		x = y = 0;
 		doorType = 0;
 	}
-
+	void Door::openDoor(CGameMap *m) {
+		int x1 = x;
+		int y1 = y;
+		int x2 = x1 + door[doorType].Width();
+		int y2 = y1 + door[doorType].Height();
+		m->beAir(x1, y1, x2, y2);
+	}
 	bool Door::touchDoor(CEraser *eraser)
 	{
 		return HitRectangle(eraser->GetX1(), eraser->GetY1(),
