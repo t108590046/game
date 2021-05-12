@@ -232,7 +232,7 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
-	: CGameState(g), NUMBOMBS(10), NUMGEM(12),NUMBTN(3)
+	: CGameState(g), NUMBOMBS(30), NUMGEM(12),NUMBTN(3),NUM_WOOD_DOOR(2)
 {
 	numberBomb = 0;
 	ball = new CBall [NUMBOMBS];
@@ -240,6 +240,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 	gem = new Gem[NUMGEM];
 	btn = new Button[NUMBTN];
 	door = new Door[NUMBTN];
+	wooddoor = new woodDoor[NUM_WOOD_DOOR];
 }
 
 CGameStateRun::~CGameStateRun()
@@ -249,6 +250,7 @@ CGameStateRun::~CGameStateRun()
 	delete[] gem;
 	delete[] btn;
 	delete[] door;
+	delete[] wooddoor;
 }
 
 void CGameStateRun::OnBeginState()
@@ -294,12 +296,19 @@ void CGameStateRun::OnBeginState()
 		btn[i].SetXY(allBtnXY[i][0],allBtnXY[i][1], allBtnXY[i][2]);
 		btn[i].SetIsTouched(false);
 	}
-	int allDoorXY[3][3] = { {0,675,400},{0,3105,750},{1,3180,240} };
+	int allDoorXY[3][3] = { {0,675,400},{0,3105,750},{1,3170,240} };
 	for (int i = 0; i < NUMBTN; i++) {
 		door[i].SetXY(allDoorXY[i][0], allDoorXY[i][1], allDoorXY[i][2]);
 		door[i].setIsOpenDoor(false);
 	}
-
+	//所有木門的座標
+	int allWoodDoor[2][2] = { {1120,400},
+							  {1540,460} };
+	for (int i = 0; i < NUM_WOOD_DOOR; i++) 
+	{
+		wooddoor[i].SetXY(allWoodDoor[i][0], allWoodDoor[i][1]);
+		wooddoor[i].setIsOpenDoor(false);
+	}
 	eraser.Initialize();
 	background.SetTopLeft(BACKGROUND_X,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
@@ -317,6 +326,16 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));
 	//
+				//bomb[i].OnMove(&eraser, &gamemap);
+			//CAudio::Instance()->Play(AUDIO_DING);
+			//hits_left.Add(-1);
+			//
+			// 若剩餘碰撞次數為0，則跳到Game Over狀態
+			//
+			//if (hits_left.GetInteger() <= 0) {
+			//	CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+			//	CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
+			//	GotoGameState(GAME_STATE_OVER);
 	// 移動背景圖的座標
 	//
 
@@ -357,32 +376,40 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		if (bomb[i].IsAlive() && bomb[i].HitBomb(&eraser))
 		{
 			eraser.SetStepOnBomb(true);
-			//bomb[i].OnMove(&eraser, &gamemap);
-			//CAudio::Instance()->Play(AUDIO_DING);
-			//hits_left.Add(-1);
-			//
-			// 若剩餘碰撞次數為0，則跳到Game Over狀態
-			//
-			//if (hits_left.GetInteger() <= 0) {
-			//	CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
-			//	CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
-			//	GotoGameState(GAME_STATE_OVER);
 		}
-	}
+		if (bomb[i].IsAlive() && bomb[i].chickenPushBomb(&eraser))
+		{
+			if (eraser.check_MovingLeft()) 
+				bomb[i].setMovingLeft(true);
+			if(eraser.check_MovingRight())
+				bomb[i].setMovingRight(true);
+		}
+		bomb[i].OnMove(&eraser, &gamemap);
+		for (int j = 0; j < NUMBTN; j++)
+		{
+			if (!btn[j].IsTouched() && btn[j].touchButton(&bomb[i])) {
+				btn[j].SetIsTouched(true);
+				door[j].setIsOpenDoor(true); //把門打開
+				door[j].openDoor(&gamemap);
+			}
+		}
+		for (int j = 0; j < NUM_WOOD_DOOR; j++) { // 木門被炸彈炸開
+			if (!wooddoor[j].isOpenDoor() && bomb[i].beBombed(&wooddoor[j]))
+			{
+				wooddoor[j].setIsOpenDoor(true);
+				wooddoor[j].openDoor(&gamemap);
+			}
+		}
 
+	}
 	eraser.OnMove(&gamemap);
 	eraser.SetStepOnBomb(false);
-	for (int i = 0; i < NUMBOMBS; i++)
+	for (int j = 0; j < NUMBTN; j++)
 	{
-		bomb[i].chickenPushBomb(&eraser);
-		bomb[i].OnMove(&eraser, &gamemap);
-	}
-	for (int i = 0; i < NUMBTN; i++)
-	{
-		if (!btn[i].IsTouched() && btn[i].touchButton(&eraser)) {
-			btn[i].SetIsTouched(true);
-			door[i].setIsOpenDoor(true); //把門打開
-			door[i].openDoor(&gamemap);
+		if (!btn[j].IsTouched() && btn[j].touchButton(&eraser)) {
+			btn[j].SetIsTouched(true);
+			door[j].setIsOpenDoor(true); //把門打開
+			door[j].openDoor(&gamemap);
 		}
 	}
 
@@ -393,11 +420,14 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//bball.OnMove();
 }
 
-void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
+void CGameStateRun::OnInit()  // 遊戲的初值及圖形設定
 {
 	for (int i = 0; i < NUMBTN; i++) {
 		btn[i].LoadBitmap();
 		door[i].LoadBitmap();
+	}
+	for (int i = 0; i < NUM_WOOD_DOOR; i++) {
+		wooddoor[i].LoadBitmap();
 	}
 	gamemap.LoadBitmap();
 	for (int i = 0; i < NUMBOMBS; i++)
@@ -458,7 +488,8 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if(nChar == KEY_SPACE)
 	{	
 		eraser.SetBombing(true);
-		CSpecialEffect::SetCurrentTime();
+		eraser.SetMovingLeft(false);
+		eraser.SetMovingRight(false);
 		bomb[numberBomb].SetXY(eraser.GetX1(), eraser.GetY1());
 		bomb[numberBomb].SetIsAlive(true);
 		bomb[numberBomb].setBombAnimation();
@@ -496,12 +527,10 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	eraser.SetMovingLeft(true);
 }
 
 void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	eraser.SetMovingLeft(false);
 }
 
 void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
@@ -511,12 +540,10 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	eraser.SetMovingRight(true);
 }
 
 void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	eraser.SetMovingRight(false);
 }
 
 void CGameStateRun::OnShow()
@@ -551,6 +578,9 @@ void CGameStateRun::OnShow()
 	for (int i = 0; i < NUMGEM; i++)
 	{
 		gem[i].OnShow(&gamemap);
+	}
+	for (int i = 0; i < NUM_WOOD_DOOR; i++) {
+		wooddoor[i].OnShow(&gamemap);
 	}
 	//
 	//  貼上左上及右下角落的圖

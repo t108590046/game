@@ -186,7 +186,9 @@ IDB_BUTTON_DOWN         BITMAP                  "..\\res\\BUTTON_DOWN.bmp"
 
 IDB_DOOR_TYPE_1         BITMAP                  "..\\res\\doorType_1.bmp"
 
-IDB_DOOR_TYPE_2         BITMAP                  "D:\\OOP games\\game4.10\\RES\\doorType_2.bmp"
+IDB_DOOR_TYPE_2         BITMAP                  "..\\res\\doorType_2.bmp"
+
+IDB_WOOD_DOOR           BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\woodDoor.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

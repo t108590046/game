@@ -144,6 +144,9 @@
     <ClCompile Include="Source\door.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\woodDoor.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -195,6 +198,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\door.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\woodDoor.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
@@ -349,6 +355,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\doorType_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\woodDoor.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

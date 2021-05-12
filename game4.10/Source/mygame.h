@@ -46,6 +46,7 @@
 #include "gem.h"
 #include "doorButton.h"
 #include "door.h"
+#include "woodDoor.h"
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -102,6 +103,7 @@ namespace game_framework {
 		const int		NUMBOMBS;	// 炸彈的總數
 		const int		NUMGEM;		// 寶石的總數
 		const int		NUMBTN;
+		const int		NUM_WOOD_DOOR;
 		CMovingBitmap	background;	// 背景圖
 		CMovingBitmap	help;		// 說明圖
 		CBall			*ball;		// 球的陣列
@@ -114,6 +116,7 @@ namespace game_framework {
 		Bomb			*bomb;
 		Button			*btn;
 		Door			*door;
+		woodDoor		*wooddoor;
 		int				numberBomb;	
 		int				nowTotalGem;
 	};

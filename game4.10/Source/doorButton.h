@@ -6,7 +6,8 @@ namespace game_framework {
 	{
 	public:
 		Button();
-		bool touchButton(CEraser *eraser);						
+		bool touchButton(CEraser *eraser);		
+		bool touchButton(Bomb *bomb);
 		bool IsTouched();										
 		void LoadBitmap();										
 		void OnShow(CGameMap *m);								

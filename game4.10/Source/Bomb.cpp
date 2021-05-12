@@ -9,6 +9,7 @@
 #include "gameMap.h"
 #include <ctime>
 #include <cmath>
+#include "woodDoor.h"
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Bomb: Ball class
@@ -16,17 +17,60 @@ namespace game_framework {
 	
 	Bomb::Bomb()
 	{
-		is_alive = is_putBomb = is_bePushed = false;
+		is_alive = is_putBomb = isMovingLeft = isMovingRight = isBombing = false;		
 		x = y = 0;
+		bombTimeCounter = 35 * 2;
+		bombingTimeCounter = 15 * 1;
 	}
-	Bomb::Bomb(int ix,int iy)
+	int Bomb::GetX1()
 	{
-		is_alive = is_putBomb = false;
-		x = ix;
-		y = iy;
+		return x;
 	}
 
-	void Bomb::chickenPushBomb(CEraser *eraser)
+	int Bomb::GetY1()
+	{
+		return y;
+	}
+
+	int Bomb::GetX2()
+	{
+		return x + bmp.Width();
+	}
+
+	int Bomb::GetY2()
+	{
+		return y + bmp.Height();
+	}
+
+	bool Bomb::beBombed(woodDoor *door)
+	{
+		if (isBombing) {
+			int tx1 = door->GetX1();
+			int tx2 = door->GetX2();
+			int ty1 = door->GetY1();
+			int ty2 = door->GetY2();
+			int x1 = x;
+			int y1 = y;
+			int x2 = x1 + bmpBombing.Width();
+			int y2 = y1 + bmpBombing.Height();
+			return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	void Bomb::setMovingRight(bool flag)
+	{
+		isMovingRight = flag;
+	}	
+	void Bomb::setMovingLeft(bool flag) 
+	{
+		isMovingLeft = flag;
+	}
+
+	bool Bomb::chickenPushBomb(CEraser *eraser)
 	{
 		int tx1 = eraser->GetX1();
 		int tx2 = eraser->GetX2();
@@ -36,14 +80,7 @@ namespace game_framework {
 		int y1 = y;				
 		int x2 = x1 + bmp.Width();	
 		int y2 = y1 + bmp.Height();	
-		if(tx2 >= x1 && tx1 <= x2 && ty2 >= y2)
-		{
-			is_bePushed = true;
-		}
-		else
-		{
-			is_bePushed = false;
-		}
+		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y2);
 	}
 	
 	bool Bomb::HitBomb(CEraser *eraser)
@@ -59,7 +96,7 @@ namespace game_framework {
 		int x2 = x1 + bmp.Width();	// 球的右下角x座標
 		int y2 = y1 + bmp.Height();	// 球的右下角y座標
 									// 檢測球的矩形與參數矩形是否有交集
-		return (tx2 >= x1 && tx1 <= x2 &&  ty1 <= y1);
+		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
 	bool Bomb::IsAlive()
@@ -72,63 +109,51 @@ namespace game_framework {
 		bmp.AddBitmap(IDB_Bomb1, RGB(34, 177, 76));			// 載入球的圖形
 		bmp.AddBitmap(IDB_Bomb2, RGB(34, 177, 76));				
 		bmp.AddBitmap(IDB_Bomb3, RGB(34, 177, 76));		
-		bmp.AddBitmap(IDB_Bombfire, RGB(34, 177, 76));
+		bmpBombing.AddBitmap(IDB_Bombfire, RGB(34, 177, 76));
 		bmp.SetDelayCount(25);
 	}
 
 	void Bomb::OnMove(CEraser *eraser, CGameMap *m)
 	{
+
 		bmp.OnMove();
-		const int STEP_SIZE = 300;
+		const int STEP_SIZE = 15;
 		if (!is_alive)
 			return;
-		if(eraser->check_MovingLeft() && is_bePushed)
+		if (m->ScreenX(x) >= 760 || m->ScreenX(x) <= 0)
 		{
-			if (m->IsEmpty(x - STEP_SIZE, y)) 
-			{
+			is_alive = false;
+			isMovingLeft = false;
+			isMovingRight = false;
+
+		}
+		if (is_alive && isMovingLeft)
+		{
+			if (m->IsEmpty(x, y)) {
 				x -= STEP_SIZE;
 			}
-
-		}
-		else if (eraser->check_MovingRight() && is_bePushed)
-		{
-			if (m->IsEmpty(x + bmp.Width() + STEP_SIZE, y))
-			{
-				x += STEP_SIZE;
+			else {
+				isMovingLeft = false;
+				is_alive = false;
+				isBombing = true;
 			}
 		}
-
-		/*
-		delay_counter--;
-		if (delay_counter < 0) {
-			delay_counter = delay;
-			//
-			// 計算球向對於圓心的位移量dx, dy
-			//
-			const int STEPS = 18;
-			static const int DIFFX[] = { 35, 32, 26, 17, 6, -6, -17, -26, -32, -34, -32, -26, -17, -6, 6, 17, 26, 32, };
-			static const int DIFFY[] = { 0, 11, 22, 30, 34, 34, 30, 22, 11, 0, -11, -22, -30, -34, -34, -30, -22, -11, };
-			index++;
-			if (index >= STEPS)
-				index = 0;
-			dx = DIFFX[index];
-			dy = DIFFY[index];
-		}*/
-	}
-	/*
-	void Bomb::SetDelay(int d)
-	{
-		delay = d;
-	}
-*/
-	
+		else if (is_alive && isMovingRight)
+		{
+			if (m->IsEmpty(x+ STEP_SIZE+ bmp.Width(), y)) {
+				x += STEP_SIZE;
+			}
+			else {
+				isMovingRight = false;
+				is_alive = false;
+				isBombing = true;
+			}
+		}
+		
+	}	
 	void Bomb::SetIsAlive(bool alive)
 	{
 		is_alive = alive;
-		if (alive == true)
-		{
-			start = clock();
-		}
 	}
 
 	void Bomb::SetXY(int nx, int ny)
@@ -140,26 +165,33 @@ namespace game_framework {
 	{
 		if (is_alive)
 		{
-			finish = clock();
-			if((double)(finish - start) / CLOCKS_PER_SEC >= 3)
+			bombTimeCounter--;
+			if(bombTimeCounter < 0)
 			{
 				is_alive = false;
+				isBombing = true;
+				bombTimeCounter = 35 * 2;
 			}
 			else 
 			{
-					bmp.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
-					bmp.OnShow();
+				bmp.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
+				bmp.OnShow();
+			}
+		}
+		if (isBombing) {
+			bombingTimeCounter--;
+			if (bombingTimeCounter < 0)
+			{
+				isBombing = false;
+				bombingTimeCounter = 15 * 1;
+			}
+			else
+			{
+				bmpBombing.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
+				bmpBombing.OnShow();
 			}
 		}
 
-		/*
-		if (is_alive) {
-			bmp.SetTopLeft(x + dx, y + dy);
-			bmp.ShowBitmap();
-			bmp_center.SetTopLeft(x, y);
-			bmp_center.ShowBitmap();
-		}
-		*/
 	}
 	void Bomb::SetBomb(bool flag)
 	{

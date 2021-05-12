@@ -7,7 +7,7 @@
 #include "CEraser.h"
 #include "gameMap.h"
 #include "doorButton.h"
-
+#include "Bomb.h"
 namespace game_framework {
 
 	Button::Button()
@@ -21,6 +21,11 @@ namespace game_framework {
 	{
 		return HitRectangle(eraser->GetX1(), eraser->GetY1(),
 			eraser->GetX2(), eraser->GetY2());
+	}
+	bool Button::touchButton(Bomb *bomb)
+	{
+		return HitRectangle(bomb->GetX1(), bomb->GetY1(),
+			bomb->GetX2(), bomb->GetY2());
 	}
 
 	bool Button::HitRectangle(int tx1, int ty1, int tx2, int ty2)
