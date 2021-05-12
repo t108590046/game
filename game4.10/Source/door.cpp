@@ -46,6 +46,8 @@ namespace game_framework {
 	void Door::LoadBitmap()
 	{
 		door[0].LoadBitmap(IDB_DOOR_TYPE_1, RGB(34, 177, 76));
+		door[1].LoadBitmap(IDB_DOOR_TYPE_2, RGB(34, 177, 76));
+
 	}
 	void Door::setIsOpenDoor(bool flag)
 	{

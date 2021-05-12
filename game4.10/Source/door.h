@@ -14,7 +14,7 @@ namespace game_framework {
 		void setIsOpenDoor(bool flag);
 		void openDoor(CGameMap *m);
 	protected:
-		CMovingBitmap door[1];
+		CMovingBitmap door[2];
 		int x, y;
 		int doorType; //«ö¶sªº¤è¦V
 		bool isOpen;

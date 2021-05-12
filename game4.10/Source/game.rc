@@ -124,67 +124,69 @@ IDB_BLUE                BITMAP                  "..\\res\\bmp00001.bmp"
 
 IDB_YELLOW              BITMAP                  "..\\res\\bmp00002.bmp"
 
-IDB_Bomb1               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\bomb1.bmp"
+IDB_Bomb1               BITMAP                  "..\\res\\bomb1.bmp"
 
 IDB_Stage1_1            BITMAP                  "..\\res\\stage1_1.bmp"
 
 IDB_Stage1_2            BITMAP                  "..\\res\\stage1_2.bmp"
 
-IDB_Stage1_3            BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\stage1_3.bmp"
+IDB_Stage1_3            BITMAP                  "..\\res\\stage1_3.bmp"
 
-IDB_Stage1              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\stage1.bmp"
+IDB_Stage1              BITMAP                  "..\\res\\stage1.bmp"
 
-IDB_Bomb2               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\bomb2.bmp"
+IDB_Bomb2               BITMAP                  "..\\res\\bomb2.bmp"
 
-IDB_Bomb3               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\bomb3.bmp"
+IDB_Bomb3               BITMAP                  "..\\res\\bomb3.bmp"
 
-IDB_Bombfire            BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\bombfire.bmp"
+IDB_Bombfire            BITMAP                  "..\\res\\bombfire.bmp"
 
-IDB_start0              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\Start_0.bmp"
+IDB_start0              BITMAP                  "..\\res\\Start_0.bmp"
 
-IDB_start1              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\Start_1.bmp"
+IDB_start1              BITMAP                  "..\\res\\Start_1.bmp"
 
-IDB_start2              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\Start_2.bmp"
+IDB_start2              BITMAP                  "..\\res\\Start_2.bmp"
 
-IDB_start3              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\Start_3.bmp"
+IDB_start3              BITMAP                  "..\\res\\Start_3.bmp"
 
-IDB_loading1            BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\loading1.bmp"
+IDB_loading1            BITMAP                  "..\\res\\loading1.bmp"
 
-IDB_GEM                 BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem.bmp"
+IDB_GEM                 BITMAP                  "..\\res\\gem.bmp"
 
-IDB_HEART               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\heart.bmp"
+IDB_HEART               BITMAP                  "..\\res\\heart.bmp"
 
-IDB_GEMLEFT             BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_left.bmp"
+IDB_GEMLEFT             BITMAP                  "..\\res\\gem_left.bmp"
 
-IDB_ZERO                BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_0.bmp"
+IDB_ZERO                BITMAP                  "..\\res\\gem_0.bmp"
 
-IDB_ONE                 BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_1.bmp"
+IDB_ONE                 BITMAP                  "..\\res\\gem_1.bmp"
 
-IDB_TWO                 BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_2.bmp"
+IDB_TWO                 BITMAP                  "..\\res\\gem_2.bmp"
 
-IDB_THREE               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_3.bmp"
+IDB_THREE               BITMAP                  "..\\res\\gem_3.bmp"
 
-IDB_FOUR                BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_4.bmp"
+IDB_FOUR                BITMAP                  "..\\res\\gem_4.bmp"
 
-IDB_FIVE                BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_5.bmp"
+IDB_FIVE                BITMAP                  "..\\res\\gem_5.bmp"
 
-IDB_SIX                 BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_6.bmp"
+IDB_SIX                 BITMAP                  "..\\res\\gem_6.bmp"
 
-IDB_SEVEN               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_7.bmp"
+IDB_SEVEN               BITMAP                  "..\\res\\gem_7.bmp"
 
-IDB_EIGHT               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_8.bmp"
+IDB_EIGHT               BITMAP                  "..\\res\\gem_8.bmp"
 
-IDB_NINE                BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gem_9.bmp"
+IDB_NINE                BITMAP                  "..\\res\\gem_9.bmp"
 
-IDB_BUTTON              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\BUTTON.bmp"
+IDB_BUTTON              BITMAP                  "..\\res\\BUTTON.bmp"
 
-IDB_BUTTON_LEFT         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\BUTTON_LEFT.bmp"
+IDB_BUTTON_LEFT         BITMAP                  "..\\res\\BUTTON_LEFT.bmp"
 
-IDB_BUTTON_RIGHT        BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\BUTTON_RIGHT.bmp"
+IDB_BUTTON_RIGHT        BITMAP                  "..\\res\\BUTTON_RIGHT.bmp"
 
-IDB_BUTTON_DOWN         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\BUTTON_DOWN.bmp"
+IDB_BUTTON_DOWN         BITMAP                  "..\\res\\BUTTON_DOWN.bmp"
 
-IDB_DOOR_TYPE_1         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\doorType_1.bmp"
+IDB_DOOR_TYPE_1         BITMAP                  "..\\res\\doorType_1.bmp"
+
+IDB_DOOR_TYPE_2         BITMAP                  "D:\\OOP games\\game4.10\\RES\\doorType_2.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -294,7 +294,7 @@ void CGameStateRun::OnBeginState()
 		btn[i].SetXY(allBtnXY[i][0],allBtnXY[i][1], allBtnXY[i][2]);
 		btn[i].SetIsTouched(false);
 	}
-	int allDoorXY[3][3] = { {0,675,400} };
+	int allDoorXY[3][3] = { {0,675,400},{0,3105,750},{1,3180,240} };
 	for (int i = 0; i < NUMBTN; i++) {
 		door[i].SetXY(allDoorXY[i][0], allDoorXY[i][1], allDoorXY[i][2]);
 		door[i].setIsOpenDoor(false);

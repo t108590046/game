@@ -345,5 +345,11 @@
     <Image Include="RES\doorType_1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\bitmap8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\doorType_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
