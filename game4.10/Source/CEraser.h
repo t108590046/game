@@ -15,7 +15,7 @@ namespace game_framework {
 		int  GetY2();					// 擦子右下角 y 座標
 		void Initialize();				// 設定擦子為初始值
 		void LoadBitmap();				// 載入圖形
-		void OnMove(CGameMap *m);					// 移動擦子
+		void OnMove(CGameMap *m,Bomb *bomb);					// 移動擦子
 		void OnShow(CGameMap *m);					// 將擦子圖形貼到畫面
 		void SetBombing(bool flag);	// 設定是否正在下炸彈
 		void SetMovingLeft(bool flag);	// 設定是否正在往左移動
@@ -27,15 +27,22 @@ namespace game_framework {
 		void SetStepOnBomb(bool flag);
 		bool check_MovingLeft();
 		bool check_MovingRight();
+		bool check_IsBombing();
+		bool checkCanPutBomb();
 		void setShowHeart(bool flag);
 		void stopMoving();
+		void minusNowLife();
+		void setHurt(bool flag);
+		int getNowLife();
+		void returnSavePoint();
 	protected:
 		CAnimation animation;		// 擦子的動畫
 		CAnimation goToLeft;		//雞向左
 		CAnimation goToRight;		//雞向右
 		CAnimation putBomb;			//雞放炸彈
-		CMovingBitmap heart[20];
+		CMovingBitmap heart,emptyHeart;
 		int x, y;					// 擦子左上角座標
+		int savePointX, savePointY;
 		bool isBombing;			// 是否正在下炸彈
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動
@@ -46,6 +53,8 @@ namespace game_framework {
 		bool isInPipeGoToUp;
 		bool isInPipeGoToDown;
 		bool isShowHeart; 
+		bool isCanPutBomb;
+		bool isHurt;
 		int life_Max; //生命上限
 		int nowLife; // 目前生命
 		int showHeartCounter;

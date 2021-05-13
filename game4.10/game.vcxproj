@@ -264,6 +264,7 @@
     <ClCompile Include="Source\CEraser.cpp" />
     <ClCompile Include="Source\door.cpp" />
     <ClCompile Include="Source\doorButton.cpp" />
+    <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\game.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -286,6 +287,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="Source\Rock.cpp" />
     <ClCompile Include="Source\StdAfx.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -306,6 +308,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="Source\Treasure.cpp" />
     <ClCompile Include="Source\woodDoor.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +319,7 @@
     <ClInclude Include="Source\CEraser.h" />
     <ClInclude Include="Source\door.h" />
     <ClInclude Include="Source\doorButton.h" />
+    <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\game.h" />
     <ClInclude Include="Source\gameDoc.h" />
     <ClInclude Include="Source\gameMap.h" />
@@ -323,9 +327,11 @@
     <ClInclude Include="Source\gem.h" />
     <ClInclude Include="Source\MainFrm.h" />
     <ClInclude Include="Source\Resource.h" />
+    <ClInclude Include="Source\Rock.h" />
     <ClInclude Include="Source\StdAfx.h" />
     <ClInclude Include="Source\gamelib.h" />
     <ClInclude Include="Source\mygame.h" />
+    <ClInclude Include="Source\Treasure.h" />
     <ClInclude Include="Source\woodDoor.h" />
   </ItemGroup>
   <ItemGroup>
@@ -353,6 +359,10 @@
     <Image Include="RES\BUTTON_RIGHT.bmp" />
     <Image Include="RES\doorType_1.bmp" />
     <Image Include="RES\doorType_2.bmp" />
+    <Image Include="RES\empty_heart.bmp" />
+    <Image Include="RES\enemy_4_Left.bmp" />
+    <Image Include="RES\enemy_4_Right.bmp" />
+    <Image Include="RES\gameover.bmp" />
     <Image Include="RES\gem.bmp" />
     <Image Include="RES\gem_0.bmp" />
     <Image Include="RES\gem_1.bmp" />
@@ -373,6 +383,7 @@
     <Image Include="RES\rightrun4.bmp" />
     <Image Include="RES\rightrun5.bmp" />
     <Image Include="RES\rightrun6.bmp" />
+    <Image Include="RES\rock.bmp" />
     <Image Include="RES\stage1.bmp" />
     <Image Include="RES\stage1_1.bmp" />
     <Image Include="RES\stage1_2.bmp" />
@@ -381,6 +392,7 @@
     <Image Include="RES\Start_1.bmp" />
     <Image Include="RES\Start_2.bmp" />
     <Image Include="RES\Start_3.bmp" />
+    <Image Include="RES\treasure.bmp" />
     <Image Include="RES\up.bmp" />
     <Image Include="RES\right.bmp" />
     <Image Include="RES\left.bmp" />

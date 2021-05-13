@@ -190,6 +190,18 @@ IDB_DOOR_TYPE_2         BITMAP                  "..\\res\\doorType_2.bmp"
 
 IDB_WOOD_DOOR           BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\woodDoor.bmp"
 
+IDB_TREASURE            BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\treasure.bmp"
+
+IDB_ROCK                BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\rock.bmp"
+
+IDB_EMPTY_HEART         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\empty_heart.bmp"
+
+IDB_GAMEOVER            BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\gameover.bmp"
+
+IDB_ENEMY_01_LEFT       BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\enemy_4_Left.bmp"
+
+IDB_ENEMY_01_RIGHT      BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\enemy_4_Right.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

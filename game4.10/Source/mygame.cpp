@@ -184,19 +184,15 @@ CGameStateOver::CGameStateOver(CGame *g)
 
 void CGameStateOver::OnMove()
 {
-	counter--;
-	if (counter < 0)
-		GotoGameState(GAME_STATE_INIT);
 }
 
 void CGameStateOver::OnBeginState()
 {
-	counter = 30 * 5; // 5 seconds
 }
 
 void CGameStateOver::OnInit()
 {
-	//
+	gameOver.LoadBitmap(IDB_GAMEOVER);
 	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
 	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
@@ -213,18 +209,8 @@ void CGameStateOver::OnInit()
 
 void CGameStateOver::OnShow()
 {
-	/*
-	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
-	CFont f,*fp;
-	f.CreatePointFont(160,"Times New Roman");	// 產生 font f; 160表示16 point的字
-	fp=pDC->SelectObject(&f);					// 選用 font f
-	pDC->SetBkColor(RGB(0,0,0));
-	pDC->SetTextColor(RGB(255,255,0));
-	char str[80];								// Demo 數字對字串的轉換
-	sprintf(str, "Game Over ! (%d)", counter / 30);
-	pDC->TextOut(240,210,str);
-	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
-	CDDraw::ReleaseBackCDC();	*/				// 放掉 Back Plain 的 CDC
+	gameOver.SetTopLeft(0, 0);
+	gameOver.ShowBitmap();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -232,7 +218,7 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
-	: CGameState(g), NUMBOMBS(30), NUMGEM(12),NUMBTN(3),NUM_WOOD_DOOR(2)
+	: CGameState(g), NUMBOMBS(30), NUMGEM(12), NUMBTN(3), NUM_WOOD_DOOR(2), NUMTREASURE(1),NUMROCK(2)
 {
 	numberBomb = 0;
 	ball = new CBall [NUMBOMBS];
@@ -241,6 +227,8 @@ CGameStateRun::CGameStateRun(CGame *g)
 	btn = new Button[NUMBTN];
 	door = new Door[NUMBTN];
 	wooddoor = new woodDoor[NUM_WOOD_DOOR];
+	treasure = new Treasure[NUMTREASURE];
+	rock = new Rock[NUMROCK];
 }
 
 CGameStateRun::~CGameStateRun()
@@ -251,6 +239,8 @@ CGameStateRun::~CGameStateRun()
 	delete[] btn;
 	delete[] door;
 	delete[] wooddoor;
+	delete[] treasure;
+	delete[] rock;
 }
 
 void CGameStateRun::OnBeginState()
@@ -309,6 +299,18 @@ void CGameStateRun::OnBeginState()
 		wooddoor[i].SetXY(allWoodDoor[i][0], allWoodDoor[i][1]);
 		wooddoor[i].setIsOpenDoor(false);
 	}
+	//所有寶藏的座標
+	int allTreasure[1][2] = { {2230,615} };
+	for (int i = 0; i < NUMTREASURE; i++) {
+		treasure[i].SetXY(allTreasure[i][0], allTreasure[i][1]);
+		treasure[i].SetIsOpen(false);
+	}
+	//所有石頭的座標
+	int allRock[2][2] = { {2560,585},{2560,522} };
+	for (int i = 0; i < NUMROCK; i++) {
+		rock[i].SetXY(allRock[i][0], allRock[i][1]);
+		rock[i].setIsOpenRock(false);
+	}
 	eraser.Initialize();
 	background.SetTopLeft(BACKGROUND_X,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
@@ -351,7 +353,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// 移動擦子
 	//
-	gamemap.OnMove(&eraser);
+
 	//判斷雞是否碰到寶石
 	
 	for (int i = 0; i < NUMGEM; i++) 
@@ -365,26 +367,56 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		}
 		gem[i].getGem(nowTotalGem);
 	}
-	
 
 
 	// 判斷炸彈是否碰到雞
 	//
-	
 	for (int i=0; i < NUMBOMBS; i++)
 	{
-		if (bomb[i].IsAlive() && bomb[i].HitBomb(&eraser))
+		bomb[i].OnMove(&eraser, &gamemap);
+		if (bomb[i].IsAlive() && bomb[i].HitBomb(&eraser)) //踩在炸彈上
 		{
 			eraser.SetStepOnBomb(true);
 		}
-		if (bomb[i].IsAlive() && bomb[i].chickenPushBomb(&eraser))
+		if ((bomb[i].IsAlive() && !bomb[i].HitBomb(&eraser)))
+		{
+			eraser.SetStepOnBomb(false);
+		}
+		if (bomb[i].IsBombing() && bomb[i].HitBomb(&eraser)) {
+			eraser.SetStepOnBomb(false);
+		}
+		if (bomb[i].IsAlive() && bomb[i].chickenPushBomb(&eraser)) //推炸彈
 		{
 			if (eraser.check_MovingLeft()) 
 				bomb[i].setMovingLeft(true);
 			if(eraser.check_MovingRight())
 				bomb[i].setMovingRight(true);
 		}
-		bomb[i].OnMove(&eraser, &gamemap);
+		
+		for (int j = 0; j < NUMBOMBS; j++) {
+			if (i != j) {
+				if ( bomb[j].IsAlive()  && (bomb[i].beBombed(&bomb[j]))) {
+					bomb[j].SetIsAlive(false);
+					bomb[j].setIsBombing(true);
+				}
+				if (bomb[j].IsAlive() && bomb[i].IsAlive() && bomb[i].isMoving() && bomb[i].HitBomb(&bomb[j])) {
+					bomb[j].SetIsAlive(false);
+					bomb[j].setIsBombing(true);
+					bomb[i].SetIsAlive(false);
+					bomb[i].setIsBombing(true);
+				}
+			}
+		}
+		if (bomb[i].IsBombing() && bomb[i].beBombed(&eraser)) {
+			eraser.minusNowLife();
+			if (eraser.getNowLife() < 0) {
+				GotoGameState(GAME_STATE_OVER);
+			}
+			eraser.returnSavePoint();
+			gamemap.returnSavePoint();
+			eraser.setShowHeart(true);
+			gem[0].setShowNumGem(true);
+		}
 		for (int j = 0; j < NUMBTN; j++)
 		{
 			if (!btn[j].IsTouched() && btn[j].touchButton(&bomb[i])) {
@@ -400,10 +432,23 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				wooddoor[j].openDoor(&gamemap);
 			}
 		}
-
+		for (int j = 0; j < NUMROCK; j++) { // 石頭被炸彈炸開
+			if (!rock[j].isOpenRock() && bomb[i].beBombed(&rock[j]))
+			{
+				rock[j].setIsOpenRock(true);
+				rock[j].openRock(&gamemap);
+			}
+		}
+		for (int j = 0; j < NUMTREASURE; j++) {
+			if (!treasure[j].isOpen() && bomb[i].beBombed(&treasure[j])) {
+				treasure[j].SetIsOpen(true);
+				nowTotalGem += 5;
+				gem[0].setShowNumGem(true);
+				eraser.setShowHeart(true);
+			}
+		}
 	}
-	eraser.OnMove(&gamemap);
-	eraser.SetStepOnBomb(false);
+	eraser.OnMove(&gamemap,bomb);
 	for (int j = 0; j < NUMBTN; j++)
 	{
 		if (!btn[j].IsTouched() && btn[j].touchButton(&eraser)) {
@@ -412,8 +457,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			door[j].openDoor(&gamemap);
 		}
 	}
-
-
+	gamemap.OnMove(&eraser);
+	//扣血死掉結束
+	/*
+*/
 	//
 	// 移動彈跳的球
 	//
@@ -425,6 +472,12 @@ void CGameStateRun::OnInit()  // 遊戲的初值及圖形設定
 	for (int i = 0; i < NUMBTN; i++) {
 		btn[i].LoadBitmap();
 		door[i].LoadBitmap();
+	}
+	for (int i = 0; i < NUMTREASURE; i++) {
+		treasure[i].LoadBitmap();
+	}
+	for (int i = 0; i < NUMROCK; i++) {
+		rock[i].LoadBitmap();
 	}
 	for (int i = 0; i < NUM_WOOD_DOOR; i++) {
 		wooddoor[i].LoadBitmap();
@@ -485,18 +538,16 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	if (nChar == KEY_DOWN)
 		eraser.SetPressDown(true);
 
-	if(nChar == KEY_SPACE)
-	{	
+	if (nChar == KEY_SPACE)
+	{
 		eraser.SetBombing(true);
-		eraser.SetMovingLeft(false);
-		eraser.SetMovingRight(false);
-		bomb[numberBomb].SetXY(eraser.GetX1(), eraser.GetY1());
-		bomb[numberBomb].SetIsAlive(true);
-		bomb[numberBomb].setBombAnimation();
-		//bomb[numberBomb].SetBomb(true);
-		numberBomb++;
-		if (numberBomb == NUMBOMBS) {
-			numberBomb = 0;
+		if (eraser.checkCanPutBomb()) {
+			bomb[numberBomb].SetXY(eraser.GetX1(), eraser.GetY1());
+			bomb[numberBomb].SetIsAlive(true);
+			bomb[numberBomb].setBombAnimation();
+			numberBomb++;
+			if (numberBomb == NUMBOMBS)
+				numberBomb = 0;
 		}
 	}
 }
@@ -570,17 +621,25 @@ void CGameStateRun::OnShow()
 		btn[i].OnShow(&gamemap);
 		door[i].OnShow(&gamemap);
 	}
-	eraser.OnShow(&gamemap);// 貼上擦子					
-	for (int i = 0; i < NUMBOMBS; i++)
-	{
-		bomb[i].OnShow(&gamemap);
-	}
 	for (int i = 0; i < NUMGEM; i++)
 	{
 		gem[i].OnShow(&gamemap);
 	}
 	for (int i = 0; i < NUM_WOOD_DOOR; i++) {
 		wooddoor[i].OnShow(&gamemap);
+	}
+	for (int i = 0; i < NUMTREASURE; i++)
+	{
+		treasure[i].OnShow(&gamemap);
+	}
+	for (int i = 0; i < NUMROCK; i++)
+	{
+		rock[i].OnShow(&gamemap);
+	}
+	eraser.OnShow(&gamemap);// 貼上擦子			
+	for (int i = 0; i < NUMBOMBS; i++)
+	{
+		bomb[i].OnShow(&gamemap);
 	}
 	//
 	//  貼上左上及右下角落的圖

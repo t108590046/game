@@ -5,29 +5,25 @@ namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	class CEraser;
 	class CMovingBitmap;
-	class Gem
+	class Treasure
 	{
 	public:
-		Gem();
-		~Gem();
-		bool HitChicken(CEraser *eraser);						// 是否碰到小雞
-		bool IsAlive();											// 是否活著
+		Treasure();
+		int GetX1();
+		int GetY1();
+		int GetX2();
+		int GetY2();
+		bool touchTreasure(CEraser *eraser);					// 是否碰到小雞
+		bool isOpen();											// 是否活著
 		void LoadBitmap();										// 載入圖形
 		void OnShow(CGameMap *m);								// 將圖形貼到畫面
 		void SetXY(int nx, int ny);								// 設定寶石的座標
-		void SetIsAlive(bool alive);							// 設定是否活著
-		void setShowNumGem(bool flag);
-		void getGem(int n);
+		void SetIsOpen(bool alive);								// 設定是否活著
 	protected:
-		CMovingBitmap gem_bitmap;			// 球的圖	
-		CMovingBitmap gemLeft;
-		CMovingBitmap gemNumber_digits[10];
+		CMovingBitmap treasureBmp;			// 球的圖	
 		int x, y;				// 寶石的座標
-		bool is_alive;				// 是否活著
-		bool isShowNumGem;
+		bool is_Open;				// 是否活著
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	// 是否碰到參數範圍的矩形
-		int showNumGemCounter;
-		int totalGem;
 	};
 }

@@ -41,13 +41,14 @@ namespace game_framework {
 	{
 		const int X_POS = 200;
 		const int Y_POS = 450;
-		x = X_POS;
-		y = Y_POS;
-		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = isInPipeGoToDown = isInPipeGoToUp = isPressDown = false;
+		x = savePointX = X_POS;
+		y = savePointY = Y_POS;
+		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = isInPipeGoToDown = isInPipeGoToUp = isPressDown = isHurt = false;
 		is_landing = isShowHeart =false;
-		nowLife = 1;
-		life_Max = 1;
+		nowLife = 15;
+		life_Max =15;
 		showHeartCounter = 30 * 3;
+		isCanPutBomb = true;
 	}
 
 	void CEraser::LoadBitmap()
@@ -59,13 +60,11 @@ namespace game_framework {
 		goToRight.AddBitmap(IDB_CHICKENRIGHT, RGB(34, 177, 76));
 		goToLeft.AddBitmap(IDB_CHICKEN2, RGB(34, 177, 76));
 		goToLeft.AddBitmap(IDB_CHICKENLEFT, RGB(34, 177, 76));
-		for (int i = 0; i < life_Max; i++) {
-			heart[i].LoadBitmapA(IDB_HEART, RGB(34, 177, 76));
-		}
-
+		heart.LoadBitmapA(IDB_HEART, RGB(34, 177, 76));
+		emptyHeart.LoadBitmapA(IDB_EMPTY_HEART, RGB(34, 177, 76));
 	}
 
-	void CEraser::OnMove(CGameMap *m)
+	void CEraser::OnMove(CGameMap *m,Bomb *bomb)
 	{
 		TRACE("x:%d\n", x);
 		TRACE("y:%d\n", y);
@@ -73,7 +72,7 @@ namespace game_framework {
 		const int STEP_SIZE = 5;
 		const int PIPE_SIZE = 15;
 		const int LANDING_SIZE = 10;
-		const int PUT_BOMB_SIZE = 20;
+		const int PUT_BOMB_SIZE = 25;
 		animation.OnMove();
 		if (isMovingLeft) { //往左
 			goToLeft.OnMove();
@@ -140,13 +139,16 @@ namespace game_framework {
 			m->SetMovingUp(true);
 		}
 
-		if (isBombing) { //放炸彈
+		if (isBombing) { //放炸彈				
 			if (m->IsEmpty(x, y - PUT_BOMB_SIZE) || m->IsPipe(x, y - PUT_BOMB_SIZE)) {
 				y -= PUT_BOMB_SIZE;
+				isCanPutBomb = true;
 			}
-
+			else {
+				isCanPutBomb = false;
+			}
 		}
-		if (m->IsLittleMove_updown(x, y) && isBombing)
+		if (m->IsLittleMove_updown(x, y ) && isBombing)
 		{
 			m->SetMovingUpL(true);
 		}
@@ -156,11 +158,13 @@ namespace game_framework {
 		}
 
 		//下降
-		if (m->IsEmpty(x, y + LANDING_SIZE + animation.Height()) && !isStepOnBomb && !(m->IsStandingWood(x, y + LANDING_SIZE + (animation.Height())))) {
+		if (m->IsEmpty(x, y + LANDING_SIZE + animation.Height()) && !isStepOnBomb && !(m->IsStandingWood(x, y + LANDING_SIZE + (animation.Height())))) 
+		{
 			y += LANDING_SIZE;
 			is_landing = true;
+			isCanPutBomb = true;
 		}
-		else {
+		else{
 			is_landing = false;
 		}
 
@@ -213,12 +217,12 @@ namespace game_framework {
 			}
 
 		}
-
-		if (m->IsScreenStopMoving(x, y)) { //強制停止視角移動
-			m->ScreenStopMoving();
+		//存檔點
+		if (m->IsPipe(x,y) ||m->IsChangeScreen_Diagonal_RUandLD(x, y) || m->IsChangeScreen_Diagonal_RDandLU(x, y) || m->IsChangeScreen_horizontal(x, y) || m->IsChangeScreen_UpOrDown(x, y))
+		{
+			savePointX = x;
+			savePointY = y;
 		}
-
-
 	}
 	void  CEraser::setShowHeart(bool flag) 
 	{
@@ -269,12 +273,38 @@ namespace game_framework {
 	{
 		return isMovingRight;
 	}
+	bool CEraser::check_IsBombing()
+	{
+		return isBombing;
+	}
+	bool CEraser::checkCanPutBomb()
+	{
+		return  isCanPutBomb && isBombing;
+	}
 	void CEraser::stopMoving()
 	{
 		isMovingLeft = isBombing = isMovingRight = is_landing =false;
 	}
-
-
+	void CEraser::minusNowLife()
+	{	
+		if (isHurt)
+		{
+			nowLife--;
+			isHurt = false;
+		}
+	}
+	void CEraser::setHurt(bool flag) {
+		isHurt = flag;
+	}
+	int CEraser::getNowLife()
+	{
+		return nowLife;
+	}
+	void CEraser::returnSavePoint()
+	{
+		x = savePointX;
+		y = savePointY;
+	}
 	void CEraser::OnShow(CGameMap *m)
 	{	
 		if (isMovingRight) {
@@ -297,9 +327,14 @@ namespace game_framework {
 		}
 		if (isShowHeart)
 		{
-			for (int i = 0; i < life_Max; i++) {
-				heart[i].SetTopLeft(20 +i* heart[i].Width(), 20);
-				heart[i].ShowBitmap();
+			for (int i = 0; i < nowLife; i++) {
+				heart.SetTopLeft(20 +i* heart.Width(), 20);
+				heart.ShowBitmap();
+			}
+			for (int i = life_Max - nowLife; i > 0; i--) {
+				emptyHeart.SetTopLeft(20 +  (nowLife-1+i)* heart.Width(), 20);
+				emptyHeart.ShowBitmap();
+
 			}
 			showHeartCounter--;
 			if (showHeartCounter < 0) {

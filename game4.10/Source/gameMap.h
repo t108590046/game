@@ -32,11 +32,13 @@ namespace game_framework {
 		bool IsScreenStopMoving(int x, int y);
 		void ScreenStopMoving();
 		void beAir(int x, int y, int x2, int y2);
+		void returnSavePoint();
 	protected:
 		CMovingBitmap blue, green,yellow,stage1;
 		int map[250][220];
 		const int MW, MH;
 		int	 sx, sy;
+		int savePointSx, savePointSy;
 		bool isMovingDown;			// 是否正在往下移動
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動

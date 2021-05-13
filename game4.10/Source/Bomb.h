@@ -5,6 +5,8 @@ namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	class CEraser;
 	class woodDoor;
+	class Treasure;
+	class Rock;
 	class Bomb
 	{
 	public:
@@ -12,11 +14,18 @@ namespace game_framework {
 		int  GetX1();					
 		int  GetY1();					
 		int  GetX2();					
-		int  GetY2();					
-		bool HitBomb(CEraser *eraser);							// 是否碰到擦子
+		int  GetY2();
+		bool isMoving();
+		bool HitBomb(CEraser *eraser);
+		bool HitBomb(Bomb *bomb);// 是否碰到擦子
+		bool IsBombing();
 		bool IsAlive();											// 是否活著
 		void LoadBitmap();										// 載入圖形
-		bool beBombed(woodDoor *door);										//是否被炸到
+		bool beBombed(woodDoor *door);							//是否被炸到
+		bool beBombed(Bomb *bomb);								//是否被炸到
+		bool beBombed(Treasure *treasure);						//是否被炸到
+		bool beBombed(Rock *rock);								//是否被炸到
+		bool beBombed(CEraser *eraser);								//是否被炸到
 		bool chickenPushBomb(CEraser *eraser);
 		void OnMove(CEraser *eraser, CGameMap *m);				// 移動
 		void OnShow(CGameMap *m);								// 將圖形貼到畫面
@@ -27,6 +36,7 @@ namespace game_framework {
 		void setBombAnimation();
 		void setMovingRight(bool flag);
 		void setMovingLeft(bool flag);
+		void setIsBombing(bool flag);
 	protected:
 		CAnimation bmp;				// 球的圖
 		CAnimation bmpBombing;

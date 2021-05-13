@@ -147,6 +147,15 @@
     <ClCompile Include="Source\woodDoor.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Treasure.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rock.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -201,6 +210,15 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\woodDoor.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Treasure.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rock.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
@@ -358,6 +376,24 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RES\woodDoor.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\treasure.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\rock.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\empty_heart.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\gameover.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy_4_Left.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy_4_Right.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
