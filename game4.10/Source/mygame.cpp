@@ -262,51 +262,51 @@ void CGameStateRun::OnBeginState()
 		ball[i].SetIsAlive(true);
 	}
 	//所有的寶石的座標
-	int allGemXY[12][2] = {{1290,510},
-						 {1870,470},
-						 {2045,430},
-						 {2420,380},
-						 {2735,360},
-						 {2735,250},
-						 {2735,140},
-						 {3480,580},
-						 {3480,520},
-						 {3180,290},
-						 {3210,290},
-						 {3240,290}};
+	int allGemXY[12][2] = {{1100,580},
+						 {1585,560},
+						 {1718,528},
+						 {2045,460},
+						 {2320,430},
+						 {2320,330},
+						 {2320,230},
+						 {2930,665},
+						 {2930,615},
+						 {2665,335},
+						 {2690,335},
+						 {2715,335}};
 	for (int i = 0; i < NUMGEM; i++) {				
 		gem[i].SetXY(allGemXY[i][0], allGemXY[i][1]);
 		gem[i].SetIsAlive(true);
 	}
 	//所有的按鈕的座標{方向,x,y}
-	int allBtnXY[3][3] = { {0,60,485},
-						   {1,3095,595},
+	int allBtnXY[3][3] = { {0,50,545},
+						   {1,2605,670},
 	                       {3,3173,78} };
 	for (int i = 0; i < NUMBTN; i++) {
 		btn[i].SetXY(allBtnXY[i][0],allBtnXY[i][1], allBtnXY[i][2]);
 		btn[i].SetIsTouched(false);
 	}
-	int allDoorXY[3][3] = { {0,675,400},{0,3105,750},{1,3170,240} };
+	int allDoorXY[3][3] = { {0,565,450},{0,2625,840},{1,3170,240} };
 	for (int i = 0; i < NUMBTN; i++) {
 		door[i].SetXY(allDoorXY[i][0], allDoorXY[i][1], allDoorXY[i][2]);
 		door[i].setIsOpenDoor(false);
 	}
 	//所有木門的座標
-	int allWoodDoor[2][2] = { {1120,400},
-							  {1540,460} };
+	int allWoodDoor[2][2] = { {955,445},
+							  {1290,515} };
 	for (int i = 0; i < NUM_WOOD_DOOR; i++) 
 	{
 		wooddoor[i].SetXY(allWoodDoor[i][0], allWoodDoor[i][1]);
 		wooddoor[i].setIsOpenDoor(false);
 	}
 	//所有寶藏的座標
-	int allTreasure[1][2] = { {2230,615} };
+	int allTreasure[1][2] = { {1880,695} };
 	for (int i = 0; i < NUMTREASURE; i++) {
 		treasure[i].SetXY(allTreasure[i][0], allTreasure[i][1]);
 		treasure[i].SetIsOpen(false);
 	}
 	//所有石頭的座標
-	int allRock[2][2] = { {2560,585},{2560,522} };
+	int allRock[2][2] = { {2155,665},{2155,598} };
 	for (int i = 0; i < NUMROCK; i++) {
 		rock[i].SetXY(allRock[i][0], allRock[i][1]);
 		rock[i].setIsOpenRock(false);

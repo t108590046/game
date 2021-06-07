@@ -39,14 +39,14 @@ namespace game_framework {
 
 	void CEraser::Initialize()
 	{
-		const int X_POS = 200;
-		const int Y_POS = 450;
+		const int X_POS = 3095;
+		const int Y_POS = 4325;
 		x = savePointX = X_POS;
 		y = savePointY = Y_POS;
 		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = isInPipeGoToDown = isInPipeGoToUp = isPressDown = isHurt = false;
 		is_landing = isShowHeart =false;
-		nowLife = 15;
-		life_Max =15;
+		nowLife = 4;
+		life_Max = 4;
 		showHeartCounter = 30 * 3;
 		isCanPutBomb = true;
 	}
@@ -76,7 +76,7 @@ namespace game_framework {
 		animation.OnMove();
 		if (isMovingLeft) { //往左
 			goToLeft.OnMove();
-			if (m->IsEmpty(x - STEP_SIZE, y)) { //人物移動
+			if (m->IsEmpty(x - STEP_SIZE, y + animation.Height()/2 )) { //人物移動
 				x -= STEP_SIZE;
 			}
 		}
@@ -91,7 +91,7 @@ namespace game_framework {
 
 		if (isMovingRight) { //往右
 			goToRight.OnMove();
-			if (m->IsEmpty(x + animation.Width() + STEP_SIZE, y)) {
+			if (m->IsEmpty(x + animation.Width() + STEP_SIZE, y + animation.Height() / 2)) {
 				x += STEP_SIZE;
 			}
 		}
@@ -112,7 +112,7 @@ namespace game_framework {
 			}
 		}
 		else
-		{
+		{	
 			isInPipeGoToUp = false;
 		}
 		if (m->IsPipe(x, y + animation.Height()))
@@ -123,7 +123,7 @@ namespace game_framework {
 			}
 		}
 		else
-		{
+		{	
 			isInPipeGoToDown = false;
 		}
 
@@ -158,7 +158,7 @@ namespace game_framework {
 		}
 
 		//下降
-		if (m->IsEmpty(x, y + LANDING_SIZE + animation.Height()) && !isStepOnBomb && !(m->IsStandingWood(x, y + LANDING_SIZE + (animation.Height())))) 
+		if (m->IsEmpty(x+ (animation.Width()/2), y + LANDING_SIZE + animation.Height()) && !isStepOnBomb && !(m->IsStandingWood(x+(animation.Width() / 2), y + LANDING_SIZE + (animation.Height()))))
 		{
 			y += LANDING_SIZE;
 			is_landing = true;

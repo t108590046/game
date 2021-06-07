@@ -119,10 +119,10 @@ namespace game_framework {
 	bool Bomb::beBombed(CEraser *eraser)
 	{
 		if (isBombing) {
-			int tx1 = x - bmpBombing.Width();
-			int tx2 = x + bmpBombing.Width();
-			int ty1 = y - bmpBombing.Height();
-			int ty2 = y + bmpBombing.Height();
+			int tx1 = x - (bmpBombing.Width()/2);
+			int tx2 = x + (bmpBombing.Width() / 2);
+			int ty1 = y - (bmpBombing.Height()/2);
+			int ty2 = y + (bmpBombing.Height() / 2);
 			int x1 = eraser->GetX1();
 			int y1 = eraser->GetY1();
 			int x2 = eraser->GetX2();
@@ -203,7 +203,7 @@ namespace game_framework {
 		bmp.OnMove();
 		const int STEP_SIZE = 15;
 
-		if (m->ScreenX(x) >= 760 || m->ScreenX(x) <= 0)
+		if (m->ScreenX(x) >= 640 || m->ScreenX(x) <= 0)
 		{
 			is_alive = false;
 			isMovingLeft = false;

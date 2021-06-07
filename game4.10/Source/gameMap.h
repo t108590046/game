@@ -35,7 +35,7 @@ namespace game_framework {
 		void returnSavePoint();
 	protected:
 		CMovingBitmap blue, green,yellow,stage1;
-		int map[250][220];
+		int map[250][225];
 		const int MW, MH;
 		int	 sx, sy;
 		int savePointSx, savePointSy;
