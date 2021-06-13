@@ -29,12 +29,17 @@ namespace game_framework {
 		bool check_MovingRight();
 		bool check_IsBombing();
 		bool checkCanPutBomb();
+		bool checkOnFloor();
+		bool checkOnBomb();
 		void setShowHeart(bool flag);
 		void stopMoving();
 		void minusNowLife();
-		void setHurt(bool flag);
+		void addNowLife();
 		int getNowLife();
 		void returnSavePoint();
+		void setHurt(bool flag);
+		void healHeart();
+		void setChickenJumping(bool flag);
 	protected:
 		CAnimation animation;		// 擦子的動畫
 		CAnimation goToLeft;		//雞向左
@@ -55,8 +60,12 @@ namespace game_framework {
 		bool isShowHeart; 
 		bool isCanPutBomb;
 		bool isHurt;
+		bool isJumping;
 		int life_Max; //生命上限
 		int nowLife; // 目前生命
 		int showHeartCounter;
+		int jumpCounter;
+		int hurtCounter;
+
 	};
 }

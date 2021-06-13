@@ -396,5 +396,44 @@
     <Image Include="RES\enemy_4_Right.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\changeHeartMap.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy_4_Right2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy_4_Left2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy_1_0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy_1_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy_2_0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy_2_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy_3_0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\enemy_3_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bat_left_0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bat_left_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bat_right_0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\bat_right_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@ namespace game_framework {
 	{
 	public:
 		Gem();
-		~Gem();
+		void Initialize();
 		bool HitChicken(CEraser *eraser);						// 是否碰到小雞
 		bool IsAlive();											// 是否活著
 		void LoadBitmap();										// 載入圖形
@@ -18,6 +18,8 @@ namespace game_framework {
 		void SetIsAlive(bool alive);							// 設定是否活著
 		void setShowNumGem(bool flag);
 		void getGem(int n);
+		void setShowStore(bool flag);
+		void updatePriceOfHeart(int n);
 	protected:
 		CMovingBitmap gem_bitmap;			// 球的圖	
 		CMovingBitmap gemLeft;
@@ -25,9 +27,11 @@ namespace game_framework {
 		int x, y;				// 寶石的座標
 		bool is_alive;				// 是否活著
 		bool isShowNumGem;
+		bool isShowStore;
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	// 是否碰到參數範圍的矩形
 		int showNumGemCounter;
 		int totalGem;
+		int priceOfHeart;
 	};
 }

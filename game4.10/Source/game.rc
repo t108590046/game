@@ -202,6 +202,32 @@ IDB_ENEMY_01_LEFT       BITMAP                  "D:\\oopGamePush\\game4.10\\RES\
 
 IDB_ENEMY_01_RIGHT      BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\enemy_4_Right.bmp"
 
+IDB_CHANGE_HEART_MAP    BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\changeHeartMap.bmp"
+
+IDB_ENEMY_01_RIGHT_2    BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\enemy_4_Right2.bmp"
+
+IDB_ENEMY_01_LEFT_2     BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\enemy_4_Left2.bmp"
+
+IDB_ENEMY_02_01         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\enemy_1_0.bmp"
+
+IDB_ENEMY_02_02         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\enemy_1_1.bmp"
+
+IDB_ENEMY_03_01         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\enemy_2_0.bmp"
+
+IDB_ENEMY_03_02         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\enemy_2_1.bmp"
+
+IDB_ENEMY_04_01         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\enemy_3_0.bmp"
+
+IDB_ENEMY_04_02         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\enemy_3_1.bmp"
+
+IDB_BAT_LEFT_1          BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\bat_left_0.bmp"
+
+IDB_BAT_LEFT_2          BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\bat_left_1.bmp"
+
+IDB_BAT_RIGHT_1         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\bat_right_0.bmp"
+
+IDB_BAT_RIGHT_2         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\bat_right_1.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

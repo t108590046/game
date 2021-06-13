@@ -5,6 +5,7 @@ namespace game_framework {
 		CGameMap();
 		void LoadBitmap();
 		void OnShow();
+		void Initialize();
 		void OnMove(CEraser *c);
 		int	 ScreenX(int x);
 		int  ScreenY(int y);
@@ -30,14 +31,19 @@ namespace game_framework {
 		bool IsStandingWood(int x, int y);
 		bool IsPipe(int x, int y);
 		bool IsScreenStopMoving(int x, int y);
-		void ScreenStopMoving();
+		bool IsChangeHeartMap(int x, int y);
+		bool ChangeHeart(int x, int y);
+		bool checkScreenMoVing();
 		void beAir(int x, int y, int x2, int y2);
 		void returnSavePoint();
+		void changeToHeartMap();
 	protected:
-		CMovingBitmap blue, green,yellow,stage1;
+		CMovingBitmap blue, green,yellow,stage1,changeHeartMap;
 		int map[250][225];
 		const int MW, MH;
 		int	 sx, sy;
+		int nowMap;
+		bool isGoToChangeHeartMap;
 		int savePointSx, savePointSy;
 		bool isMovingDown;			// 是否正在往下移動
 		bool isMovingLeft;			// 是否正在往左移動
@@ -47,6 +53,7 @@ namespace game_framework {
 		bool isMovingLeftL;			// 是否正在往左小移動
 		bool isMovingRightL;		// 是否正在往右小移動
 		bool isMovingUpL;			// 是否正在往上小移動
+		bool canChangeHeart;
 		int Stop_x, Stop_y;
 		int Screen_Height, Screen_Width;
 	};

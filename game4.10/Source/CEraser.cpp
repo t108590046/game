@@ -39,16 +39,17 @@ namespace game_framework {
 
 	void CEraser::Initialize()
 	{
-		const int X_POS = 3095;
-		const int Y_POS = 4325;
+		const int X_POS = 2300;
+		const int Y_POS = 708;
 		x = savePointX = X_POS;
 		y = savePointY = Y_POS;
-		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = isInPipeGoToDown = isInPipeGoToUp = isPressDown = isHurt = false;
+		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = isInPipeGoToDown = isInPipeGoToUp = isPressDown  = isHurt =isJumping =false;
 		is_landing = isShowHeart =false;
-		nowLife = 4;
-		life_Max = 4;
+		nowLife = 3;
+		life_Max = 3;
 		showHeartCounter = 30 * 3;
-		isCanPutBomb = true;
+		jumpCounter = 15 * 1;
+		isCanPutBomb = false;
 	}
 
 	void CEraser::LoadBitmap()
@@ -68,12 +69,21 @@ namespace game_framework {
 	{
 		TRACE("x:%d\n", x);
 		TRACE("y:%d\n", y);
-
 		const int STEP_SIZE = 5;
 		const int PIPE_SIZE = 15;
 		const int LANDING_SIZE = 10;
-		const int PUT_BOMB_SIZE = 25;
+		const int JUMP_SIZE = 10;
 		animation.OnMove();
+		if (isJumping) {
+			if (m->IsEmpty(x, y - JUMP_SIZE)) {
+				y -= JUMP_SIZE;
+			}
+			jumpCounter--;
+			if (jumpCounter < 0) {
+				jumpCounter = 15 * 1;
+				isJumping = false;
+			}
+		}
 		if (isMovingLeft) { //往左
 			goToLeft.OnMove();
 			if (m->IsEmpty(x - STEP_SIZE, y + animation.Height()/2 )) { //人物移動
@@ -111,11 +121,11 @@ namespace game_framework {
 				isInPipeGoToUp = true;
 			}
 		}
-		else
+		if(!m->IsPipe(x, y) && !m->IsPipe(x, y + animation.Height()))
 		{	
 			isInPipeGoToUp = false;
 		}
-		if (m->IsPipe(x, y + animation.Height()))
+		if (m->IsPipe(x, y + animation.Height() + 10)) 
 		{
 			if (isPressDown)
 			{
@@ -123,9 +133,7 @@ namespace game_framework {
 			}
 		}
 		else
-		{	
 			isInPipeGoToDown = false;
-		}
 
 		if (isInPipeGoToDown) {
 			y += PIPE_SIZE;
@@ -140,9 +148,8 @@ namespace game_framework {
 		}
 
 		if (isBombing) { //放炸彈				
-			if (m->IsEmpty(x, y - PUT_BOMB_SIZE) || m->IsPipe(x, y - PUT_BOMB_SIZE)) {
-				y -= PUT_BOMB_SIZE;
-				isCanPutBomb = true;
+			if (m->IsEmpty(x, y - bomb->GetHeight()) || m->IsPipe(x, y - bomb->GetHeight())) {
+				isCanPutBomb = true;			
 			}
 			else {
 				isCanPutBomb = false;
@@ -158,7 +165,7 @@ namespace game_framework {
 		}
 
 		//下降
-		if (m->IsEmpty(x+ (animation.Width()/2), y + LANDING_SIZE + animation.Height()) && !isStepOnBomb && !(m->IsStandingWood(x+(animation.Width() / 2), y + LANDING_SIZE + (animation.Height()))))
+		if (!isJumping && m->IsEmpty(x+ (animation.Width()/2), y + LANDING_SIZE + animation.Height()) && !isStepOnBomb && !(m->IsStandingWood(x+(animation.Width() / 2), y + LANDING_SIZE + (animation.Height()))))
 		{
 			y += LANDING_SIZE;
 			is_landing = true;
@@ -223,6 +230,7 @@ namespace game_framework {
 			savePointX = x;
 			savePointY = y;
 		}
+
 	}
 	void  CEraser::setShowHeart(bool flag) 
 	{
@@ -269,6 +277,15 @@ namespace game_framework {
 	{
 		return isMovingLeft;
 	}
+	bool CEraser::checkOnFloor()
+	{
+		return !is_landing;
+	}
+	bool CEraser::checkOnBomb()
+	{
+		return isStepOnBomb;
+	}
+
 	bool CEraser::check_MovingRight()
 	{
 		return isMovingRight;
@@ -286,12 +303,12 @@ namespace game_framework {
 		isMovingLeft = isBombing = isMovingRight = is_landing =false;
 	}
 	void CEraser::minusNowLife()
-	{	
-		if (isHurt)
-		{
-			nowLife--;
-			isHurt = false;
-		}
+	{
+		nowLife--;
+	}
+	void CEraser::addNowLife() {
+		life_Max++;
+		nowLife++;
 	}
 	void CEraser::setHurt(bool flag) {
 		isHurt = flag;
@@ -342,5 +359,12 @@ namespace game_framework {
 				showHeartCounter = 30 * 3;
 			}
 		}
+	}
+	void CEraser::healHeart()
+	{
+		nowLife = life_Max;
+	}
+	void CEraser::setChickenJumping(bool flag) {
+		isJumping = flag;
 	}
 }

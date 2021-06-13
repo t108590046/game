@@ -89,8 +89,21 @@
 #define IDB_EMPTY_HEART                 228
 #define IDB_GAMEOVER                    229
 #define IDB_ENEMY_01_LEFT               230
-#define IDB_BITMAP8                     231
 #define IDB_ENEMY_01_RIGHT              231
+#define IDB_CHANGE_HEART_MAP            232
+#define IDB_ENEMY_01_RIGHT_2            233
+#define IDB_ENEMY_01_LEFT_2             234
+#define IDB_ENEMY_02_01                 235
+#define IDB_ENEMY_02_02                 236
+#define IDB_ENEMY_03_01                 237
+#define IDB_ENEMY_03_02                 238
+#define IDB_ENEMY_04_01                 239
+#define IDB_ENEMY_04_02                 240
+#define IDB_BAT_LEFT_1                  241
+#define IDB_BAT_LEFT_2                  242
+#define IDB_BAT_RIGHT_1                 243
+#define IDB_BAT_RIGHT_5                 244
+#define IDB_BAT_RIGHT_2                 244
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -103,7 +116,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        232
+#define _APS_NEXT_RESOURCE_VALUE        245
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

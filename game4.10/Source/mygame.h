@@ -49,6 +49,7 @@
 #include "woodDoor.h"
 #include "Treasure.h"
 #include "Rock.h"
+#include "Enemy.h"
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -102,12 +103,15 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		bool			CHEAT_MODE;
+		bool			IS_IN_CHANGE_HEART_MAP;
 		const int		NUMBOMBS;	// 炸彈的總數
-		const int		NUMGEM;		// 寶石的總數
-		const int		NUMBTN;
-		const int		NUM_WOOD_DOOR;
-		const int		NUMTREASURE;
-		const int		NUMROCK;
+		int				NUMGEM;		// 寶石的總數
+		int				NUMBTN;
+		int				NUM_WOOD_DOOR;
+		int				NUMTREASURE;
+		int				NUMROCK;
+		int				NUMENEMY;
 		CMovingBitmap	background;	// 背景圖
 		CMovingBitmap	help;		// 說明圖
 		CBall			*ball;		// 球的陣列
@@ -121,10 +125,20 @@ namespace game_framework {
 		Button			*btn;
 		Door			*door;
 		Rock			*rock;
+		Enemy			*enemy;
 		woodDoor		*wooddoor;
 		Treasure		*treasure;
+		bool			isChange;
 		int				numberBomb;	
 		int				nowTotalGem;
+		int				nowMap; //目前關卡
+		int priceOfGemsEveryMap[1] = { 5 };
+		int numberOfGemEveryMap[1] = { 12 };
+		int numberOfBtnEveryMap[1] = { 3 };
+		int numberOfWoodDoorEveryMap[1] = { 2 };
+		int numberOfTreasureEveryMap[1] = { 1 };
+		int numberOfRockEveryMap[1] = { 2 };
+		int numberOfEnemyEveryMap[1] = {6};
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

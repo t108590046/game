@@ -9,19 +9,16 @@
 #include "gameMap.h"
 
 namespace game_framework {
+	void Gem::Initialize() {
 
+	}
 	Gem::Gem()
 	{
 		is_alive = true;
-		isShowNumGem = false;
-		x = y =  0;
+		isShowNumGem = isShowStore =false;
 		showNumGemCounter = 30 * 3;
-		totalGem = 0;
+		x = y = priceOfHeart =0;
 	}
-	Gem::~Gem() {
-
-	}
-
 	bool Gem::HitChicken(CEraser *eraser)
 	{
 		return HitRectangle(eraser->GetX1(), eraser->GetY1(),
@@ -65,7 +62,14 @@ namespace game_framework {
 	{
 		totalGem = n;
 	}
-
+	void Gem::setShowStore(bool flag)
+	{
+		isShowStore = flag;
+	}
+	void Gem::updatePriceOfHeart(int n)
+	{
+		priceOfHeart = n;
+	}
 	void Gem::SetXY(int nx, int ny)
 	{
 		x = nx; y = ny;
@@ -183,6 +187,100 @@ namespace game_framework {
 				showNumGemCounter = 30 * 3;
 			}
 		}
+		if (isShowStore) {
+			TRACE("priceOfHeart:%d\n", priceOfHeart);
+			int ten = priceOfHeart / 10;
+			int digit = priceOfHeart % 10;
+			switch (ten) {
+			case 0:
+				gemNumber_digits[0].SetTopLeft(325, 410);
+				gemNumber_digits[0].ShowBitmap();
+				break;
+			case 1:
+				gemNumber_digits[1].SetTopLeft(325, 410);
+				gemNumber_digits[1].ShowBitmap();
+				break;
+			case 2:
+				gemNumber_digits[2].SetTopLeft(325, 410);
+				gemNumber_digits[2].ShowBitmap();
+				break;
+			case 3:
+				gemNumber_digits[3].SetTopLeft(325, 410);
+				gemNumber_digits[3].ShowBitmap();
+				break;
 
+			case 4:
+				gemNumber_digits[4].SetTopLeft(325, 410);
+				gemNumber_digits[4].ShowBitmap();
+				break;
+			case 5:
+				gemNumber_digits[5].SetTopLeft(325, 410);
+				gemNumber_digits[5].ShowBitmap();
+				break;
+			case 6:
+				gemNumber_digits[6].SetTopLeft(325, 410);
+				gemNumber_digits[6].ShowBitmap();
+				break;
+			case 7:
+				gemNumber_digits[7].SetTopLeft(325, 410);
+				gemNumber_digits[7].ShowBitmap();
+				break;
+			case 8:
+				gemNumber_digits[8].SetTopLeft(325, 410);
+				gemNumber_digits[8].ShowBitmap();
+				break;
+			case 9:
+				gemNumber_digits[9].SetTopLeft(325, 410);
+				gemNumber_digits[9].ShowBitmap();
+				break;
+			default:
+				ASSERT(0);
+			}
+			switch (digit) {
+			case 0:
+				gemNumber_digits[0].SetTopLeft(325 + gemNumber_digits[0].Width(), 410);
+				gemNumber_digits[0].ShowBitmap();
+				break;
+			case 1:
+				gemNumber_digits[1].SetTopLeft(325 + gemNumber_digits[0].Width(), 410);
+				gemNumber_digits[1].ShowBitmap();
+				break;
+			case 2:
+				gemNumber_digits[2].SetTopLeft(325 + gemNumber_digits[0].Width(), 410);
+				gemNumber_digits[2].ShowBitmap();
+				break;
+			case 3:
+				gemNumber_digits[3].SetTopLeft(325 + gemNumber_digits[0].Width(), 410);
+				gemNumber_digits[3].ShowBitmap();
+				break;
+
+			case 4:
+				gemNumber_digits[4].SetTopLeft(325 + gemNumber_digits[0].Width(), 410);
+				gemNumber_digits[4].ShowBitmap();
+				break;
+			case 5:
+				gemNumber_digits[5].SetTopLeft(325 + gemNumber_digits[0].Width(), 410);
+				gemNumber_digits[5].ShowBitmap();
+				break;
+			case 6:
+				gemNumber_digits[6].SetTopLeft(325 + gemNumber_digits[0].Width(), 410);
+				gemNumber_digits[6].ShowBitmap();
+				break;
+			case 7:
+				gemNumber_digits[7].SetTopLeft(325 + gemNumber_digits[0].Width(), 410);
+				gemNumber_digits[7].ShowBitmap();
+				break;
+			case 8:
+				gemNumber_digits[8].SetTopLeft(325 + gemNumber_digits[0].Width(), 410);
+				gemNumber_digits[8].ShowBitmap();
+				break;
+			case 9:
+				gemNumber_digits[9].SetTopLeft(325 + gemNumber_digits[0].Width(), 410);
+				gemNumber_digits[9].ShowBitmap();
+				break;
+			default:
+				ASSERT(0);
+			}
+		}
 	}
 }

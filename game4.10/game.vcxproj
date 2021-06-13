@@ -342,6 +342,10 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="RES\bat_left_0.bmp" />
+    <Image Include="RES\bat_left_1.bmp" />
+    <Image Include="RES\bat_right_0.bmp" />
+    <Image Include="RES\bat_right_1.bmp" />
     <Image Include="res\bitmap4.bmp" />
     <Image Include="res\bitmap5.bmp" />
     <Image Include="res\bitmap6.bmp" />
@@ -357,11 +361,20 @@
     <Image Include="RES\BUTTON_DOWN.bmp" />
     <Image Include="RES\BUTTON_LEFT.bmp" />
     <Image Include="RES\BUTTON_RIGHT.bmp" />
+    <Image Include="RES\changeHeartMap.bmp" />
     <Image Include="RES\doorType_1.bmp" />
     <Image Include="RES\doorType_2.bmp" />
     <Image Include="RES\empty_heart.bmp" />
+    <Image Include="RES\enemy_1_0.bmp" />
+    <Image Include="RES\enemy_1_1.bmp" />
+    <Image Include="RES\enemy_2_0.bmp" />
+    <Image Include="RES\enemy_2_1.bmp" />
+    <Image Include="RES\enemy_3_0.bmp" />
+    <Image Include="RES\enemy_3_1.bmp" />
     <Image Include="RES\enemy_4_Left.bmp" />
+    <Image Include="RES\enemy_4_Left2.bmp" />
     <Image Include="RES\enemy_4_Right.bmp" />
+    <Image Include="RES\enemy_4_Right2.bmp" />
     <Image Include="RES\gameover.bmp" />
     <Image Include="RES\gem.bmp" />
     <Image Include="RES\gem_0.bmp" />

@@ -12,6 +12,7 @@
 #include "woodDoor.h"
 #include "Treasure.h"
 #include "Rock.h"
+#include "Enemy.h"
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Bomb: Ball class
@@ -19,7 +20,7 @@ namespace game_framework {
 	
 	Bomb::Bomb()
 	{
-		is_alive = is_putBomb = isMovingLeft = isMovingRight = isBombing = false;		
+		is_alive = is_putBomb = isMovingLeft = isMovingRight = isBombing = isLanding = isOnBomb =false ;		
 		x = y = 0;
 		bombTimeCounter = 30 * 3;
 		bombingTimeCounter = 15 * 1;
@@ -33,7 +34,10 @@ namespace game_framework {
 	{
 		return y;
 	}
-
+	int Bomb::GetHeight()
+	{
+		return bmp.Height();
+	}
 	int Bomb::GetX2()
 	{
 		return x + bmp.Width();
@@ -47,9 +51,9 @@ namespace game_framework {
 	bool Bomb::beBombed(woodDoor *door)
 	{
 		if (isBombing) {
-			int tx1 = x - bmpBombing.Width();
+			int tx1 = x ;
 			int tx2 = x + bmpBombing.Width();
-			int ty1 = y - bmpBombing.Height();
+			int ty1 = y ;
 			int ty2 = y + bmpBombing.Height();
 			int x1 = door->GetX1();
 			int y1 = door->GetY1();
@@ -62,12 +66,53 @@ namespace game_framework {
 			return false;
 		}
 	}
+	bool Bomb::beEnemyTouched(Enemy *enemy) {
+		int x1 = x;
+		int x2 = x + bmp.Width();
+		int y1 = y;
+		int y2 = y + bmp.Height();
+		int tx1 = enemy->GetX1();
+		int ty1 = enemy->GetY1();
+		int tx2 = enemy->GetX2();
+		int ty2 = enemy->GetY2();
+		return (tx2 >= x1 && tx1 <= x2 && (abs(ty2 - y2) <= 10));
+	}
+	bool Bomb::movingBombTouch(Enemy *enemy) {
+		int x1 = x;
+		int x2 = x + bmp.Width();
+		int y1 = y;
+		int y2 = y + bmp.Height();
+		int tx1 = enemy->GetX1();
+		int ty1 = enemy->GetY1();
+		int tx2 = enemy->GetX2();
+		int ty2 = enemy->GetY2();
+		return (tx2 >= x1 && tx1 <= x2  && ty2 >= y1 && ty1 <= y2);
+	}
+	bool Bomb::beBombed(Enemy *enemy)
+	{
+		if (isBombing) {
+			int tx1 = x;
+			int tx2 = x + bmpBombing.Width();
+			int ty1 = y;
+			int ty2 = y + bmpBombing.Height();
+			int x1 = enemy->GetX1();
+			int y1 = enemy->GetY1();
+			int x2 = enemy->GetX2();
+			int y2 = enemy->GetY2();
+			return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	bool Bomb::beBombed(Bomb *bomb)
 	{
 		if (isBombing) {
-			int tx1 = x - bmpBombing.Width();
-			int tx2 = x + bmpBombing.Width();
-			int ty1 = y - bmpBombing.Height();
+			int tx1 = x ;
+			int tx2 = x + bmpBombing.Width() ;
+			int ty1 = y ;
 			int ty2 = y + bmpBombing.Height();
 			int x1 = bomb->GetX1();
 			int y1 = bomb->GetY1();
@@ -83,9 +128,9 @@ namespace game_framework {
 	bool Bomb::beBombed(Treasure *trasure)
 	{
 		if (isBombing) {
-			int tx1 = x - bmpBombing.Width();
-			int tx2 = x + bmpBombing.Width();
-			int ty1 = y - bmpBombing.Height();
+			int tx1 = x  ;
+			int tx2 = x + bmpBombing.Width() ;
+			int ty1 = y  ;
 			int ty2 = y + bmpBombing.Height();
 			int x1 = trasure->GetX1();
 			int y1 = trasure->GetY1();
@@ -101,9 +146,9 @@ namespace game_framework {
 	bool Bomb::beBombed(Rock *rock)
 	{
 		if (isBombing) {
-			int tx1 = x - bmpBombing.Width();
+			int tx1 = x ;
 			int tx2 = x + bmpBombing.Width();
-			int ty1 = y - bmpBombing.Height();
+			int ty1 = y ;
 			int ty2 = y + bmpBombing.Height();
 			int x1 = rock->GetX1();
 			int y1 = rock->GetY1();
@@ -119,10 +164,10 @@ namespace game_framework {
 	bool Bomb::beBombed(CEraser *eraser)
 	{
 		if (isBombing) {
-			int tx1 = x - (bmpBombing.Width()/2);
-			int tx2 = x + (bmpBombing.Width() / 2);
-			int ty1 = y - (bmpBombing.Height()/2);
-			int ty2 = y + (bmpBombing.Height() / 2);
+			int tx1 = x;
+			int tx2 = x + bmpBombing.Width();
+			int ty1 = y;
+			int ty2 = y + bmpBombing.Height();
 			int x1 = eraser->GetX1();
 			int y1 = eraser->GetY1();
 			int x2 = eraser->GetX2();
@@ -153,9 +198,7 @@ namespace game_framework {
 		int y1 = y;				
 		int x2 = x1 + bmp.Width();	
 		int y2 = y1 + bmp.Height();	
-		if (tx2 >= x1 && tx1 <= x2 && ty2 >= y2)
-			eraser->setHurt(true);
-		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y2);
+		return (tx2 >= x1 && tx1 <= x2  && (abs(ty2-y2)<=10 || ty2>=y2));
 	}
 	bool Bomb::isMoving() {
 		return (isMovingRight || isMovingLeft);
@@ -170,8 +213,30 @@ namespace game_framework {
 	}
 	bool Bomb::HitBomb(Bomb *bomb)
 	{
-		return HitRectangle(bomb->GetX1(), bomb->GetY1(),
-			bomb->GetX2(), bomb->GetY2());
+		int diffx = (bomb->GetX2() - bomb->GetX1())/2;
+		int diffy = (bomb->GetY2() - bomb->GetY1())/2;
+
+		int bx = bomb->GetX1() + diffx;
+		int by = bomb->GetY1() + diffy;
+		int bx2 = x + diffx;
+		int by2 = y + diffy;
+		return (abs(bx-bx2)< 10 && abs(by - by2) <10);
+	}
+	bool Bomb::checkOnBomb(Bomb *bomb) 
+	{
+		int tx1 = bomb->GetX1();
+		int tx2 = bomb->GetX2();
+		int ty1 = bomb->GetY1();
+		int ty2 = bomb->GetY2();
+		int x1 = x;
+		int y1 = y;
+		int x2 = x1 + bmp.Width();
+		int y2 = y1 + bmp.Height();
+		return (tx2 >= x1 && tx1 <= x2 && ty1<= y1 && abs(ty1-y1)<= bmp.Height());
+	}
+	void Bomb::setIsOnBomb(bool flag)
+	{
+		isOnBomb = flag;
 	}
 	bool Bomb::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
@@ -180,7 +245,7 @@ namespace game_framework {
 		int x2 = x1 + bmp.Width();	// 球的右下角x座標
 		int y2 = y1 + bmp.Height();	// 球的右下角y座標 
 									// 檢測球的矩形與參數矩形是否有交集
-		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
+		return (tx2 >= x1 && tx1 <= x2  && abs(ty2-y1)<=20);
 	}
 
 	bool Bomb::IsAlive()
@@ -199,10 +264,12 @@ namespace game_framework {
 
 	void Bomb::OnMove(CEraser *eraser, CGameMap *m)
 	{
-
 		bmp.OnMove();
 		const int STEP_SIZE = 15;
-
+		if (!is_alive) {
+			isMovingLeft = false;
+			isMovingRight = false;
+		}
 		if (m->ScreenX(x) >= 640 || m->ScreenX(x) <= 0)
 		{
 			is_alive = false;
@@ -212,7 +279,7 @@ namespace game_framework {
 		}
 		if (is_alive && isMovingLeft)
 		{
-			if (m->IsEmpty(x, y)) {
+			if (m->IsEmpty(x- STEP_SIZE, y)) {
 				x -= STEP_SIZE;
 			}
 			else {
@@ -232,7 +299,9 @@ namespace game_framework {
 				isBombing = true;
 			}
 		}
-		
+		else if (m->IsEmpty(x, y + bmp.Height() + STEP_SIZE) && !isOnBomb && !isBombing && !m->IsStandingWood(x,y + bmp.Height() + STEP_SIZE))
+				y += STEP_SIZE;
+			
 	}	
 	void Bomb::SetIsAlive(bool alive)
 	{
@@ -261,6 +330,8 @@ namespace game_framework {
 				bmp.OnShow();
 			}
 		}
+		else
+			bombTimeCounter = 30 * 3;
 		if (isBombing) {
 			bombingTimeCounter--;
 			if (bombingTimeCounter < 0)
