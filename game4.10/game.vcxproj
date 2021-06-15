@@ -401,6 +401,7 @@
     <Image Include="RES\stage1_1.bmp" />
     <Image Include="RES\stage1_2.bmp" />
     <Image Include="RES\stage1_3.bmp" />
+    <Image Include="RES\stage2.bmp" />
     <Image Include="RES\Start_0.bmp" />
     <Image Include="RES\Start_1.bmp" />
     <Image Include="RES\Start_2.bmp" />

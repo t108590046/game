@@ -220,7 +220,7 @@ void CGameStateOver::OnShow()
 CGameStateRun::CGameStateRun(CGame *g)
 	: CGameState(g), NUMBOMBS(10), NUMGEM(30), NUMBTN(10), NUM_WOOD_DOOR(10), NUMTREASURE(10),NUMROCK(10),NUMENEMY(10)
 {
-	nowMap = 0;
+	nowMap = 1;
 	numberBomb = 0;
 	ball = new CBall [NUMBOMBS];
 	bomb = new Bomb[NUMBOMBS];
@@ -291,13 +291,16 @@ void CGameStateRun::OnBeginState()
 		rock[i].SetXY(allRock[i][0], allRock[i][1]);
 	}
 	//所有敵人的座標
-	int allEnemy[6][3] = { {0,2000,672},{1,2515,685},{2,2220,830},{3,2500,870},{4,2810,597},{2,2690,190} };
+	int allEnemy[2][6][3] = { {{0,2000,672},{1,2525,685},{2,2220,830},{3,2500,870},{4,2810,597},{2,2690,190}},
+	                          {{4,145,250}}
+	};
 	for (int i = 0; i < NUMENEMY; i++) {
-		enemy[i].SetXY(allEnemy[i][0], allEnemy[i][1], allEnemy[i][2]);
+		enemy[i].SetXY(allEnemy[nowMap][i][0], allEnemy[nowMap][i][1], allEnemy[nowMap][i][2]);
+		enemy[i].setIsAlive(true);
 	}
 
-	eraser.Initialize();
-	//gamemap.Initialize();
+	eraser.Initialize(nowMap);
+	gamemap.Initialize();
 	/*background.SetTopLeft(BACKGROUND_X,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
 	hits_left.SetInteger(HITS_LEFT);					// 指定剩下的撞擊數
@@ -358,6 +361,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	// 敵人碰到小雞
 	for (int i = 0; i < NUMENEMY; i++) {
 		enemy[i].OnMove(&gamemap);
+		if (enemy[i].isAlive() && enemy[i].checkOnEnemy(&eraser)) {
+			enemy[i].setIsAlive(false);
+			eraser.setChickenJumping(true);
+		}
 		if (enemy[i].isAlive()&&enemy[i].touchChicken(&eraser)) {
 			eraser.setShowHeart(true);
 			gem[0].setShowNumGem(true);
@@ -370,10 +377,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 					GotoGameState(GAME_STATE_RUN);
 				}
 			}
-		}
-		if (enemy[i].isAlive() && enemy[i].checkOnEnemy(&eraser)) {
-			enemy[i].setIsAlive(false);
-			eraser.setChickenJumping(true);
 		}
 	}
 	// 判斷炸彈是否碰到雞
@@ -431,7 +434,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				eraser.returnSavePoint();
 				gamemap.returnSavePoint();
 				if (eraser.getNowLife() < 0) {
-					GotoGameState(GAME_STATE_RUN);
+					GotoGameState(GAME_STATE_OVER);
 				}
 			}
 		}
@@ -471,6 +474,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			}
 			if (bomb[i].IsAlive() && bomb[i].beEnemyTouched(&enemy[j])) {
 				enemy[j].enemyTouchBomb();
+				
 			}
 			if (bomb[i].IsAlive() && bomb[i].isMoving() && enemy[j].isAlive() && bomb[i].movingBombTouch(&enemy[j])) {
 				bomb[i].SetIsAlive(false);
@@ -496,6 +500,13 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			eraser.addNowLife();
 			nowTotalGem -= priceOfGemsEveryMap[nowMap];
 			isChange = true;
+		}
+		if (gamemap.IsGoToNextMap(eraser.GetX1(), eraser.GetY1())) {
+			nowMap++;
+			gamemap.goToNextMap(nowMap);
+			GotoGameState(GAME_STATE_RUN);
+			IS_IN_CHANGE_HEART_MAP = false;
+			CHEAT_MODE = false;
 		}
 	}
 	for (int j = 0; j < NUMBTN; j++)
@@ -600,7 +611,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			eraser.SetBombing(true);
 			if (eraser.checkCanPutBomb() && eraser.checkOnFloor()) {
 				bomb[numberBomb].SetXY(eraser.GetX1(), eraser.GetY1());
-				eraser.SetXY(eraser.GetX1(), eraser.GetY1()- bomb[numberBomb].GetHeight());
+				eraser.SetXY(eraser.GetX1(), eraser.GetY1() - bomb[numberBomb].GetHeight());
 				bomb[numberBomb].SetIsAlive(true);
 				bomb[numberBomb].setBombAnimation();
 				numberBomb++;

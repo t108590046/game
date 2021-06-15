@@ -13,7 +13,7 @@ namespace game_framework {
 		int  GetY1();					// 擦子左上角 y 座標
 		int  GetX2();					// 擦子右下角 x 座標
 		int  GetY2();					// 擦子右下角 y 座標
-		void Initialize();				// 設定擦子為初始值
+		void Initialize(int n);				// 設定擦子為初始值
 		void LoadBitmap();				// 載入圖形
 		void OnMove(CGameMap *m,Bomb *bomb);					// 移動擦子
 		void OnShow(CGameMap *m);					// 將擦子圖形貼到畫面

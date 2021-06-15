@@ -67,15 +67,30 @@ namespace game_framework {
 		}
 	}
 	bool Bomb::beEnemyTouched(Enemy *enemy) {
-		int x1 = x;
-		int x2 = x + bmp.Width();
-		int y1 = y;
-		int y2 = y + bmp.Height();
-		int tx1 = enemy->GetX1();
-		int ty1 = enemy->GetY1();
-		int tx2 = enemy->GetX2();
-		int ty2 = enemy->GetY2();
-		return (tx2 >= x1 && tx1 <= x2 && (abs(ty2 - y2) <= 10));
+		int type = enemy->returnType();
+		if (type == 4) {
+			int e_diffx = (enemy->GetX2() - enemy->GetX1()) / 2;
+			int e_diffy = (enemy->GetY2() - enemy->GetY1()) / 2;
+			int ex = enemy->GetX1() + e_diffx;
+			int ey = enemy->GetY1() + e_diffy;
+
+			int bx = x + bmp.Width() / 2;
+			int by = y + bmp.Height() / 2;
+			return (abs(ex - bx) < 10 && abs(ey - by) < 10);
+		}
+		else if (type == 0) {
+			int x1 = x;
+			int x2 = x + bmp.Width();
+			int y1 = y;
+			int y2 = y + bmp.Height();
+			int tx1 = enemy->GetX1();
+			int ty1 = enemy->GetY1();
+			int tx2 = enemy->GetX2();
+			int ty2 = enemy->GetY2();
+			return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2 && abs(ty2-y2)<10);
+		}
+		else 
+			return false;
 	}
 	bool Bomb::movingBombTouch(Enemy *enemy) {
 		int x1 = x;
@@ -198,7 +213,13 @@ namespace game_framework {
 		int y1 = y;				
 		int x2 = x1 + bmp.Width();	
 		int y2 = y1 + bmp.Height();	
-		return (tx2 >= x1 && tx1 <= x2  && (abs(ty2-y2)<=10 || ty2>=y2));
+		if (eraser->check_MovingLeft())
+			return (tx2 >= x1 && tx1 <= x2 && (abs(ty2 - y2) <= 20 || (ty2 >= y2 && isOnBomb)) && abs(tx1 - x2) < 5);
+		else if (eraser->check_MovingRight()) {
+			return  (tx2 >= x1 &&  tx1 <= x2 && (abs(ty2 - y2) <= 20 || (ty2 >= y2 && isOnBomb)) && abs(tx2 - x1) < 5);
+		}
+		else
+			return false;
 	}
 	bool Bomb::isMoving() {
 		return (isMovingRight || isMovingLeft);
@@ -279,7 +300,7 @@ namespace game_framework {
 		}
 		if (is_alive && isMovingLeft)
 		{
-			if (m->IsEmpty(x- STEP_SIZE, y)) {
+			if (m->IsEmpty(x- STEP_SIZE, y + bmp.Height())) {
 				x -= STEP_SIZE;
 			}
 			else {
@@ -290,7 +311,7 @@ namespace game_framework {
 		}
 		else if (is_alive && isMovingRight)
 		{
-			if (m->IsEmpty(x+ STEP_SIZE+ bmp.Width(), y)) {
+			if (m->IsEmpty(x+ STEP_SIZE+ bmp.Width(), y + bmp.Height())) {
 				x += STEP_SIZE;
 			}
 			else {

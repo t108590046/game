@@ -11,6 +11,7 @@ namespace game_framework {
 		int GetX2();
 		int GetY1();
 		int GetY2();
+		int returnType();
 		bool touchChicken(CEraser *eraser);
 		bool checkOnEnemy(CEraser *eraser);
 		void enemyTouchBomb();

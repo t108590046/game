@@ -435,5 +435,8 @@
     <Image Include="RES\bat_right_1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\stage2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

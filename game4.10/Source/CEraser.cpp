@@ -14,7 +14,7 @@ namespace game_framework {
 
 	CEraser::CEraser()
 	{
-		Initialize();
+		Initialize(0);
 	}
 
 	int CEraser::GetX1()
@@ -37,19 +37,19 @@ namespace game_framework {
 		return y + animation.Height();
 	}
 
-	void CEraser::Initialize()
+	void CEraser::Initialize(int n)
 	{
-		const int X_POS = 2300;
-		const int Y_POS = 708;
-		x = savePointX = X_POS;
-		y = savePointY = Y_POS;
+		int X_POS_ALL[3] = { 0 ,60};
+		int Y_POS_ALL[3] = { 200 ,442};
+		x = savePointX = X_POS_ALL[n];
+		y = savePointY = Y_POS_ALL[n];
 		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = isInPipeGoToDown = isInPipeGoToUp = isPressDown  = isHurt =isJumping =false;
 		is_landing = isShowHeart =false;
 		nowLife = 3;
 		life_Max = 3;
 		showHeartCounter = 30 * 3;
 		jumpCounter = 15 * 1;
-		isCanPutBomb = false;
+		isCanPutBomb = true;
 	}
 
 	void CEraser::LoadBitmap()
@@ -86,7 +86,7 @@ namespace game_framework {
 		}
 		if (isMovingLeft) { //往左
 			goToLeft.OnMove();
-			if (m->IsEmpty(x - STEP_SIZE, y + animation.Height()/2 )) { //人物移動
+			if (m->IsEmpty(x - STEP_SIZE, y+ animation.Height())) { //人物移動
 				x -= STEP_SIZE;
 			}
 		}
@@ -101,7 +101,7 @@ namespace game_framework {
 
 		if (isMovingRight) { //往右
 			goToRight.OnMove();
-			if (m->IsEmpty(x + animation.Width() + STEP_SIZE, y + animation.Height() / 2)) {
+			if (m->IsEmpty(x + animation.Width() + STEP_SIZE, y + animation.Height())) {
 				x += STEP_SIZE;
 			}
 		}
@@ -148,14 +148,14 @@ namespace game_framework {
 		}
 
 		if (isBombing) { //放炸彈				
-			if (m->IsEmpty(x, y - bomb->GetHeight()) || m->IsPipe(x, y - bomb->GetHeight())) {
+			if ( (m->IsPipe(x, y - 56) || m->IsEmpty(x,y) )) {
 				isCanPutBomb = true;			
 			}
 			else {
 				isCanPutBomb = false;
 			}
 		}
-		if (m->IsLittleMove_updown(x, y ) && isBombing)
+		if (m->IsLittleMove_updown(x, y+ animation.Height()) && isCanPutBomb && isBombing)
 		{
 			m->SetMovingUpL(true);
 		}
@@ -165,7 +165,7 @@ namespace game_framework {
 		}
 
 		//下降
-		if (!isJumping && m->IsEmpty(x+ (animation.Width()/2), y + LANDING_SIZE + animation.Height()) && !isStepOnBomb && !(m->IsStandingWood(x+(animation.Width() / 2), y + LANDING_SIZE + (animation.Height()))))
+		if (!isJumping &&( m->IsEmpty(x+ (animation.Width()/2), y + LANDING_SIZE+ animation.Height()) || m->IsStandingLittleWoodDoor(x + animation.Width() / 2, y + LANDING_SIZE + animation.Height())) && !isStepOnBomb && !(m->IsStandingWood(x+(animation.Width() / 2), y + LANDING_SIZE + (animation.Height()))))
 		{
 			y += LANDING_SIZE;
 			is_landing = true;
@@ -179,7 +179,7 @@ namespace game_framework {
 		{
 			m->SetMovingDown(true);
 		}
-		if (m->IsLittleMove_updown(x, y) && is_landing)
+		if (m->IsLittleMove_updown(x, y + animation.Height()) && is_landing)
 		{
 			m->SetMovingDownL(true);
 		}

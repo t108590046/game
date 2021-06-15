@@ -34,6 +34,10 @@ namespace game_framework {
 	{
 		return y + height;
 	}
+	int Enemy::returnType()
+	{
+		return typeEnemy;
+	}
 
 	bool Enemy::touchChicken(CEraser *eraser)
 	{
@@ -50,7 +54,7 @@ namespace game_framework {
 		int ty1 = eraser->GetY1();
 		int tx2 = eraser->GetX2();
 		int ty2 = eraser->GetY2();
-		return (tx2 >= x1 && tx1 <= x2 && ty1 <= y1 && abs(ty1 - y1) <= height);
+		return (tx2 >= x1 && tx1 <= x2 && ty1 <= y1 && abs(ty2 - y1) <= 10);
 
 	}
 
@@ -120,7 +124,10 @@ namespace game_framework {
 	void Enemy::SetXY(int type,int nx, int ny)
 	{
 		if (type == 0 || type == 4)  // 會動的敵人
+		{
 			isMovingRight = true;
+			isMovingLeft = false;
+		}
 		height = enemy[type][0].Height();
 		width = enemy[type][0].Width();
 		typeEnemy = type;

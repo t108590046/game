@@ -29,16 +29,19 @@ namespace game_framework {
 		bool IsChangeScreen_Diagonal_RUandLD(int x, int y);
 		bool IsChangeScreen_UpOrDown(int x, int y);
 		bool IsStandingWood(int x, int y);
+		bool IsStandingLittleWoodDoor(int x, int y);
 		bool IsPipe(int x, int y);
 		bool IsScreenStopMoving(int x, int y);
 		bool IsChangeHeartMap(int x, int y);
 		bool ChangeHeart(int x, int y);
+		bool IsGoToNextMap(int x, int y);
 		bool checkScreenMoVing();
+		void goToNextMap(int n);
 		void beAir(int x, int y, int x2, int y2);
 		void returnSavePoint();
 		void changeToHeartMap();
 	protected:
-		CMovingBitmap blue, green,yellow,stage1,changeHeartMap;
+		CMovingBitmap blue, green,yellow,stage1,stage2,changeHeartMap;
 		int map[250][225];
 		const int MW, MH;
 		int	 sx, sy;
