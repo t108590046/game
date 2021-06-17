@@ -66,6 +66,5 @@ namespace game_framework {
 		int showHeartCounter;
 		int jumpCounter;
 		int hurtCounter;
-
 	};
 }

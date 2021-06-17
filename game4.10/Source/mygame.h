@@ -50,6 +50,7 @@
 #include "Treasure.h"
 #include "Rock.h"
 #include "Enemy.h"
+#include "Hammer.h"
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -99,6 +100,7 @@ namespace game_framework {
 		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
 		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+		void ReBrith();
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
@@ -112,6 +114,7 @@ namespace game_framework {
 		int				NUMTREASURE;
 		int				NUMROCK;
 		int				NUMENEMY;
+		int				NUMHAMMER;
 		CMovingBitmap	background;	// 背景圖
 		CMovingBitmap	help;		// 說明圖
 		CBall			*ball;		// 球的陣列
@@ -121,6 +124,7 @@ namespace game_framework {
 		CInteger		hits_left;	// 剩下的撞擊數
 		//CBouncingBall   bball;		// 反覆彈跳的球
 		CGameMap		gamemap;
+		Hammer			*hammer;
 		Bomb			*bomb;
 		Button			*btn;
 		Door			*door;
@@ -129,16 +133,19 @@ namespace game_framework {
 		woodDoor		*wooddoor;
 		Treasure		*treasure;
 		bool			isChange;
+		bool            isDie;
+		int             reBrithCounter;
 		int				numberBomb;	
 		int				nowTotalGem;
 		int				nowMap; //目前關卡
 		int priceOfGemsEveryMap[2] = { 5 ,20};
-		int numberOfGemEveryMap[2] = { 12 ,0};
-		int numberOfBtnEveryMap[2] = { 3 ,0};
+		int numberOfGemEveryMap[2] = { 12 ,1};
+		int numberOfBtnEveryMap[2] = { 3 ,3};
 		int numberOfWoodDoorEveryMap[2] = { 2,0 };
 		int numberOfTreasureEveryMap[2] = { 1 ,1};
-		int numberOfRockEveryMap[2] = { 2 ,0};
-		int numberOfEnemyEveryMap[2] = {6,1};
+		int numberOfRockEveryMap[2] = { 2 ,41};
+		int numberOfEnemyEveryMap[2] = {6,4};
+		int numberOfHammerEveryMap[2] = { 0,15 };
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

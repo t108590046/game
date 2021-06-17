@@ -14,7 +14,7 @@ namespace game_framework {
 	Rock::Rock()
 	{
 		isOpen = false;
-		x = y = 0;
+		x = y = rockType = 0;
 	}
 	int Rock::GetX1()
 	{
@@ -26,33 +26,32 @@ namespace game_framework {
 	}
 	int Rock::GetX2()
 	{
-		return x + rock.Width();
+		return x + rock[rockType].Width();
 	}
 	int Rock::GetY2()
 	{
-		return y + rock.Height();
+		return y + rock[rockType].Height();
 	}
-
-
+	int Rock::returnType()
+	{
+		return rockType;
+	}
 	void Rock::openRock(CGameMap *m) {
 		int x1 = x;
 		int y1 = y;
-		int x2 = x1 + rock.Width();
-		int y2 = y1 + rock.Height();
-		m->beAir(x1, y1, x2, y2);
+		int x2 = x1 + rock[rockType].Width();
+		int y2 = y1 + rock[rockType].Height();
+		if (rockType == 0)
+			m->beAir(x1, y1, x2, y2);
+		else
+			m->beLittleMovingDown(x1, y1, x2, y2);
 	}
-	bool Rock::touchRock(Bomb *bomb)
-	{
-		return HitRectangle(bomb->GetX1(), bomb->GetY1(),
-			bomb->GetX2(), bomb->GetY2());
-	}
-
 	bool Rock::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
 		int x1 = x;
 		int y1 = y;
-		int x2 = x1 + rock.Width();
-		int y2 = y1 + rock.Height();
+		int x2 = x1 + rock[rockType].Width();
+		int y2 = y1 + rock[rockType].Height();
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
@@ -63,23 +62,28 @@ namespace game_framework {
 
 	void Rock::LoadBitmap()
 	{
-		rock.LoadBitmap(IDB_ROCK, RGB(34, 177, 76));
+		rock[0].LoadBitmap(IDB_ROCK, RGB(34, 177, 76));
+		rock[1].LoadBitmap(IDB_ROCK2, RGB(34, 177, 76));
+		rock[2].LoadBitmap(IDB_ROCK3, RGB(34, 177, 76));
+		rock[3].LoadBitmap(IDB_ROCK4, RGB(34, 177, 76));
+		rock[4].LoadBitmap(IDB_ROCK5, RGB(34, 177, 76));
 	}
 	void Rock::setIsOpenRock(bool flag)
 	{
 		isOpen = flag;
 	}
-	void Rock::SetXY(int nx, int ny)
+	void Rock::SetXY(int type,int nx, int ny)
 	{
 		x = nx; y = ny;
+		rockType = type;
 	}
 
 	void Rock::OnShow(CGameMap *m)
 	{
 		if (!isOpen)
 		{
-			rock.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
-			rock.ShowBitmap();
+			rock[rockType].SetTopLeft(m->ScreenX(x), m->ScreenY(y));
+			rock[rockType].ShowBitmap();
 		}
 	}
 }

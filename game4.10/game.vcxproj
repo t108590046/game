@@ -282,6 +282,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='UnitTest|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Include="Source\gem.cpp" />
+    <ClCompile Include="Source\hammer.cpp" />
     <ClCompile Include="Source\MainFrm.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -325,6 +326,7 @@
     <ClInclude Include="Source\gameMap.h" />
     <ClInclude Include="Source\gameView.h" />
     <ClInclude Include="Source\gem.h" />
+    <ClInclude Include="Source\hammer.h" />
     <ClInclude Include="Source\MainFrm.h" />
     <ClInclude Include="Source\Resource.h" />
     <ClInclude Include="Source\Rock.h" />
@@ -388,6 +390,9 @@
     <Image Include="RES\gem_8.bmp" />
     <Image Include="RES\gem_9.bmp" />
     <Image Include="RES\gem_left.bmp" />
+    <Image Include="RES\hamer1.bmp" />
+    <Image Include="RES\hamer3.bmp" />
+    <Image Include="RES\hammer2.bmp" />
     <Image Include="RES\heart.bmp" />
     <Image Include="RES\leftrun2.bmp" />
     <Image Include="RES\loading1.bmp" />
@@ -397,6 +402,10 @@
     <Image Include="RES\rightrun5.bmp" />
     <Image Include="RES\rightrun6.bmp" />
     <Image Include="RES\rock.bmp" />
+    <Image Include="RES\rock2.bmp" />
+    <Image Include="RES\rock3.bmp" />
+    <Image Include="RES\rock4.bmp" />
+    <Image Include="RES\rock5.bmp" />
     <Image Include="RES\stage1.bmp" />
     <Image Include="RES\stage1_1.bmp" />
     <Image Include="RES\stage1_2.bmp" />

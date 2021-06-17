@@ -161,10 +161,10 @@ namespace game_framework {
 	bool Bomb::beBombed(Rock *rock)
 	{
 		if (isBombing) {
-			int tx1 = x ;
-			int tx2 = x + bmpBombing.Width();
-			int ty1 = y ;
-			int ty2 = y + bmpBombing.Height();
+			int tx1 = x -30;
+			int tx2 = x + bmpBombing.Width()+30;
+			int ty1 = y -30 ;
+			int ty2 = y + bmpBombing.Height() +30;
 			int x1 = rock->GetX1();
 			int y1 = rock->GetY1();
 			int x2 = rock->GetX2();
@@ -287,6 +287,7 @@ namespace game_framework {
 	{
 		bmp.OnMove();
 		const int STEP_SIZE = 15;
+		const int landing_size = 10;
 		if (!is_alive) {
 			isMovingLeft = false;
 			isMovingRight = false;
@@ -320,8 +321,8 @@ namespace game_framework {
 				isBombing = true;
 			}
 		}
-		else if (m->IsEmpty(x, y + bmp.Height() + STEP_SIZE) && !isOnBomb && !isBombing && !m->IsStandingWood(x,y + bmp.Height() + STEP_SIZE))
-				y += STEP_SIZE;
+		else if (m->IsEmpty(x, y + bmp.Height() + landing_size) && !isOnBomb && !isBombing )
+				y += landing_size;
 			
 	}	
 	void Bomb::SetIsAlive(bool alive)

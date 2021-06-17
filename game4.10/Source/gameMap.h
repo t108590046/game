@@ -24,6 +24,7 @@ namespace game_framework {
 		void SetMovingLeftL(bool flag);	// 設定是否正在往左小移動
 		void SetMovingRightL(bool flag); // 設定是否正在往右小移動
 		void SetMovingUpL(bool flag);	// 設定是否正在往上小移動
+		bool IsChangeScreen_Diagonal_RD(int x, int y);
 		bool IsChangeScreen_horizontal(int x, int y);
 		bool IsChangeScreen_Diagonal_RDandLU(int x, int y);
 		bool IsChangeScreen_Diagonal_RUandLD(int x, int y);
@@ -31,6 +32,7 @@ namespace game_framework {
 		bool IsStandingWood(int x, int y);
 		bool IsStandingLittleWoodDoor(int x, int y);
 		bool IsPipe(int x, int y);
+		bool IsLittleDown(int x, int y);
 		bool IsScreenStopMoving(int x, int y);
 		bool IsChangeHeartMap(int x, int y);
 		bool ChangeHeart(int x, int y);
@@ -38,6 +40,7 @@ namespace game_framework {
 		bool checkScreenMoVing();
 		void goToNextMap(int n);
 		void beAir(int x, int y, int x2, int y2);
+		void beLittleMovingDown(int x, int y, int x2, int y2);
 		void returnSavePoint();
 		void changeToHeartMap();
 	protected:

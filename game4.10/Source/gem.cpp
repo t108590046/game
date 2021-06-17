@@ -18,6 +18,7 @@ namespace game_framework {
 		isShowNumGem = isShowStore =false;
 		showNumGemCounter = 30 * 3;
 		x = y = priceOfHeart =0;
+		totalGem = 0;
 	}
 	bool Gem::HitChicken(CEraser *eraser)
 	{
@@ -88,6 +89,7 @@ namespace game_framework {
 		}
 		if(isShowNumGem)
 		{
+			//TRACE("nowTotalGem:%d\n", totalGem);
 			gemLeft.SetTopLeft(570, 20);
 			gemLeft.ShowBitmap();
 			switch (tens) {
@@ -188,7 +190,6 @@ namespace game_framework {
 			}
 		}
 		if (isShowStore) {
-			TRACE("priceOfHeart:%d\n", priceOfHeart);
 			int ten = priceOfHeart / 10;
 			int digit = priceOfHeart % 10;
 			switch (ten) {

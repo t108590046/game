@@ -39,8 +39,8 @@ namespace game_framework {
 
 	void CEraser::Initialize(int n)
 	{
-		int X_POS_ALL[3] = { 0 ,60};
-		int Y_POS_ALL[3] = { 200 ,442};
+		int X_POS_ALL[3] = { 200 ,1840};
+		int Y_POS_ALL[3] = { 200 ,580};
 		x = savePointX = X_POS_ALL[n];
 		y = savePointY = Y_POS_ALL[n];
 		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = isInPipeGoToDown = isInPipeGoToUp = isPressDown  = isHurt =isJumping =false;
@@ -86,11 +86,11 @@ namespace game_framework {
 		}
 		if (isMovingLeft) { //往左
 			goToLeft.OnMove();
-			if (m->IsEmpty(x - STEP_SIZE, y+ animation.Height())) { //人物移動
+			if (m->IsEmpty(x - STEP_SIZE, y+ animation.Height()/2)) { //人物移動
 				x -= STEP_SIZE;
 			}
 		}
-		if (m->IsLittleMove_horizontal(x, y) && isMovingLeft)
+		if (m->IsLittleMove_horizontal(x, y + animation.Height() / 2) && isMovingLeft)
 		{
 			m->SetMovingLeftL(true);
 		}
@@ -101,11 +101,11 @@ namespace game_framework {
 
 		if (isMovingRight) { //往右
 			goToRight.OnMove();
-			if (m->IsEmpty(x + animation.Width() + STEP_SIZE, y + animation.Height())) {
+			if (m->IsEmpty(x + animation.Width() + STEP_SIZE, y + animation.Height()/2)) {
 				x += STEP_SIZE;
 			}
 		}
-		if (m->IsLittleMove_horizontal(x, y) && isMovingRight)
+		if (m->IsLittleMove_horizontal(x, y + animation.Height() / 2) && isMovingRight)
 		{
 			m->SetMovingRightL(true);
 		}
@@ -148,7 +148,7 @@ namespace game_framework {
 		}
 
 		if (isBombing) { //放炸彈				
-			if ( (m->IsPipe(x, y - 56) || m->IsEmpty(x,y) )) {
+			if ((m->IsPipe(x, y - 56) || ( m->IsEmpty(x, y-10) || m->IsStandingWood(x,y-56)))) {
 				isCanPutBomb = true;			
 			}
 			else {
@@ -165,7 +165,7 @@ namespace game_framework {
 		}
 
 		//下降
-		if (!isJumping &&( m->IsEmpty(x+ (animation.Width()/2), y + LANDING_SIZE+ animation.Height()) || m->IsStandingLittleWoodDoor(x + animation.Width() / 2, y + LANDING_SIZE + animation.Height())) && !isStepOnBomb && !(m->IsStandingWood(x+(animation.Width() / 2), y + LANDING_SIZE + (animation.Height()))))
+		if (!isJumping &&( m->IsEmpty(x + animation.Width() / 2, y + LANDING_SIZE+ animation.Height()) || m->IsStandingLittleWoodDoor(x + animation.Width() / 2, y + LANDING_SIZE + animation.Height())) && !isStepOnBomb)
 		{
 			y += LANDING_SIZE;
 			is_landing = true;
@@ -187,13 +187,15 @@ namespace game_framework {
 		{
 			m->SetMovingDownL(false);
 		}
+		if (m->IsLittleDown(x, y) && is_landing) {
+			m->SetMovingDownL(true);
+		}
 
 
-
-		if (m->IsChangeScreen_horizontal(x, y) && isMovingRight) {//視角平移
+		if (m->IsChangeScreen_horizontal(x, y + animation.Height()/2) && isMovingRight) {//視角平移
 			m->SetMovingRight(true);
 		}
-		if (m->IsChangeScreen_horizontal(x, y) && isMovingLeft) {
+		if (m->IsChangeScreen_horizontal(x, y + animation.Height() / 2) && isMovingLeft) {
 			m->SetMovingLeft(true);
 		}
 
@@ -222,10 +224,13 @@ namespace game_framework {
 				m->SetMovingDown(true);
 				m->SetMovingLeft(true);
 			}
-
+		}
+		if (m->IsChangeScreen_Diagonal_RD(x + animation.Width()/2, y + animation.Height() / 2)) {
+			m->SetMovingDown(true);
+			m->SetMovingRight(true);
 		}
 		//存檔點
-		if (m->IsPipe(x,y) ||m->IsChangeScreen_Diagonal_RUandLD(x, y) || m->IsChangeScreen_Diagonal_RDandLU(x, y) || m->IsChangeScreen_horizontal(x, y) || m->IsChangeScreen_UpOrDown(x, y))
+		if (m->IsChangeScreen_Diagonal_RD(x, y) || m->IsPipe(x,y) ||m->IsChangeScreen_Diagonal_RUandLD(x, y) || m->IsChangeScreen_Diagonal_RDandLU(x, y) || m->IsChangeScreen_horizontal(x, y) || m->IsChangeScreen_UpOrDown(x, y))
 		{
 			savePointX = x;
 			savePointY = y;
@@ -296,7 +301,7 @@ namespace game_framework {
 	}
 	bool CEraser::checkCanPutBomb()
 	{
-		return  isCanPutBomb && isBombing;
+		return  isCanPutBomb ;
 	}
 	void CEraser::stopMoving()
 	{

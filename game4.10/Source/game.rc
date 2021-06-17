@@ -230,6 +230,20 @@ IDB_BAT_RIGHT_2         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\
 
 IDB_Stage2              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\stage2.bmp"
 
+IDB_ROCK2               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\rock2.bmp"
+
+IDB_ROCK3               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\rock3.bmp"
+
+IDB_ROCK4               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\rock4.bmp"
+
+IDB_ROCK5               BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\rock5.bmp"
+
+IDB_HAMMER1             BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\hammer2.bmp"
+
+IDB_HAMMER2             BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\hamer1.bmp"
+
+IDB_HAMMER3             BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\hamer3.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
