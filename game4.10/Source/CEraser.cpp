@@ -38,15 +38,16 @@ namespace game_framework {
 	}
 
 	void CEraser::Initialize(int n)
-	{
-		int X_POS_ALL[3] = { 200 ,1840};
-		int Y_POS_ALL[3] = { 200 ,580};
+	{   //50
+		//448
+		int X_POS_ALL[3] = { 200 ,50};
+		int Y_POS_ALL[3] = { 200 ,448};
 		x = savePointX = X_POS_ALL[n];
 		y = savePointY = Y_POS_ALL[n];
 		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = isInPipeGoToDown = isInPipeGoToUp = isPressDown  = isHurt =isJumping =false;
 		is_landing = isShowHeart =false;
-		nowLife = 3;
-		life_Max = 3;
+		nowLife = 1;
+		life_Max = 1;
 		showHeartCounter = 30 * 3;
 		jumpCounter = 15 * 1;
 		isCanPutBomb = true;
@@ -148,7 +149,7 @@ namespace game_framework {
 		}
 
 		if (isBombing) { //©ñ¬µ¼u				
-			if ((m->IsPipe(x, y - 56) || ( m->IsEmpty(x, y-10) || m->IsStandingWood(x,y-56)))) {
+			if ( ( m->IsEmpty(x, y-10) || m->IsStandingWood(x,y-56) || m->IsPipe(x,y))) {
 				isCanPutBomb = true;			
 			}
 			else {
@@ -165,7 +166,7 @@ namespace game_framework {
 		}
 
 		//¤U­°
-		if (!isJumping &&( m->IsEmpty(x + animation.Width() / 2, y + LANDING_SIZE+ animation.Height()) || m->IsStandingLittleWoodDoor(x + animation.Width() / 2, y + LANDING_SIZE + animation.Height())) && !isStepOnBomb)
+		if (!m->IsPipe(x + animation.Width()/2,y + animation.Height()+ LANDING_SIZE) &&!isJumping &&( m->IsEmpty(x + animation.Width() / 2, y + LANDING_SIZE+ animation.Height()) || m->IsStandingLittleWoodDoor(x + animation.Width() / 2, y + LANDING_SIZE + animation.Height())) && !isStepOnBomb)
 		{
 			y += LANDING_SIZE;
 			is_landing = true;
@@ -225,7 +226,7 @@ namespace game_framework {
 				m->SetMovingLeft(true);
 			}
 		}
-		if (m->IsChangeScreen_Diagonal_RD(x + animation.Width()/2, y + animation.Height() / 2)) {
+		if (m->IsChangeScreen_Diagonal_RD(x + animation.Width()/2, y + animation.Height())) {
 			m->SetMovingDown(true);
 			m->SetMovingRight(true);
 		}
@@ -371,5 +372,8 @@ namespace game_framework {
 	}
 	void CEraser::setChickenJumping(bool flag) {
 		isJumping = flag;
+	}
+	bool CEraser::check_inPipe( ) {
+		return (isInPipeGoToUp || isInPipeGoToDown);
 	}
 }

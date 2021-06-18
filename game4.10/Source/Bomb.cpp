@@ -281,6 +281,7 @@ namespace game_framework {
 		bmp.AddBitmap(IDB_Bomb3, RGB(34, 177, 76));		
 		bmpBombing.AddBitmap(IDB_Bombfire, RGB(34, 177, 76));
 		bmp.SetDelayCount(30);
+		
 	}
 
 	void Bomb::OnMove(CEraser *eraser, CGameMap *m)
@@ -308,6 +309,7 @@ namespace game_framework {
 				isMovingLeft = false;
 				is_alive = false;
 				isBombing = true;
+				CAudio::Instance()->Play(3, false);
 			}
 		}
 		else if (is_alive && isMovingRight)
@@ -319,15 +321,17 @@ namespace game_framework {
 				isMovingRight = false;
 				is_alive = false;
 				isBombing = true;
+				CAudio::Instance()->Play(3, false);
 			}
 		}
-		else if (m->IsEmpty(x, y + bmp.Height() + landing_size) && !isOnBomb && !isBombing )
+		else if (m->IsEmpty(x, y + bmp.Height() + landing_size) && !isOnBomb && !isBombing && !m->IsPipe(x + bmp.Width()/2,y + bmp.Height()) )
 				y += landing_size;
-			
 	}	
 	void Bomb::SetIsAlive(bool alive)
 	{
 		is_alive = alive;
+		if(!alive)
+			CAudio::Instance()->Play(3, false);
 	}
 
 	void Bomb::SetXY(int nx, int ny)
@@ -340,20 +344,22 @@ namespace game_framework {
 		if (is_alive)
 		{
 			bombTimeCounter--;
-			if(bombTimeCounter < 0)
+			if (bombTimeCounter < 0)
 			{
 				is_alive = false;
 				isBombing = true;
 				bombTimeCounter = 30 * 3;
+				CAudio::Instance()->Play(3, false);
 			}
-			else 
+			else
 			{
 				bmp.SetTopLeft(m->ScreenX(x), m->ScreenY(y));
 				bmp.OnShow();
 			}
 		}
-		else
+		else {
 			bombTimeCounter = 30 * 3;
+		}
 		if (isBombing) {
 			bombingTimeCounter--;
 			if (bombingTimeCounter < 0)

@@ -396,6 +396,15 @@
     <Image Include="RES\heart.bmp" />
     <Image Include="RES\leftrun2.bmp" />
     <Image Include="RES\loading1.bmp" />
+    <Image Include="RES\menu1_1.bmp" />
+    <Image Include="RES\menu1_2.bmp" />
+    <Image Include="RES\menu1_3.bmp" />
+    <Image Include="RES\menu2_1.bmp" />
+    <Image Include="RES\menu2_2.bmp" />
+    <Image Include="RES\menu2_3.bmp" />
+    <Image Include="RES\menu3_1.bmp" />
+    <Image Include="RES\menu3_2.bmp" />
+    <Image Include="RES\menu3_3.bmp" />
     <Image Include="RES\rightrun1.bmp" />
     <Image Include="RES\rightrun3.bmp" />
     <Image Include="RES\rightrun4.bmp" />

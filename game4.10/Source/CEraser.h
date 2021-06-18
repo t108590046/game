@@ -28,6 +28,7 @@ namespace game_framework {
 		bool check_MovingLeft();
 		bool check_MovingRight();
 		bool check_IsBombing();
+		bool check_inPipe();
 		bool checkCanPutBomb();
 		bool checkOnFloor();
 		bool checkOnBomb();

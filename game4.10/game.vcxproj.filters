@@ -465,5 +465,32 @@
     <Image Include="RES\hamer3.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\menu1_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\menu1_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\menu1_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\menu2_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\menu2_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\menu2_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\menu3_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\menu3_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\menu3_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

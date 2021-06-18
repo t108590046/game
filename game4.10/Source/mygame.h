@@ -57,9 +57,20 @@ namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 
 	enum AUDIO_ID {				// 定義各種音效的編號
-		AUDIO_DING,				// 0
-		AUDIO_LAKE,				// 1
-		AUDIO_NTUT				// 2
+		AUDIO_init,				// 0
+		AUDIO_BAKCGROUND,       // 1
+		AUDIO_PUTBOMB,          // 2
+   		AUDIO_BOMBING,          // 3
+		AUDIO_PUSHBOMB,         // 4
+		AUDIO_REBRITH,          // 5
+		AUDIO_GAMEOVER,         // 6
+		AUDIO_PASS,				// 7
+		AUDIO_KILLENEMY,		// 8
+		AUDIO_MENU, 		    // 9
+		AUDIO_OPENTREASURE,     //10
+		AUDIO_GETGEM,           //11
+		AUDIO_BUTTONDOOR,       //12
+		AUDIO_OPENWOODDOOR      //13
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -72,6 +83,7 @@ namespace game_framework {
 		CGameStateInit(CGame *g);
 		void OnInit();  								// 遊戲的初值及圖形設定
 		void OnBeginState();							// 設定每次重玩所需的變數
+		void OnKeyDown(UINT, UINT, UINT);
 		void OnKeyUp(UINT, UINT, UINT); 				// 處理鍵盤Up的動作
 		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 	protected:
@@ -115,6 +127,7 @@ namespace game_framework {
 		int				NUMROCK;
 		int				NUMENEMY;
 		int				NUMHAMMER;
+		CMovingBitmap	menu[3][3];
 		CMovingBitmap	background;	// 背景圖
 		CMovingBitmap	help;		// 說明圖
 		CBall			*ball;		// 球的陣列
@@ -134,12 +147,15 @@ namespace game_framework {
 		Treasure		*treasure;
 		bool			isChange;
 		bool            isDie;
+		bool            isInMenuState;
+		int             menuState;
+		int				tempNowMap;
 		int             reBrithCounter;
 		int				numberBomb;	
 		int				nowTotalGem;
 		int				nowMap; //目前關卡
 		int priceOfGemsEveryMap[2] = { 5 ,20};
-		int numberOfGemEveryMap[2] = { 12 ,1};
+		int numberOfGemEveryMap[2] = { 12 ,10};
 		int numberOfBtnEveryMap[2] = { 3 ,3};
 		int numberOfWoodDoorEveryMap[2] = { 2,0 };
 		int numberOfTreasureEveryMap[2] = { 1 ,1};

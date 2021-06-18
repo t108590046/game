@@ -128,6 +128,10 @@ namespace game_framework {
 			isMovingRight = true;
 			isMovingLeft = false;
 		}
+		else {
+			isMovingRight = false;
+			isMovingLeft = false;
+		}
 		height = enemy[type][0].Height();
 		width = enemy[type][0].Width();
 		typeEnemy = type;
