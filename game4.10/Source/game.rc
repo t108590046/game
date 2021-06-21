@@ -262,6 +262,12 @@ IDB_MENU3_2             BITMAP                  "D:\\oopGamePush\\game4.10\\RES\
 
 IDB_MENU3_3             BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\menu3_3.bmp"
 
+IDB_Stage3              BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\stage3.bmp"
+
+IDB_CANTPUTBOMB         BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\cantPutBomb.bmp"
+
+IDB_CARD                BITMAP                  "D:\\oopGamePush\\game4.10\\RES\\card.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

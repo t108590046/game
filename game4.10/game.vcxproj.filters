@@ -492,5 +492,14 @@
     <Image Include="RES\menu3_3.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\stage3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\cantPutBomb.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\card.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

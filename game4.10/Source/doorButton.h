@@ -14,7 +14,7 @@ namespace game_framework {
 		void SetXY(int direction,int nx, int ny);
 		void SetIsTouched(bool touched);						
 	protected:
-		CMovingBitmap button[4];
+		CMovingBitmap button[5];
 		int x, y;
 		int btnDirection; //«ö¶sªº¤è¦V
 		bool isTouched;

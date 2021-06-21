@@ -41,15 +41,17 @@ namespace game_framework {
 		void setHurt(bool flag);
 		void healHeart();
 		void setChickenJumping(bool flag);
+		bool getNowIsPipeGoToUp();
+		bool getNowIsPipeGoToDown();
 	protected:
 		CAnimation animation;		// 擦子的動畫
 		CAnimation goToLeft;		//雞向左
 		CAnimation goToRight;		//雞向右
-		CAnimation putBomb;			//雞放炸彈
+		CAnimation cantputBomb;	   //雞放炸彈撞牆
 		CMovingBitmap heart,emptyHeart;
 		int x, y;					// 擦子左上角座標
 		int savePointX, savePointY;
-		bool isBombing;			// 是否正在下炸彈
+		bool isBombing;			    // 是否正在下炸彈
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動
 		bool isMovingUp;			// 是否正在往上移動

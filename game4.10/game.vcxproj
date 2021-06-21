@@ -363,6 +363,8 @@
     <Image Include="RES\BUTTON_DOWN.bmp" />
     <Image Include="RES\BUTTON_LEFT.bmp" />
     <Image Include="RES\BUTTON_RIGHT.bmp" />
+    <Image Include="RES\cantPutBomb.bmp" />
+    <Image Include="RES\card.bmp" />
     <Image Include="RES\changeHeartMap.bmp" />
     <Image Include="RES\doorType_1.bmp" />
     <Image Include="RES\doorType_2.bmp" />
@@ -420,6 +422,7 @@
     <Image Include="RES\stage1_2.bmp" />
     <Image Include="RES\stage1_3.bmp" />
     <Image Include="RES\stage2.bmp" />
+    <Image Include="RES\stage3.bmp" />
     <Image Include="RES\Start_0.bmp" />
     <Image Include="RES\Start_1.bmp" />
     <Image Include="RES\Start_2.bmp" />

@@ -13,8 +13,8 @@ namespace game_framework {
 
 	Rock::Rock()
 	{
-		isOpen = false;
-		x = y = rockType = 0;
+		isOpen  = false;
+		x = y = rockType = WhichMap = 0;
 	}
 	int Rock::GetX1()
 	{
@@ -41,7 +41,7 @@ namespace game_framework {
 		int y1 = y;
 		int x2 = x1 + rock[rockType].Width();
 		int y2 = y1 + rock[rockType].Height();
-		if (rockType == 0)
+		if (WhichMap == 0)
 			m->beAir(x1, y1, x2, y2);
 		else
 			m->beLittleMovingDown(x1, y1, x2, y2);
@@ -72,10 +72,11 @@ namespace game_framework {
 	{
 		isOpen = flag;
 	}
-	void Rock::SetXY(int type,int nx, int ny)
+	void Rock::SetXY(int beWhichMap,int type,int nx, int ny)
 	{
 		x = nx; y = ny;
 		rockType = type;
+		WhichMap = beWhichMap;
 	}
 
 	void Rock::OnShow(CGameMap *m)

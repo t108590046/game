@@ -48,6 +48,8 @@ namespace game_framework {
 		button[1].LoadBitmap(IDB_BUTTON_LEFT, RGB(34, 177, 76));
 		button[2].LoadBitmap(IDB_BUTTON_RIGHT, RGB(34, 177, 76));
 		button[3].LoadBitmap(IDB_BUTTON_DOWN, RGB(34, 177, 76));
+		button[4].LoadBitmap(IDB_CARD, RGB(34, 177, 76));
+
 	}
 	void Button::SetIsTouched(bool touched)
 	{

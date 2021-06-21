@@ -154,14 +154,14 @@ namespace game_framework {
 		int				numberBomb;	
 		int				nowTotalGem;
 		int				nowMap; //目前關卡
-		int priceOfGemsEveryMap[2] = { 5 ,20};
-		int numberOfGemEveryMap[2] = { 12 ,10};
-		int numberOfBtnEveryMap[2] = { 3 ,3};
-		int numberOfWoodDoorEveryMap[2] = { 2,0 };
-		int numberOfTreasureEveryMap[2] = { 1 ,1};
-		int numberOfRockEveryMap[2] = { 2 ,41};
-		int numberOfEnemyEveryMap[2] = {6,4};
-		int numberOfHammerEveryMap[2] = { 0,15 };
+		int priceOfGemsEveryMap[3] = { 5 ,20,40};
+		int numberOfGemEveryMap[3] = { 12 ,10,2};
+		int numberOfBtnEveryMap[3] = { 3 ,3,1};
+		int numberOfWoodDoorEveryMap[3] = { 2,0 };
+		int numberOfTreasureEveryMap[3] = { 1 ,1};
+		int numberOfRockEveryMap[3] = { 2 ,41};
+		int numberOfEnemyEveryMap[3] = {6,4,1};
+		int numberOfHammerEveryMap[3] = { 0,15 };
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

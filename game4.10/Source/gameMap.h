@@ -5,7 +5,7 @@ namespace game_framework {
 		CGameMap();
 		void LoadBitmap();
 		void OnShow();
-		void Initialize();
+		void Initialize(int n);
 		void OnMove(CEraser *c);
 		int	 ScreenX(int x);
 		int  ScreenY(int y);
@@ -24,6 +24,7 @@ namespace game_framework {
 		void SetMovingLeftL(bool flag);	// 設定是否正在往左小移動
 		void SetMovingRightL(bool flag); // 設定是否正在往右小移動
 		void SetMovingUpL(bool flag);	// 設定是否正在往上小移動
+		bool touchThorn(int x, int y);
 		bool IsChangeScreen_Diagonal_RD(int x, int y);
 		bool IsChangeScreen_horizontal(int x, int y);
 		bool IsChangeScreen_Diagonal_RDandLU(int x, int y);
@@ -31,7 +32,7 @@ namespace game_framework {
 		bool IsChangeScreen_UpOrDown(int x, int y);
 		bool IsStandingWood(int x, int y);
 		bool IsStandingLittleWoodDoor(int x, int y);
-		bool IsPipe(int x, int y);
+		int IsPipe(int x, int y, CEraser *c);
 		bool IsLittleDown(int x, int y);
 		bool IsScreenStopMoving(int x, int y);
 		bool IsChangeHeartMap(int x, int y);
@@ -44,7 +45,7 @@ namespace game_framework {
 		void returnSavePoint();
 		void changeToHeartMap();
 	protected:
-		CMovingBitmap blue, green,yellow,stage1,stage2,changeHeartMap;
+		CMovingBitmap blue, green,yellow,stage1,stage2,stage3,changeHeartMap;
 		int map[250][225];
 		const int MW, MH;
 		int	 sx, sy;

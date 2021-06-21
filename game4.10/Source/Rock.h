@@ -14,13 +14,13 @@ namespace game_framework {
 		bool isOpenRock();
 		void LoadBitmap();
 		void OnShow(CGameMap *m);
-		void SetXY(int type,int nx, int ny);
+		void SetXY(int beWhichMap,int type,int nx, int ny);
 		void setIsOpenRock(bool flag);
 		void openRock(CGameMap *m);
 		int returnType();
 	protected:
 		CMovingBitmap rock[5];
-		int x, y,rockType;
+		int x, y,rockType,WhichMap;
 		bool isOpen;
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);

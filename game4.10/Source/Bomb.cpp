@@ -87,7 +87,7 @@ namespace game_framework {
 			int ty1 = enemy->GetY1();
 			int tx2 = enemy->GetX2();
 			int ty2 = enemy->GetY2();
-			return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2 && abs(ty2-y2)<10);
+			return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2 && ty2-y2<5);
 		}
 		else 
 			return false;
@@ -214,7 +214,7 @@ namespace game_framework {
 		int x2 = x1 + bmp.Width();	
 		int y2 = y1 + bmp.Height();	
 		if (eraser->check_MovingLeft())
-			return (tx2 >= x1 && tx1 <= x2 && (abs(ty2 - y2) <= 20 || (ty2 >= y2 && isOnBomb)) && abs(tx1 - x2) < 5);
+			return (tx2 >= x1 && tx1 <= x2 &&(abs(ty2 - y2) <= 20 || (ty2 >= y2 && isOnBomb)) && abs(tx1 - x2) < 5);
 		else if (eraser->check_MovingRight()) {
 			return  (tx2 >= x1 &&  tx1 <= x2 && (abs(ty2 - y2) <= 20 || (ty2 >= y2 && isOnBomb)) && abs(tx2 - x1) < 5);
 		}
@@ -302,7 +302,7 @@ namespace game_framework {
 		}
 		if (is_alive && isMovingLeft)
 		{
-			if (m->IsEmpty(x- STEP_SIZE, y + bmp.Height())) {
+			if ((m->IsEmpty(x- STEP_SIZE, y + bmp.Height()) || m->IsStandingWood(x - STEP_SIZE, y + bmp.Height()))) {
 				x -= STEP_SIZE;
 			}
 			else {
@@ -314,7 +314,7 @@ namespace game_framework {
 		}
 		else if (is_alive && isMovingRight)
 		{
-			if (m->IsEmpty(x+ STEP_SIZE+ bmp.Width(), y + bmp.Height())) {
+			if ((m->IsEmpty(x+ STEP_SIZE+ bmp.Width(), y + bmp.Height())) || m->IsStandingWood(x + STEP_SIZE + bmp.Width(), y + bmp.Height())) {
 				x += STEP_SIZE;
 			}
 			else {
@@ -324,7 +324,7 @@ namespace game_framework {
 				CAudio::Instance()->Play(3, false);
 			}
 		}
-		else if (m->IsEmpty(x, y + bmp.Height() + landing_size) && !isOnBomb && !isBombing && !m->IsPipe(x + bmp.Width()/2,y + bmp.Height()) )
+		else if (m->IsEmpty(x + bmp.Width()/2+10 , y + bmp.Height()+ landing_size) && !isOnBomb && !isBombing && m->IsPipe(x + bmp.Width()/2,y + bmp.Height(), eraser) == -1 )
 				y += landing_size;
 	}	
 	void Bomb::SetIsAlive(bool alive)
