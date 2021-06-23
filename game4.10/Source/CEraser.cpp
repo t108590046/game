@@ -38,10 +38,10 @@ namespace game_framework {
 	}
 
 	void CEraser::Initialize(int n)
-	{   //30
-		//844
-		int X_POS_ALL[3] = { 200 ,50,1740};
-		int Y_POS_ALL[3] = { 500 ,448,465};
+	{   //200//30
+		//500//844
+		int X_POS_ALL[3] = { 200 ,50,30};
+		int Y_POS_ALL[3] = { 500 ,448,844};
 		x = savePointX = X_POS_ALL[n];
 		y = savePointY = Y_POS_ALL[n];
 		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = isInPipeGoToDown = isInPipeGoToUp = isPressDown  = isHurt =isJumping =false;
@@ -74,7 +74,7 @@ namespace game_framework {
 		const int STEP_SIZE =5;
 		const int PIPE_SIZE = 15;
 		const int LANDING_SIZE = 9;
-		const int JUMP_SIZE = 10;
+		const int JUMP_SIZE = 7;
 		animation.OnMove();
 		if (isJumping) {
 			if (m->IsEmpty(x, y - JUMP_SIZE)) {
@@ -150,6 +150,14 @@ namespace game_framework {
 				m->SetMovingRight(true);
 				m->SetMovingDown(true);
 			}
+			else if (m->IsPipe(x, y + animation.Height() + 10, this) == 2) {
+				m->SetMovingRight(true);
+				m->SetMovingDown(true);
+			}
+			else if (m->IsPipe(x, y + animation.Height() + 10, this) == 3) {
+				m->SetMovingLeft(true);
+				m->SetMovingDown(true);
+			}
 
 		}
 
@@ -161,6 +169,14 @@ namespace game_framework {
 			}
 			else if (m->IsPipe(x, y, this) == 1) {
 				m->SetMovingLeft(true);
+				m->SetMovingUp(true);
+			}
+			else if (m->IsPipe(x, y, this) == 2) {
+				m->SetMovingLeft(true);
+				m->SetMovingUp(true);
+			}
+			else if (m->IsPipe(x, y, this) == 3) {
+				m->SetMovingRight(true);
 				m->SetMovingUp(true);
 			}
 		}

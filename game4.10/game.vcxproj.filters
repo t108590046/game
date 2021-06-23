@@ -501,5 +501,14 @@
     <Image Include="RES\card.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="RES\about.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\Start_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\operation_show.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

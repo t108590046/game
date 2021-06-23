@@ -43,8 +43,10 @@ namespace game_framework {
 		int y2 = y1 + rock[rockType].Height();
 		if (WhichMap == 0)
 			m->beAir(x1, y1, x2, y2);
-		else
+		else if (WhichMap == 1)
 			m->beLittleMovingDown(x1, y1, x2, y2);
+		else
+			m->beLittleMoving2(x1, y1, x2, y2);
 	}
 	bool Rock::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{

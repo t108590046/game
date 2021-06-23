@@ -324,7 +324,7 @@ namespace game_framework {
 				CAudio::Instance()->Play(3, false);
 			}
 		}
-		else if (m->IsEmpty(x + bmp.Width()/2+10 , y + bmp.Height()+ landing_size) && !isOnBomb && !isBombing && m->IsPipe(x + bmp.Width()/2,y + bmp.Height(), eraser) == -1 )
+		else if ((m->IsEmpty(x, y + bmp.Height() + landing_size) && m->IsEmpty(x + bmp.Width() , y + bmp.Height()+ landing_size)) && !isOnBomb && !isBombing && m->IsPipe(x + bmp.Width()/2,y + bmp.Height(), eraser) == -1 )
 				y += landing_size;
 	}	
 	void Bomb::SetIsAlive(bool alive)

@@ -94,6 +94,10 @@ void CGameStateInit::OnInit()
 	start[1].LoadBitmap(IDB_start1, RGB(0, 0, 0));
 	start[2].LoadBitmap(IDB_start2, RGB(0, 0, 0));
 	start[3].LoadBitmap(IDB_start3, RGB(0, 0, 0));
+	start[4].LoadBitmap(IDB_ABOUT, RGB(0, 0, 0));
+	start[5].LoadBitmap(IDB_operation, RGB(0, 0, 0));
+	start[6].LoadBitmap(IDB_operation_show, RGB(0, 0, 0));
+
 	CAudio::Instance()->Load(AUDIO_init, "sounds\\initBackground.mp3");	// 載入背景聲音
 	CAudio::Instance()->Play(AUDIO_init, true);
 	CAudio::Instance()->Load(AUDIO_MENU, "sounds\\Menu.mp3");   // 載入選單移動聲音
@@ -118,17 +122,36 @@ void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
 		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);
 	}
+	else if (current == 2 && nChar == KEY_ENTER)
+	{
+		current = 4;
+	}
+	else if (current == 4 && nChar >= 0)
+	{
+		current = 2;
+	}
+	else if (current == 5 && nChar == KEY_ENTER)
+	{
+		current = 6;
+	}
+	else if (current == 6 && nChar >= 0)
+	{
+		current = 5;
+	}
 	if (nChar == KEY_UpArrow)
 	{
 		CAudio::Instance()->Play(AUDIO_MENU, false);
 		if (current == 1) {
-			current = 3;
+			current = 5;
 		}
 		else if (current == 2) {
 			current = 1;
 		}
 		else if (current == 3) {
 			current = 2;
+		}
+		else if (current == 5) {
+			current = 3;
 		}
 	}
 	if (nChar == KEY_DownArrow)
@@ -141,8 +164,12 @@ void CGameStateInit::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			current = 3;
 		}
 		else if (current == 3) {
+			current = 5;
+		}
+		else if (current == 5) {
 			current = 1;
 		}
+
 	}
 
 }
@@ -226,9 +253,9 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
-	: CGameState(g), NUMBOMBS(10), NUMGEM(30), NUMBTN(10), NUM_WOOD_DOOR(10), NUMTREASURE(10), NUMROCK(41), NUMENEMY(10), NUMHAMMER(15)
+	: CGameState(g), NUMBOMBS(10), NUMGEM(30), NUMBTN(10), NUM_WOOD_DOOR(10), NUMTREASURE(10), NUMROCK(41), NUMENEMY(20), NUMHAMMER(15)
 {
-	nowMap = tempNowMap= 2;
+	nowMap = tempNowMap= 0;
 	menuState = 0;
 	numberBomb = 0;
 	ball = new CBall [NUMBOMBS];
@@ -270,10 +297,11 @@ void CGameStateRun::OnBeginState()
 	NUMROCK = numberOfRockEveryMap[nowMap];
 	NUMENEMY = numberOfEnemyEveryMap[nowMap];
 	NUMHAMMER = numberOfHammerEveryMap[nowMap];
+
 	//所有的寶石的座標
-	int allGemXY[3][12][2] = { {{1100,580},{1585,560}, {1718,528},{2045,460},{2320,430},{2320,330},{2320,230},{2930,665},{2930,615},{2665,335},{2690,335},{2715,335}},
+	int allGemXY[3][13][2] = { {{1100,580},{1585,560}, {1718,528},{2045,460},{2320,430},{2320,330},{2320,230},{2930,665},{2930,615},{2665,335},{2690,335},{2715,335}},
 							   {{1215,1070},{1285,1070},{2415,876},{2415,776},{2025,802},{2025,702},{2025,602},{1685,330},{1530,330},{1335,330}},
-							   {{485,694},{290,694}}
+							   {{485,694},{290,694},{1540,248},{1540,348},{1440,248},{1440,348},{1215,248},{1215,348},{1115,248},{1115,348},{3065,1210},{3065,1110},{3065,1310}}
 	};
 	for (int i = 0; i < NUMGEM; i++) {
 		gem[i].SetXY(allGemXY[nowMap][i][0], allGemXY[nowMap][i][1]);
@@ -283,7 +311,7 @@ void CGameStateRun::OnBeginState()
 	//所有的按鈕的座標{方向,x,y}
 	int allBtnXY[3][3][3] = { {{0,50,545},{1,2605,670},{3,2670,95}},
 							  {{0,1230,1130},{1,2355,1080},{1,2435,575}},
-							  {{4,380,590}}
+							  {{4,380,590},{3,4030,1505}}
 	};
 	for (int i = 0; i < NUMBTN; i++) {
 		btn[i].SetXY(allBtnXY[nowMap][i][0],allBtnXY[nowMap][i][1], allBtnXY[nowMap][i][2]);
@@ -291,7 +319,7 @@ void CGameStateRun::OnBeginState()
 	}
 	int allDoorXY[3][3][3] = { {{0,565,450},{0,2625,840},{1,2672,266}},
 								{{0,1515,1040},{0,2270,930},{0,1965,536}},
-								{{0,735,800}}
+								{{0,735,800},{0,4310,1680}}
 	};
 	for (int i = 0; i < NUMBTN; i++) {
 		door[i].SetXY(allDoorXY[nowMap][i][0], allDoorXY[nowMap][i][1], allDoorXY[nowMap][i][2]);
@@ -316,15 +344,16 @@ void CGameStateRun::OnBeginState()
 	//所有石頭的座標
 	int allRock[3][41][4] = { {{0,0,2155,665},{0,0,2155,598}},
 							 {{0,1,2657,962},{0,3,2633,996},{0,3,2609,996},{0,3,2585,996},{0,3,2633,962},{0,4,2609,962},{0,3,2585,962},{0,2,800,1080},{0,2,720,1080},{1,3,364,706},{1,3,340,706},{1,2,289,670},{1,2,340,636},{1,3,313,636},{1,3,289,636},{1,3,398,636},{1,4,423,636},{1,3,398,602},{1,3,423,602},{1,3,374,602},{1,3,289,602},{1,3,374,568},{1,2,315,568},{1,3,289,568},{1,2,231,605},{1,4,260,568},{1,3,231,500},{1,3,260,500},{1,3,231,534},{1,3,260,534},{1,2,289,501},{1,3,345,500},{1,3,374,500},{1,3,345,534},{1,3,374,534},{1,3,398,500},{1,3,423,500},{1,1,398,534},{1,3,231,568}}
+							,{{0,1,2125,1230},{0,2,2178,1230},{0,3,2125,1298},{0,3,2149,1298},{0,4,2125,1332},{0,2,3205,1862},{0,2,3340,1862},{0,2,3475,1862},{2,2,3575,2344},{2,1,3628,2344},{2,1,3681,2344},{2,1,3734,2344},{2,2,3787,2344},{2,2,3628,2274},{2,2,3734,2274},{2,2,3681,2274},{2,2,3681,2204}}
 	};
 	for (int i = 0; i < NUMROCK; i++) {
 		rock[i].SetXY(allRock[nowMap][i][0],allRock[nowMap][i][1], allRock[nowMap][i][2], allRock[nowMap][i][3]);
 		rock[i].setIsOpenRock(false);
 	}
 	//所有敵人的座標
-	int allEnemy[3][6][3] = { {{0,2000,672},{1,2525,685},{2,2220,830},{3,2500,870},{2,2690,190},{4,2810,597}},
+	int allEnemy[3][20][3] = { {{0,2000,672},{1,2525,685},{2,2220,830},{3,2500,870},{2,2690,190},{4,2810,597}},
 							  {{4,145,250},{2,1535,565},{3,1410,565},{0,1715,300}},
-						      {{0,380,660}}
+							  {{0,380,660},{4,1805,351},{4,1805,301},{4,1805,249},{4,900,351},{4,900,301},{4,900,249},{4,1095,716},{4,2340,1320},{4,2435,1320},{4,2250,1320},{4,2940,1245},{4,2970,1245},{4,3000,1245},{4,3030,1245},{2,3205,1783},{2,3340,1783},{2,3475,1783},{4,3940,1781},{4,3940,1581}}
 	};
 	for (int i = 0; i < NUMENEMY; i++) {
 		enemy[i].SetXY(allEnemy[nowMap][i][0], allEnemy[nowMap][i][1], allEnemy[nowMap][i][2]);
@@ -475,7 +504,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 					}
 				}
 				if (bomb[i].beBombed(&eraser)) {
-					eraser.SetStepOnBomb(false);
 					ReBrith();
 				}
 				for (int j = 0; j < NUMBTN; j++)
@@ -560,7 +588,12 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 					isChange = true;
 				}
 				if (gamemap.IsGoToNextMap(eraser.GetX1(), eraser.GetY1())) {
-					nowMap++;
+					if (nowMap == 2) {						//第三關過完跑到第一關
+						nowMap = 0;
+					}
+					else {
+						nowMap++;
+					}
 					gamemap.goToNextMap(nowMap);
 					CAudio::Instance()->Play(AUDIO_PASS, false);
 					CAudio::Instance()->Stop(AUDIO_init);
@@ -879,8 +912,11 @@ void CGameStateRun::OnShow()
 void CGameStateRun::ReBrith() {
 	for (int i = 0; i < NUMBOMBS; i++)
 	{
-		bomb[i].SetIsAlive(false);
+		if (bomb[i].IsAlive())
+			bomb[i].SetIsAlive(false);
 	}
+
+	eraser.SetStepOnBomb(false);
 	eraser.setShowHeart(true);
 	gem[0].setShowNumGem(true);
 	if (!CHEAT_MODE) {

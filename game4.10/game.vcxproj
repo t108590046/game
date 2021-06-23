@@ -344,6 +344,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="RES\about.bmp" />
     <Image Include="RES\bat_left_0.bmp" />
     <Image Include="RES\bat_left_1.bmp" />
     <Image Include="RES\bat_right_0.bmp" />
@@ -407,6 +408,7 @@
     <Image Include="RES\menu3_1.bmp" />
     <Image Include="RES\menu3_2.bmp" />
     <Image Include="RES\menu3_3.bmp" />
+    <Image Include="RES\operation_show.bmp" />
     <Image Include="RES\rightrun1.bmp" />
     <Image Include="RES\rightrun3.bmp" />
     <Image Include="RES\rightrun4.bmp" />
@@ -427,6 +429,7 @@
     <Image Include="RES\Start_1.bmp" />
     <Image Include="RES\Start_2.bmp" />
     <Image Include="RES\Start_3.bmp" />
+    <Image Include="RES\Start_4.bmp" />
     <Image Include="RES\treasure.bmp" />
     <Image Include="RES\up.bmp" />
     <Image Include="RES\right.bmp" />

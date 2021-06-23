@@ -90,7 +90,7 @@ namespace game_framework {
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		//CMovingBitmap logo;								// csie的logo
-		CMovingBitmap start[4];
+		CMovingBitmap start[7];
 		int current;
 	};
 
@@ -155,12 +155,12 @@ namespace game_framework {
 		int				nowTotalGem;
 		int				nowMap; //目前關卡
 		int priceOfGemsEveryMap[3] = { 5 ,20,40};
-		int numberOfGemEveryMap[3] = { 12 ,10,2};
-		int numberOfBtnEveryMap[3] = { 3 ,3,1};
+		int numberOfGemEveryMap[3] = { 12 ,10,13};
+		int numberOfBtnEveryMap[3] = { 3 ,3,2};
 		int numberOfWoodDoorEveryMap[3] = { 2,0 };
 		int numberOfTreasureEveryMap[3] = { 1 ,1};
-		int numberOfRockEveryMap[3] = { 2 ,41};
-		int numberOfEnemyEveryMap[3] = {6,4,1};
+		int numberOfRockEveryMap[3] = { 2 ,41,17};
+		int numberOfEnemyEveryMap[3] = {6,4,20};
 		int numberOfHammerEveryMap[3] = { 0,15 };
 	};
 

@@ -32,7 +32,7 @@ namespace game_framework {
 		bool IsChangeScreen_UpOrDown(int x, int y);
 		bool IsStandingWood(int x, int y);
 		bool IsStandingLittleWoodDoor(int x, int y);
-		int IsPipe(int x, int y, CEraser *c);
+		int  IsPipe(int x, int y, CEraser *c);
 		bool IsLittleDown(int x, int y);
 		bool IsScreenStopMoving(int x, int y);
 		bool IsChangeHeartMap(int x, int y);
@@ -42,6 +42,7 @@ namespace game_framework {
 		void goToNextMap(int n);
 		void beAir(int x, int y, int x2, int y2);
 		void beLittleMovingDown(int x, int y, int x2, int y2);
+		void beLittleMoving2(int x, int y, int x2, int y2);
 		void returnSavePoint();
 		void changeToHeartMap();
 	protected:
