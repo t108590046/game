@@ -678,9 +678,9 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BombChicken"
-        "ProductCode" = "8:{B3995945-15C8-4344-AC18-1A78C543C4A5}"
-        "PackageCode" = "8:{BDB92C89-5829-4088-A6D9-33526C776305}"
-        "UpgradeCode" = "8:{DE057F5D-47D2-4ED1-BC03-654C54816B21}"
+        "ProductCode" = "8:{B213B051-EB0A-411A-868B-72BAE01C9F6B}"
+        "PackageCode" = "8:{AB18C3A4-6A13-48B9-8450-34655DB2558A}"
+        "UpgradeCode" = "8:{70D7FE08-AEEE-4BCA-BFD1-C855237493F1}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
@@ -1242,7 +1242,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D205050CF65C4E079E3FFE0242B58383"
             {
-            "SourcePath" = "8:..\\game4.10\\Debug\\game.exe"
+            "SourcePath" = "8:..\\game4.10\\Release\\game.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A212AF0467974830934D0E6550623F1F"

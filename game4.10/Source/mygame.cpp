@@ -662,9 +662,11 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		}
 		if (!gamemap.checkScreenMoVing()) {
 			if (nChar == KEY_R ) {
-				eraser.returnSavePoint();
-				gamemap.returnSavePoint();
-				eraser.SetStepOnBomb(false);
+				if (!IS_IN_CHANGE_HEART_MAP) {
+					eraser.returnSavePoint();
+					gamemap.returnSavePoint();
+					eraser.SetStepOnBomb(false);
+				}
 			}
 			if (nChar == KEY_LEFT)
 				eraser.SetMovingLeft(true);
@@ -727,6 +729,13 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 				menuState++;
 		}
 		if (menuState == 0 && nChar == KEY_ENTER) {
+			if (IS_IN_CHANGE_HEART_MAP) {
+				CAudio::Instance()->Stop(AUDIO_init);
+				IS_IN_CHANGE_HEART_MAP = false;
+				CHEAT_MODE = false;
+				gem[0].setShowStore(false);
+				isChange = false;
+			}
 			gamemap.goToNextMap(nowMap);
 			GotoGameState(GAME_STATE_RUN);
 			isInMenuState = false;
