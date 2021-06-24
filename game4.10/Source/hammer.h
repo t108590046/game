@@ -17,8 +17,7 @@ namespace game_framework {
 		void LoadBitmap();
 		void OnShow(CGameMap *m);
 		void OnMove();
-		void SetXY(int nx, int ny);
-		void setDelay(int n);
+		void SetXY(int inputdelay,int nx, int ny);
 	protected:
 		CAnimation hammer;
 		int x, y,delay;

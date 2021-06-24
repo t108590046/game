@@ -117,8 +117,8 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		bool			CHEAT_MODE;
-		bool			IS_IN_CHANGE_HEART_MAP;
+		bool			CHEAT_MODE;	//無敵的狀態
+		bool			IS_IN_CHANGE_HEART_MAP; //進入換生命關的狀態
 		const int		NUMBOMBS;	// 炸彈的總數
 		int				NUMGEM;		// 寶石的總數
 		int				NUMBTN;
@@ -128,30 +128,30 @@ namespace game_framework {
 		int				NUMENEMY;
 		int				NUMHAMMER;
 		CMovingBitmap	menu[3][3];
-		Gem				*gem;		//寶石的陣列
-		CMovingBitmap	corner;		// 角落圖
-		CEraser			eraser;		// 拍子
-		CGameMap		gamemap;
-		Hammer			*hammer;
-		Bomb			*bomb;
-		Button			*btn;
-		Door			*door;
-		Rock			*rock;
-		Enemy			*enemy;
-		woodDoor		*wooddoor;
-		Treasure		*treasure;
-		bool			isChange;
-		bool            isDie;
-		bool            isInMenuState;
-		int             menuState;
-		int				tempNowMap;
-		int             reBrithCounter;
+		Gem				*gem;			//寶石的陣列
+		CEraser			eraser;			// 小雞
+		CGameMap		gamemap;		//地圖
+		Hammer			*hammer;		//槌子
+		Bomb			*bomb;			//炸彈
+		Button			*btn;			//按鈕
+		Door			*door;			//門
+		Rock			*rock;			//石頭
+		Enemy			*enemy;			//敵人
+		woodDoor		*wooddoor;		//木門
+		Treasure		*treasure;		//寶箱
+		bool			isChange;		//交換生命的狀態(一次只能換一個)
+		bool            isDie;		    //小雞的狀態
+		bool            isInMenuState;  //切換menu
+		int             menuState;      //menu目前顯示哪張圖
+		int				tempNowMap;     //暫存目前第幾關
+		int             reBrithCounter; //重生計數器
 		int				numberBomb;	
-		int				nowTotalGem;
-		int				nowMap; //目前關卡
+		int				nowTotalGem;	//目前獲得寶石的數量
+		int				nowMap;			//目前關卡
+		//----------每個關卡的物件數量----------------
 		int priceOfGemsEveryMap[3] = { 5 ,20,40};
 		int numberOfGemEveryMap[3] = { 12 ,10,13};
-		int numberOfBtnEveryMap[3] = { 3 ,3,2};
+		int numberOfBtnEveryMap[3] = { 3 ,3, 2};
 		int numberOfWoodDoorEveryMap[3] = { 2,0,0 };
 		int numberOfTreasureEveryMap[3] = { 1,1,0};
 		int numberOfRockEveryMap[3] = { 2 ,41,17};
@@ -173,7 +173,7 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		int counter;	// 倒數之計數器
+		int counter;									// 倒數之計數器
 		CMovingBitmap gameOver;
 	};
 

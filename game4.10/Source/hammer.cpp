@@ -68,10 +68,11 @@ namespace game_framework {
 
 	void Hammer::OnMove()
 	{
+		if(delay>0)
 		delay--;
-		if (delay < 0) {
-			hammer.SetDelayCount(60);
+		if (delay <= 0) {
 			hammer.OnMove();
+			
 		}
 	}
 	void Hammer::LoadBitmap()
@@ -79,16 +80,14 @@ namespace game_framework {
 		hammer.AddBitmap(IDB_HAMMER1, RGB(34, 177, 76));
 		//hammer.AddBitmap(IDB_HAMMER3, RGB(34, 177, 76));
 		hammer.AddBitmap(IDB_HAMMER2, RGB(34, 177, 76));
+		hammer.SetDelayCount(60);
 	}
-	void Hammer::SetXY(int nx, int ny)
+	void Hammer::SetXY(int inputdelay, int nx, int ny)
 	{
 		x = nx; y = ny;
+		delay = inputdelay*30;
+		hammer.Reset();
 	}
-	void Hammer::setDelay(int n)
-	{
-		delay = n * 30;
-	}
-
 	void Hammer::OnShow(CGameMap *m)
 	{
 		hammer.SetTopLeft(m->ScreenX(x), m->ScreenY(y));

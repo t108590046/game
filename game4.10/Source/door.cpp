@@ -56,6 +56,7 @@ namespace game_framework {
 	void Door::SetXY(int type, int nx, int ny)
 	{
 		doorType = type; x = nx; y = ny;
+		isOpen = false;
 	}
 
 	void Door::OnShow(CGameMap *m)
