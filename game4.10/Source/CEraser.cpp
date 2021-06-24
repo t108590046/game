@@ -70,8 +70,8 @@ namespace game_framework {
 
 	void CEraser::OnMove(CGameMap *m,Bomb *bomb)
 	{
-		TRACE("x:%d\n", x);
-		TRACE("y:%d\n", y);
+		TRACE("x:%d\n", savePointX);
+		TRACE("y:%d\n", savePointY);
 		const int STEP_SIZE =5;
 		const int PIPE_SIZE = 15;
 		const int LANDING_SIZE = 9;
@@ -265,7 +265,7 @@ namespace game_framework {
 			m->SetMovingRight(true);
 		}
 		//¦sÀÉÂI
-		if (m->IsChangeScreen_Diagonal_RD(x, y)  ||m->IsChangeScreen_Diagonal_RUandLD(x, y) || m->IsChangeScreen_Diagonal_RDandLU(x, y) || m->IsChangeScreen_horizontal(x, y) || m->IsChangeScreen_UpOrDown(x, y))
+		if (m->IsChangeScreen_Diagonal_RD(x, y)  ||m->IsChangeScreen_Diagonal_RUandLD(x, y) || m->IsChangeScreen_Diagonal_RDandLU(x, y)  || m->IsChangeScreen_UpOrDown(x, y) || m->IsChangeScreen_horizontal(x, y))
 		{
 			savePointX = x;
 			savePointY = y;
