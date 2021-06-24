@@ -181,7 +181,7 @@ namespace game_framework {
 		if (isBombing) {
 			int tx1 = x;
 			int tx2 = x + bmpBombing.Width();
-			int ty1 = y;
+			int ty1 = y - 10;
 			int ty2 = y + bmpBombing.Height();
 			int x1 = eraser->GetX1();
 			int y1 = eraser->GetY1();

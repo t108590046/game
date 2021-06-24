@@ -128,14 +128,9 @@ namespace game_framework {
 		int				NUMENEMY;
 		int				NUMHAMMER;
 		CMovingBitmap	menu[3][3];
-		CMovingBitmap	background;	// 背景圖
-		CMovingBitmap	help;		// 說明圖
-		CBall			*ball;		// 球的陣列
 		Gem				*gem;		//寶石的陣列
 		CMovingBitmap	corner;		// 角落圖
 		CEraser			eraser;		// 拍子
-		CInteger		hits_left;	// 剩下的撞擊數
-		//CBouncingBall   bball;		// 反覆彈跳的球
 		CGameMap		gamemap;
 		Hammer			*hammer;
 		Bomb			*bomb;

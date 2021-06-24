@@ -15,6 +15,8 @@ namespace game_framework {
 	CEraser::CEraser()
 	{
 		Initialize(0);
+		nowLife = 1;
+		life_Max = 1;
 	}
 
 	int CEraser::GetX1()
@@ -46,11 +48,10 @@ namespace game_framework {
 		y = savePointY = Y_POS_ALL[n];
 		isMovingLeft = isMovingRight = isMovingUp = isBombing = isStepOnBomb = isInPipeGoToDown = isInPipeGoToUp = isPressDown  = isHurt =isJumping =false;
 		is_landing = isShowHeart =false;
-		nowLife = 1;
-		life_Max = 1;
 		showHeartCounter = 30 * 3;
 		jumpCounter = 15 * 1;
 		isCanPutBomb = true;
+		nowLife = life_Max;
 	}
 
 	void CEraser::LoadBitmap()
@@ -204,7 +205,6 @@ namespace game_framework {
 		{
 			y += LANDING_SIZE;
 			is_landing = true;
-			isCanPutBomb = true;
 		}
 		else{
 			is_landing = false;
