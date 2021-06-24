@@ -152,11 +152,11 @@ namespace game_framework {
 		int priceOfGemsEveryMap[3] = { 5 ,20,40};
 		int numberOfGemEveryMap[3] = { 12 ,10,13};
 		int numberOfBtnEveryMap[3] = { 3 ,3,2};
-		int numberOfWoodDoorEveryMap[3] = { 2,0 };
-		int numberOfTreasureEveryMap[3] = { 1 ,1};
+		int numberOfWoodDoorEveryMap[3] = { 2,0,0 };
+		int numberOfTreasureEveryMap[3] = { 1,1,0};
 		int numberOfRockEveryMap[3] = { 2 ,41,17};
 		int numberOfEnemyEveryMap[3] = {6,4,20};
-		int numberOfHammerEveryMap[3] = { 0,15 };
+		int numberOfHammerEveryMap[3] = { 0,15,0};
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

@@ -77,6 +77,9 @@ namespace game_framework {
 		const int LANDING_SIZE = 9;
 		const int JUMP_SIZE = 7;
 		animation.OnMove();
+		if (m->checkScreenMoVing() ||check_inPipe()) {
+			isMovingLeft = isMovingRight = isBombing  = false;
+		}
 		if (isJumping) {
 			if (m->IsEmpty(x, y - JUMP_SIZE)) {
 				y -= JUMP_SIZE;
