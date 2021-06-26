@@ -16,7 +16,7 @@ namespace game_framework {
 	protected:
 		CMovingBitmap door[2];
 		int x, y;
-		int doorType; //按鈕的方向
+		int doorType; //門的種類
 		bool isOpen;
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);

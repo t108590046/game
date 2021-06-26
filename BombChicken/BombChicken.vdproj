@@ -678,9 +678,9 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BombChicken"
-        "ProductCode" = "8:{F4852953-D042-4AD9-83E9-BD2F94A9436B}"
+        "ProductCode" = "8:{475C341A-90CC-43F0-9698-F833317F70C1}"
         "PackageCode" = "8:{8236FB6A-99E8-4F31-801C-13C35E7B67BA}"
-        "UpgradeCode" = "8:{2BE9B594-8B80-40FF-98A4-D3420A1F2D0A}"
+        "UpgradeCode" = "8:{01FA4429-F8D5-4558-85BF-1EBA3959FBFB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"

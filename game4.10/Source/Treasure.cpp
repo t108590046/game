@@ -27,20 +27,6 @@ namespace game_framework {
 	int Treasure::GetY2() {
 		return y + treasureBmp.Height();
 	}
-	bool Treasure::touchTreasure(CEraser *eraser)
-	{
-		return HitRectangle(eraser->GetX1(), eraser->GetY1(),
-			eraser->GetX2(), eraser->GetY2());
-	}
-
-	bool Treasure::HitRectangle(int tx1, int ty1, int tx2, int ty2)
-	{
-		int x1 = x;
-		int y1 = y;
-		int x2 = x1 + treasureBmp.Width();
-		int y2 = y1 + treasureBmp.Height();
-		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
-	}
 
 	bool Treasure::isOpen()
 	{
@@ -49,7 +35,7 @@ namespace game_framework {
 
 	void Treasure::LoadBitmap()
 	{
-		treasureBmp.LoadBitmap(IDB_TREASURE, RGB(34, 177, 76));			// 載入球的圖形
+		treasureBmp.LoadBitmap(IDB_TREASURE, RGB(34, 177, 76));			
 	}
 	void Treasure::SetIsOpen(bool alive)
 	{

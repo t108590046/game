@@ -8,40 +8,30 @@
 #include "gameMap.h"
 #include "Bomb.h"
 namespace game_framework {
-	/////////////////////////////////////////////////////////////////////////////
-	// CEraser: Eraser class
-	/////////////////////////////////////////////////////////////////////////////
-
 	CEraser::CEraser()
 	{
 		Initialize(0);
 		nowLife = 1;
 		life_Max = 1;
 	}
-
 	int CEraser::GetX1()
 	{
 		return x;
 	}
-
 	int CEraser::GetY1()
 	{
 		return y;
 	}
-
 	int CEraser::GetX2()
 	{
 		return x + animation.Width();
 	}
-
 	int CEraser::GetY2()
 	{
 		return y + animation.Height();
 	}
-
 	void CEraser::Initialize(int n)
-	{   //200//30
-		//500//844
+	{  
 		int X_POS_ALL[3] = { 200 ,50,30};
 		int Y_POS_ALL[3] = { 500 ,448,844};
 		x = savePointX = X_POS_ALL[n];
@@ -53,11 +43,8 @@ namespace game_framework {
 		isCanPutBomb = true;
 		nowLife = life_Max;
 	}
-
 	void CEraser::LoadBitmap()
 	{
-		//animation.SetDelayCount(50);
-
 		animation.AddBitmap(IDB_CHICKEN1, RGB(34, 177, 76));
 		goToRight.AddBitmap(IDB_CHICKENRIGHT2, RGB(34, 177, 76));
 		goToRight.AddBitmap(IDB_CHICKENRIGHT, RGB(34, 177, 76));
@@ -67,11 +54,8 @@ namespace game_framework {
 		emptyHeart.LoadBitmapA(IDB_EMPTY_HEART, RGB(34, 177, 76));
 		cantputBomb.AddBitmap(IDB_CANTPUTBOMB, RGB(34, 177, 76));
 	}
-
 	void CEraser::OnMove(CGameMap *m,Bomb *bomb)
 	{
-		TRACE("x:%d\n", savePointX);
-		TRACE("y:%d\n", savePointY);
 		const int STEP_SIZE =5;
 		const int PIPE_SIZE = 15;
 		const int LANDING_SIZE = 9;
@@ -89,13 +73,14 @@ namespace game_framework {
 				jumpCounter = 15 * 1;
 				isJumping = false;
 			}
-		}
-		if (isMovingLeft) { //往左
+		}//往左
+		if (isMovingLeft) { 
 			goToLeft.OnMove();
-			if (m->IsEmpty(x - STEP_SIZE, y+ animation.Height()/2 +10)) { //人物移動
+			//人物移動
+			if (m->IsEmpty(x - STEP_SIZE, y+ animation.Height()/2 +10)) { 
 				x -= STEP_SIZE;
 			}
-		}
+		}//向左水平視角小移動
 		if (m->IsLittleMove_horizontal(x, y + animation.Height() / 2) && isMovingLeft)
 		{
 			m->SetMovingLeftL(true);
@@ -103,14 +88,13 @@ namespace game_framework {
 		else
 		{
 			m->SetMovingLeftL(false);
-		}
-
-		if (isMovingRight) { //往右
+		}//往右
+		if (isMovingRight) { 
 			goToRight.OnMove();
 			if (m->IsEmpty(x + animation.Width() + STEP_SIZE, y + animation.Height()/2 +10)) {
 				x += STEP_SIZE;
 			}
-		}
+		}//向右水平視角小移動
 		if (m->IsLittleMove_horizontal(x, y + animation.Height() / 2) && isMovingRight)
 		{
 			m->SetMovingRightL(true);
@@ -118,15 +102,14 @@ namespace game_framework {
 		else
 		{
 			m->SetMovingRightL(false);
-		}
-
-		if (m->IsPipe(x, y, this)!= -1)//小雞碰到水管
+		}//小雞碰到水管上升
+		if (m->IsPipe(x, y, this)!= -1)
 		{
 			if (isBombing)
 			{
 				isInPipeGoToUp = true;
 			}
-		}
+		}//水管停止上升或下降
 		if(m->IsPipe(x, y, this) == -1 && m->IsPipe(x, y + animation.Height(), this) == -1)
 		{
 			if (isInPipeGoToUp == true || isInPipeGoToDown == true)
@@ -136,14 +119,14 @@ namespace game_framework {
 				savePointX = x;
 				savePointY = y;
 			}
-		}
+		}//小雞碰到水管下降
 		if (m->IsPipe(x, y + animation.Height() + 10, this) !=-1)
 		{
 			if (isPressDown)
 			{
 				isInPipeGoToDown = true;
 			}
-		}
+		}//判斷不同的水管種類
 		if (isInPipeGoToDown) {
 			y += PIPE_SIZE;
 			if (m->IsPipe(x, y + animation.Height() + 10, this) == 0) {
@@ -162,9 +145,7 @@ namespace game_framework {
 				m->SetMovingLeft(true);
 				m->SetMovingDown(true);
 			}
-
 		}
-
 		if (isInPipeGoToUp) {
 			y -= PIPE_SIZE;
 			if (m->IsPipe(x, y,this) == 0) {
@@ -183,10 +164,10 @@ namespace game_framework {
 				m->SetMovingRight(true);
 				m->SetMovingUp(true);
 			}
-		}
-
-		if (isBombing) { //放炸彈
+		}//放炸彈
+		if (isBombing) { 
 			cantputBomb.OnMove();
+			//頭上不能有障礙物
 			if ( ( m->IsEmpty(x, y-10) || m->IsStandingWood(x,y-56) || m->IsPipe(x,y, this) != -1)) {
 				isCanPutBomb = true;			
 			}
@@ -202,7 +183,6 @@ namespace game_framework {
 		{
 			m->SetMovingUpL(false);
 		}
-
 		//下降
 		if (m->IsPipe(x + animation.Width()/2,y + animation.Height()+ LANDING_SIZE,this)==-1 &&!isJumping &&((m->IsEmpty(x, y + LANDING_SIZE + animation.Height()) && m->IsEmpty(x + animation.Width(), y + LANDING_SIZE+ animation.Height())) || m->IsStandingLittleWoodDoor(x + animation.Width() / 2, y + LANDING_SIZE + animation.Height())) && !isStepOnBomb)
 		{
@@ -212,7 +192,7 @@ namespace game_framework {
 		else{
 			is_landing = false;
 		}
-
+		//以下都是小雞與視角的互動
 		if (m->IsChangeScreen_UpOrDown(x, y) && (is_landing))
 		{
 			m->SetMovingDown(true);
@@ -228,15 +208,12 @@ namespace game_framework {
 		if (m->IsLittleDown(x, y) && is_landing) {
 			m->SetMovingDownL(true);
 		}
-
-
-		if (m->IsChangeScreen_horizontal(x, y + animation.Height()/2) && isMovingRight) {//視角平移
+		if (m->IsChangeScreen_horizontal(x, y + animation.Height()/2) && isMovingRight) {
 			m->SetMovingRight(true);
 		}
 		if (m->IsChangeScreen_horizontal(x, y + animation.Height() / 2) && isMovingLeft) {
 			m->SetMovingLeft(true);
 		}
-
 		if (m->IsChangeScreen_Diagonal_RDandLU(x, y))
 		{
 			if (isMovingRight || is_landing)
@@ -273,7 +250,6 @@ namespace game_framework {
 			savePointX = x;
 			savePointY = y;
 		}
-
 	}
 	void  CEraser::setShowHeart(bool flag) 
 	{
@@ -425,5 +401,4 @@ namespace game_framework {
 	bool CEraser::getNowIsPipeGoToDown() {
 		return isInPipeGoToDown;
 	}
-
 }

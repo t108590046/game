@@ -17,10 +17,12 @@ namespace game_framework {
 		void SetXY(int beWhichMap,int type,int nx, int ny);
 		void setIsOpenRock(bool flag);
 		void openRock(CGameMap *m);
-		int returnType();
+		int returnType();		//回傳石頭的種類
 	protected:
-		CMovingBitmap rock[5];
-		int x, y,rockType,WhichMap;
+		CMovingBitmap rock[5];	//不同石頭的圖
+		int x, y;
+		int rockType;			//石頭的種類
+		int WhichMap;			//被炸後要變成什麼地圖
 		bool isOpen;
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);

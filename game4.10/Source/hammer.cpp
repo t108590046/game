@@ -8,9 +8,7 @@
 #include "gameMap.h"
 #include "Hammer.h"
 #include "Bomb.h"
-
 namespace game_framework {
-
 	Hammer::Hammer()
 	{
 		x = y = delay = 0;
@@ -31,7 +29,6 @@ namespace game_framework {
 	{
 		return y + hammer.Height();
 	}
-
 	void Hammer::touchChicken(CEraser *eraser)
 	{
 		if (eraser->check_MovingLeft()) {
@@ -65,7 +62,6 @@ namespace game_framework {
 		int y2 = y1 + hammer.Height()-10;
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
-
 	void Hammer::OnMove()
 	{
 		if(delay>0)
@@ -78,7 +74,6 @@ namespace game_framework {
 	void Hammer::LoadBitmap()
 	{
 		hammer.AddBitmap(IDB_HAMMER1, RGB(34, 177, 76));
-		//hammer.AddBitmap(IDB_HAMMER3, RGB(34, 177, 76));
 		hammer.AddBitmap(IDB_HAMMER2, RGB(34, 177, 76));
 		hammer.SetDelayCount(60);
 	}

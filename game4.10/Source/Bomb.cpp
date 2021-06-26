@@ -13,11 +13,7 @@
 #include "Treasure.h"
 #include "Rock.h"
 #include "Enemy.h"
-namespace game_framework {
-	/////////////////////////////////////////////////////////////////////////////
-	// Bomb: Ball class
-	/////////////////////////////////////////////////////////////////////////////
-	
+namespace game_framework {	
 	Bomb::Bomb()
 	{
 		is_alive = is_putBomb = isMovingLeft = isMovingRight = isBombing = isLanding = isOnBomb =false ;		
@@ -261,29 +257,24 @@ namespace game_framework {
 	}
 	bool Bomb::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = x ;				// 球的左上角x座標
-		int y1 = y ;				// 球的左上角y座標
-		int x2 = x1 + bmp.Width();	// 球的右下角x座標
-		int y2 = y1 + bmp.Height();	// 球的右下角y座標 
-									// 檢測球的矩形與參數矩形是否有交集
+		int x1 = x ;				
+		int y1 = y ;				
+		int x2 = x1 + bmp.Width();	
+		int y2 = y1 + bmp.Height();	
 		return (tx2 >= x1 && tx1 <= x2  && abs(ty2-y1)<=20);
 	}
-
 	bool Bomb::IsAlive()
 	{
 		return is_alive;
 	}
-	
 	void Bomb::LoadBitmap()
 	{
-		bmp.AddBitmap(IDB_Bomb1, RGB(34, 177, 76));			// 載入球的圖形
+		bmp.AddBitmap(IDB_Bomb1, RGB(34, 177, 76));			
 		bmp.AddBitmap(IDB_Bomb2, RGB(34, 177, 76));				
 		bmp.AddBitmap(IDB_Bomb3, RGB(34, 177, 76));		
 		bmpBombing.AddBitmap(IDB_Bombfire, RGB(34, 177, 76));
 		bmp.SetDelayCount(30);
-		
 	}
-
 	void Bomb::OnMove(CEraser *eraser, CGameMap *m)
 	{
 		bmp.OnMove();
@@ -333,12 +324,10 @@ namespace game_framework {
 		if(!alive)
 			CAudio::Instance()->Play(3, false);
 	}
-
 	void Bomb::SetXY(int nx, int ny)
 	{
 		x = nx; y = ny;
 	}
-
 	void Bomb::OnShow(CGameMap *m)
 	{
 		if (is_alive)
@@ -373,7 +362,6 @@ namespace game_framework {
 				bmpBombing.OnShow();
 			}
 		}
-
 	}
 	void Bomb::SetBomb(bool flag)
 	{

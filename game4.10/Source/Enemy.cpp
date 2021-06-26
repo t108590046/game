@@ -8,9 +8,7 @@
 #include "gameMap.h"
 #include "Enemy.h"
 #include "Bomb.h"
-
 namespace game_framework {
-
 	Enemy::Enemy()
 	{
 		is_alive = true;
@@ -38,7 +36,6 @@ namespace game_framework {
 	{
 		return typeEnemy;
 	}
-
 	bool Enemy::touchChicken(CEraser *eraser)
 	{
 		return HitRectangle(eraser->GetX1(), eraser->GetY1(),
@@ -55,9 +52,7 @@ namespace game_framework {
 		int tx2 = eraser->GetX2();
 		int ty2 = eraser->GetY2();
 		return (tx2 >= x1 && tx1 <= x2 && ty1 <= y1 && abs(ty2 - y1) <= 10);
-
 	}
-
 	bool Enemy::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
 		int x1 = x;
@@ -66,7 +61,6 @@ namespace game_framework {
 		int y2 = y1 + height;
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
-
 	bool Enemy::isAlive()
 	{
 		return is_alive;
@@ -94,7 +88,6 @@ namespace game_framework {
 				isMovingRight = true;
 			}
 		}
-
 	}
 	void Enemy::LoadBitmap()
 	{
@@ -115,7 +108,6 @@ namespace game_framework {
 		enemy[4][0].AddBitmap(IDB_BAT_LEFT_2, RGB(34, 177, 76));
 		enemy[4][1].AddBitmap(IDB_BAT_RIGHT_1, RGB(34, 177, 76));
 		enemy[4][1].AddBitmap(IDB_BAT_RIGHT_2, RGB(34, 177, 76));
-
 	}
 	void Enemy::setIsAlive(bool flag)
 	{
@@ -146,7 +138,6 @@ namespace game_framework {
 			isMovingLeft = true;
 			isMovingRight = false;
 		}
-
 	}
 	void Enemy::OnShow(CGameMap *m)
 	{

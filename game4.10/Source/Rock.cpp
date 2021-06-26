@@ -8,9 +8,7 @@
 #include "gameMap.h"
 #include "Rock.h"
 #include "Bomb.h"
-
 namespace game_framework {
-
 	Rock::Rock()
 	{
 		isOpen  = false;
@@ -56,12 +54,10 @@ namespace game_framework {
 		int y2 = y1 + rock[rockType].Height();
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
-
 	bool Rock::isOpenRock()
 	{
 		return isOpen;
 	}
-
 	void Rock::LoadBitmap()
 	{
 		rock[0].LoadBitmap(IDB_ROCK, RGB(34, 177, 76));
@@ -80,7 +76,6 @@ namespace game_framework {
 		rockType = type;
 		WhichMap = beWhichMap;
 	}
-
 	void Rock::OnShow(CGameMap *m)
 	{
 		if (!isOpen)

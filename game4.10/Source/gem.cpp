@@ -7,10 +7,8 @@
 #include "CEraser.h"
 #include "gem.h"
 #include "gameMap.h"
-
 namespace game_framework {
 	void Gem::Initialize() {
-
 	}
 	Gem::Gem()
 	{
@@ -34,15 +32,13 @@ namespace game_framework {
 		int y2 = y1 + gem_bitmap.Height();	
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
-
 	bool Gem::IsAlive()
 	{
 		return is_alive;
 	}
-
 	void Gem::LoadBitmap()
 	{
-		gem_bitmap.LoadBitmap(IDB_GEM, RGB(34, 177, 76));			// 載入球的圖形
+		gem_bitmap.LoadBitmap(IDB_GEM, RGB(34, 177, 76));			
 		gemLeft.LoadBitmap(IDB_GEMLEFT, RGB(34, 177, 76));
 		gemNumber_digits[0].LoadBitmapA(IDB_ZERO, RGB(34, 177, 76));
 		gemNumber_digits[1].LoadBitmapA(IDB_ONE, RGB(34, 177, 76));
@@ -89,7 +85,6 @@ namespace game_framework {
 		}
 		if(isShowNumGem)
 		{
-			//TRACE("nowTotalGem:%d\n", totalGem);
 			gemLeft.SetTopLeft(570, 20);
 			gemLeft.ShowBitmap();
 			switch (tens) {

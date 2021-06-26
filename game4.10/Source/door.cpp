@@ -7,9 +7,7 @@
 #include "CEraser.h"
 #include "gameMap.h"
 #include "door.h"
-
 namespace game_framework {
-
 	Door::Door()
 	{
 		isOpen = false;
@@ -28,7 +26,6 @@ namespace game_framework {
 		return HitRectangle(eraser->GetX1(), eraser->GetY1(),
 			eraser->GetX2(), eraser->GetY2());
 	}
-
 	bool Door::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
 		int x1 = x;
@@ -37,17 +34,14 @@ namespace game_framework {
 		int y2 = y1 + door[doorType].Height();
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
-
 	bool Door::isOpenDoor()
 	{
 		return isOpen;
 	}
-
 	void Door::LoadBitmap()
 	{
 		door[0].LoadBitmap(IDB_DOOR_TYPE_1, RGB(34, 177, 76));
 		door[1].LoadBitmap(IDB_DOOR_TYPE_2, RGB(34, 177, 76));
-
 	}
 	void Door::setIsOpenDoor(bool flag)
 	{
@@ -58,7 +52,6 @@ namespace game_framework {
 		doorType = type; x = nx; y = ny;
 		isOpen = false;
 	}
-
 	void Door::OnShow(CGameMap *m)
 	{
 		if (!isOpen)
